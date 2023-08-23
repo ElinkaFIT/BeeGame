@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 768bb30843ce1f64290c853c64e7049f, type: 3}
+  m_Name: House
+  m_EditorClassIdentifier: 
+  cost: 10
+  costPerTurn: 5
+  prefab: {fileID: 3456800236876730390, guid: 7a958b54f47111c42a5c7401fc661771, type: 3}
+  population: 5
+  jobs: 0
+  food: 0
