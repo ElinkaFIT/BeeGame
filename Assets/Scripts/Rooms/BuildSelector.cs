@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -8,6 +9,7 @@ public class BuildSelector : MonoBehaviour
 {
     private Camera cam;
     public static BuildSelector instance;
+
     void Awake()
     {
         instance = this;
@@ -28,11 +30,23 @@ public class BuildSelector : MonoBehaviour
         else
         {
             Vector3 mouse = cam.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 position = new Vector3(Mathf.CeilToInt(mouse.x) - 1, Mathf.CeilToInt(mouse.y) - 1, 0);
-            return position;
+
+            Vector3 position = new Vector3(mouse.x, mouse.y, 0);
+
+            // convert array of all hexagons to list for easier searching
+            List<Vector3> hexList = GridHex.hexagons.Cast<Vector3>().ToList();
+            
+
+            Vector3 closestHex = hexList[0];
+            foreach (Vector3 hex in hexList)
+            {
+                if (Vector3.Distance(position, hex) < Vector3.Distance(position, closestHex))
+                {
+                    closestHex = hex;
+                }
+            }
+
+            return closestHex;
         }
-
     }
-
-
 }

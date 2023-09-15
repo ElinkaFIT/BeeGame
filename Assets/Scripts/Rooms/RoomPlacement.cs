@@ -5,7 +5,6 @@ using UnityEngine;
 public class RoomsPlacement : MonoBehaviour
 {
     private bool currentlyPlacing;
-    private bool currentlyBulldozering;
 
     private RoomPreset curBuildingPreset;
 
@@ -14,18 +13,21 @@ public class RoomsPlacement : MonoBehaviour
     private Vector3 curIndicatorPos;
 
     public GameObject placementIndicator;
-    public GameObject bulldozeIndicator;
 
     private void Awake()
     {
         placementIndicator.SetActive(false);
-        bulldozeIndicator.SetActive(false);
     }
     void Update()
     {
         // cancel building placement
         if (Input.GetKeyDown(KeyCode.Escape))
             CancelBuildingPlacement();
+
+        if (Input.GetMouseButtonDown(0) && currentlyPlacing)
+        {
+            Debug.Log("click");
+        }
 
         // called every 0.05 seconds
         if (Time.time - lastUpdateTime > indicatorUpdateRate)
@@ -36,14 +38,11 @@ public class RoomsPlacement : MonoBehaviour
 
             if (currentlyPlacing)
                 placementIndicator.transform.position = curIndicatorPos;
-            else if (currentlyBulldozering)
-                bulldozeIndicator.transform.position = curIndicatorPos;
         }
     }
 
     public void BeginNewBuildingPlacement(RoomPreset preset)
     {
-        bulldozeIndicator.SetActive(false);
         currentlyPlacing = true;
         curBuildingPreset = preset;
         placementIndicator.SetActive(true);
@@ -53,13 +52,6 @@ public class RoomsPlacement : MonoBehaviour
     {
         currentlyPlacing = false;
         placementIndicator.SetActive(false);
-        bulldozeIndicator.SetActive(false);
     }
 
-    public void ToggleBulldoze()
-    {
-        placementIndicator.SetActive(false);
-        currentlyBulldozering = !currentlyBulldozering;
-        bulldozeIndicator.SetActive(currentlyBulldozering);
-    }
 }
