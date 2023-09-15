@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 768bb30843ce1f64290c853c64e7049f, type: 3}
-  m_Name: House
+  m_Name: Room
   m_EditorClassIdentifier: 
-  cost: 10
-  costPerTurn: 5
+  cost: 0
+  costPerTurn: 0
   prefab: {fileID: 3233998705632412183, guid: 816bc262367cef94ab861456cd6697e0, type: 3}
-  population: 5
+  population: 0
   jobs: 0
   food: 0

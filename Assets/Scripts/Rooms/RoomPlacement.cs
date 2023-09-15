@@ -24,11 +24,6 @@ public class RoomsPlacement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             CancelBuildingPlacement();
 
-        if (Input.GetMouseButtonDown(0) && currentlyPlacing)
-        {
-            Debug.Log("click");
-        }
-
         // called every 0.05 seconds
         if (Time.time - lastUpdateTime > indicatorUpdateRate)
         {
@@ -39,6 +34,11 @@ public class RoomsPlacement : MonoBehaviour
             if (currentlyPlacing)
                 placementIndicator.transform.position = curIndicatorPos;
         }
+
+        if (Input.GetMouseButtonDown(0) && currentlyPlacing)
+        {
+            PlaceBuilding();
+        }
     }
 
     public void BeginNewBuildingPlacement(RoomPreset preset)
@@ -46,6 +46,8 @@ public class RoomsPlacement : MonoBehaviour
         currentlyPlacing = true;
         curBuildingPreset = preset;
         placementIndicator.SetActive(true);
+        // becouse of glitch
+        placementIndicator.transform.position = new Vector3(0, 0, -99);
     }
 
     void CancelBuildingPlacement()
@@ -53,5 +55,13 @@ public class RoomsPlacement : MonoBehaviour
         currentlyPlacing = false;
         placementIndicator.SetActive(false);
     }
+
+    void PlaceBuilding()
+    {
+        GameObject buildingObj = Instantiate(curBuildingPreset.prefab, curIndicatorPos, Quaternion.identity);
+        //City.instance.OnPlaceBuilding(buildingObj.GetComponent<Building>());
+        CancelBuildingPlacement();
+    }
+
 
 }
