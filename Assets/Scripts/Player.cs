@@ -13,15 +13,10 @@ public class Player : MonoBehaviour
     [Header("Units")]
     public List<Unit> units = new List<Unit>();
 
-    [Header("Resources")]
-    public int food;
-    public int water;
 
     void Start()
     {
         GameUI.instance.UpdateUnitCountText(units.Count);
-        GameUI.instance.UpdateFoodText(food);
-        GameUI.instance.UpdateWaterText(water);
     }
 
     void Awake()
@@ -42,22 +37,5 @@ public class Player : MonoBehaviour
         
     }
 
-    public void GainResource(ResourceType resourceType, int amount)
-    {
-        switch (resourceType)
-        {
-            case ResourceType.Food:
-            {
-                food += amount;
-                GameUI.instance.UpdateFoodText(food);
-                break;
-            }
-            case ResourceType.Water:
-            {
-                water += amount;
-                GameUI.instance.UpdateWaterText(water);
-                break;
-            }
-        }
-    }
+    
 }

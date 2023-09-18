@@ -6,7 +6,8 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "Building Preset", menuName = "New Building Preset")]
 public class RoomPreset : ScriptableObject
 {
-    public int cost;
+    public int waxCost;
+    public int propolisCost;
     public int costPerTurn;
     public GameObject prefab;
     public int population;

@@ -129,7 +129,7 @@ public class Unit : MonoBehaviour
         if (Time.time - lastGatherTime > gatherRate)
         {
             lastGatherTime = Time.time;
-            curResourceSource.GatherResource(gatherAmount, player);
+            curResourceSource.GatherResource(gatherAmount);
         }
     }
 

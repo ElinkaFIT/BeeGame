@@ -6,8 +6,10 @@ using UnityEngine;
 public class GameUI : MonoBehaviour
 {
     public TextMeshProUGUI unitCountText;
-    public TextMeshProUGUI foodText;
+    public TextMeshProUGUI nectarText;
     public TextMeshProUGUI waterText;
+    public TextMeshProUGUI waxText;
+    public TextMeshProUGUI propolisText;
 
     public static GameUI instance;
     void Awake()
@@ -20,13 +22,23 @@ public class GameUI : MonoBehaviour
         unitCountText.text = value.ToString();
     }
 
-    public void UpdateFoodText(int value)
+    public void UpdateNectarText(int value)
     {
-        foodText.text = value.ToString();
+        nectarText.text = value.ToString();
     }
 
     public void UpdateWaterText(int value)
     {
         waterText.text = value.ToString();
+    }
+
+    public void UpdateWaxText(int value)
+    {
+        waxText.text = value.ToString();
+    }
+
+    public void UpdatePropolisText(int value)
+    {
+        propolisText.text = value.ToString();
     }
 }
