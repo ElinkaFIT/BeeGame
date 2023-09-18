@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GameUI : MonoBehaviour
 {
-    public TextMeshProUGUI unitCountText;
     public TextMeshProUGUI nectarText;
     public TextMeshProUGUI waterText;
     public TextMeshProUGUI waxText;
@@ -15,11 +14,6 @@ public class GameUI : MonoBehaviour
     void Awake()
     {
         instance = this;
-    }
-
-    public void UpdateUnitCountText(int value)
-    {
-        unitCountText.text = value.ToString();
     }
 
     public void UpdateNectarText(int value)

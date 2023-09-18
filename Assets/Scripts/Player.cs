@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        GameUI.instance.UpdateUnitCountText(units.Count);
+        // GameUI.instance.UpdateUnitCountText(units.Count);
     }
 
     void Awake()

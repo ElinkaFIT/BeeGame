@@ -25,6 +25,16 @@ public class Hive : MonoBehaviour
 
     public void OnPlaceBuilding(Room room)
     {
+        if (wax < room.preset.waxCost)
+        {
+            Debug.Log("Neni dostatek vosku");
+            return;
+        }
+        else if (propolis < room.preset.propolisCost)
+        {
+            Debug.Log("Neni dostatek propolisu");
+            return;
+        }
         wax -= room.preset.waxCost;
         propolis -= room.preset.propolisCost;
         rooms.Add(room);

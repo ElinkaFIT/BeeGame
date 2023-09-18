@@ -5,7 +5,8 @@ using UnityEngine;
 public class GridHex : MonoBehaviour
 {
     public Grid grid;
-    public static Vector3[,] hexagons; // dvourozmerne pole uchovavajici stredy hexagonu
+    public static Vector3[,] hexagons; // dvourozmerne pole uchovavajici stredy hexagonu
+
 
     [Header("Info")]
     public int width;
