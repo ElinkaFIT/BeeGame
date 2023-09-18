@@ -14,6 +14,11 @@ public class Room : MonoBehaviour
 {
     public RoomPreset preset;
     public RoomState state;
+    public BuildProgressBar progressBar;
+    public GameObject doneIcon;
+
+
+    public int buildProgress;
 
     // events
     [System.Serializable]
@@ -22,7 +27,8 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
-        SetState(RoomState.Blueprint);
+        doneIcon.SetActive(false);
+        SetRoomState(RoomState.Blueprint);
     }
     void Update()
     {
@@ -49,27 +55,35 @@ public class Room : MonoBehaviour
 
     void BlueprintUpdate()
     {
-        // na zacatku odeberu suroviny - je to potreba mozna uz driv
-
-        // pokud je tu vcela pridelena zacne se to stavet, tedy prejde do dalsiho stavu
-        // jinak se nic nedeje ale muzu zrusit bluprint, takze cely objekt
+        
     }
 
     void UnderConstructionUpdate()
     {
-        // naplnuje se progressBar, pokud je na 100% tak prechazime do Built statu 
-        // musi tu byt pridelena vcela
-        // jeste muzu zrusit stavbu - pokud zrusim vrati se mi suroviny
-
-        //nakonec se odectou naklady za postaveni
+        
     }
 
     void BuiltUpdate() 
     {
-        // tady se deji pak velke veci
+        
     }
 
-    void SetState(RoomState toState)
+    public void BuildRoom(int amount)
+    {
+        if (buildProgress >= 100)
+        {
+            SetRoomState(RoomState.Built);
+            progressBar.CloseProgressBar();
+            doneIcon.SetActive(true);
+            return;
+        }
+
+        buildProgress += amount;
+        progressBar.UpdateProgressBar(buildProgress, 100);
+
+    }
+
+    public void SetRoomState(RoomState toState)
     {
         state = toState;
         // calling the event

@@ -20,7 +20,6 @@ public class UnitHealth : MonoBehaviour
         healthContainer.SetActive(true);
         float healthPercentage = (float)curHp / (float)maxHp;
         healthFill.sizeDelta = new Vector2(maxSize * healthPercentage, healthFill.sizeDelta.y);
-
     }
 
 }

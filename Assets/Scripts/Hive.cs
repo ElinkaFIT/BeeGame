@@ -27,7 +27,7 @@ public class Hive : MonoBehaviour
     {
         wax -= room.preset.waxCost;
         propolis -= room.preset.propolisCost;
-        //room.Add(room);
+        rooms.Add(room);
         GameUI.instance.UpdateWaxText(wax);
     }
 
@@ -35,7 +35,7 @@ public class Hive : MonoBehaviour
     {
         wax += room.preset.waxCost;
         propolis += room.preset.propolisCost;
-        //buildings.Remove(building);
+        rooms.Remove(room);
         Destroy(room.gameObject);
         GameUI.instance.UpdateWaterText(water);
     }
@@ -44,7 +44,7 @@ public class Hive : MonoBehaviour
     {
         switch (resourceType)
         {
-            case ResourceType.Food:
+            case ResourceType.Nectar:
                 {
                     nectar += amount;
                     GameUI.instance.UpdateNectarText(nectar);

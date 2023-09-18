@@ -41,6 +41,11 @@ public class UnitCommander : MonoBehaviour
                     UnitsGatherResource(hit.collider.GetComponent<ResourceSource>(), selectedUnits);
 
                 }
+                else if (hit.collider.CompareTag("Room"))
+                {
+                    UnitsBuildRoom(hit.collider.GetComponent<Room>(), selectedUnits);
+
+                }
                 else if (hit.collider.CompareTag("Unit"))
                 {
                     Unit enemy = hit.collider.gameObject.GetComponent<Unit>();
@@ -85,6 +90,22 @@ public class UnitCommander : MonoBehaviour
             for (int x = 0; x < units.Length; x++)
             {
                 units[x].GatherResource(resource, destinations[x]);
+            }
+        }
+
+    }
+
+    void UnitsBuildRoom(Room room, Unit[] units)
+    {
+        if (units.Length == 1)
+        {
+            units[0].BuildRoom(room, room.transform.position);
+        }
+        else
+        {
+            for (int x = 0; x < units.Length; x++)
+            {
+                units[x].BuildRoom(room, room.transform.position);
             }
         }
 

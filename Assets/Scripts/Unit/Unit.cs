@@ -10,7 +10,9 @@ public enum UnitState
     MoveToResource,
     Gather,
     MoveToEnemy,
-    Attack
+    Attack,
+    MoveToBuild,
+    Build
 }
 
 public class Unit : MonoBehaviour
@@ -41,8 +43,13 @@ public class Unit : MonoBehaviour
     public float gatherRate;
     private float lastGatherTime;
 
+    public int buildAmount;
+    public float buildRate;
+    private float lastBuildTime;
+
     private Unit curEnemyTarget;
     private ResourceSource curResourceSource;
+    private Room curBuildRoom;
 
     // events
     [System.Serializable]
@@ -92,6 +99,16 @@ public class Unit : MonoBehaviour
                 AttackUpdate();
                 break;
             }
+            case UnitState.MoveToBuild:
+            {
+                MoveToBuildUpdate();
+                break;
+            }
+            case UnitState.Build:
+            {
+                BuildUpdate();
+                break;
+            }
 
         }
     }
@@ -104,6 +121,7 @@ public class Unit : MonoBehaviour
         if (Vector2.Distance(pos, des) == 0.0f)
             SetState(UnitState.Idle);
     }
+
     void MoveToResourceUpdate()
     {
         if (curResourceSource == null)
@@ -118,6 +136,7 @@ public class Unit : MonoBehaviour
         if (Vector2.Distance(pos, des) == 0.0f)
             SetState(UnitState.Gather);
     }
+
     void GatherUpdate()
     {
         if (curResourceSource == null)
@@ -152,7 +171,6 @@ public class Unit : MonoBehaviour
             SetState(UnitState.Attack);
     }
 
-
     void AttackUpdate()
     {
         if (curEnemyTarget == null)
@@ -173,6 +191,42 @@ public class Unit : MonoBehaviour
         // pokud je daleko pohnu se za nim
         if (Vector3.Distance(transform.position, curEnemyTarget.transform.position) > 1.5)
             SetState(UnitState.MoveToEnemy);
+    }
+
+    void MoveToBuildUpdate()
+    {
+        if (curBuildRoom == null)
+        {
+            SetState(UnitState.Idle);
+            return;
+        }
+
+        Vector2 pos = new Vector2(transform.position.x, transform.position.y);
+        Vector2 des = new Vector2(agent.destination.x, agent.destination.y);
+
+
+        if (Vector2.Distance(pos, des) == 0.0f)
+        {
+            SetState(UnitState.Build);
+            curBuildRoom.SetRoomState(RoomState.UnderConstruction);
+        }
+    }
+
+    void BuildUpdate()
+    {
+        if (curBuildRoom == null)
+        {
+            SetState(UnitState.Idle);
+            return;
+        }
+
+        if (Time.time - lastBuildTime > buildRate)
+        {
+            lastBuildTime = Time.time;
+            curBuildRoom.BuildRoom(buildAmount);
+        }
+
+        // zacne se stavet
     }
 
 
@@ -196,6 +250,14 @@ public class Unit : MonoBehaviour
     {
         curResourceSource = resource;
         SetState(UnitState.MoveToResource);
+        agent.isStopped = false;
+        agent.SetDestination(pos);
+    }
+
+    public void BuildRoom(Room room, Vector3 pos)
+    {
+        curBuildRoom = room;
+        SetState(UnitState.MoveToBuild);
         agent.isStopped = false;
         agent.SetDestination(pos);
     }

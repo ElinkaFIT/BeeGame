@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public enum ResourceType
 {
-    Food,
+    Nectar,
     Water,
     Wax,
     Propolis

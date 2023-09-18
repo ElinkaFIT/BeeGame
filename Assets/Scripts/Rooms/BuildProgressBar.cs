@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildProgress : MonoBehaviour
+public class BuildProgressBar : MonoBehaviour
 {
     public GameObject progressContainer;
     public RectTransform progressFill;
@@ -17,8 +17,13 @@ public class BuildProgress : MonoBehaviour
     public void UpdateProgressBar(int curProgress, int maxProgress)
     {
         progressContainer.SetActive(true);
-        float healthPercentage = (float)curProgress / (float)maxProgress;
-        progressFill.sizeDelta = new Vector2(maxSize * healthPercentage, progressFill.sizeDelta.y);
+        float progressPercentage = (float)curProgress / (float)maxProgress;
+        progressFill.sizeDelta = new Vector2(maxSize * progressPercentage, progressFill.sizeDelta.y);
 
+    }
+
+    public void CloseProgressBar() 
+    { 
+        progressContainer.SetActive(false); 
     }
 }
