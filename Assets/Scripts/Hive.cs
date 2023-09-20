@@ -47,7 +47,7 @@ public class Hive : MonoBehaviour
         propolis += room.preset.propolisCost;
         rooms.Remove(room);
         Destroy(room.gameObject);
-        GameUI.instance.UpdateWaterText(water);
+        GameUI.instance.UpdateWaxText(wax);
     }
 
     public void GainResource(ResourceType resourceType, int amount)

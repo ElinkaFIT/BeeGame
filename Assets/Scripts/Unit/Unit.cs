@@ -205,7 +205,7 @@ public class Unit : MonoBehaviour
         Vector2 des = new Vector2(agent.destination.x, agent.destination.y);
 
 
-        if (Vector2.Distance(pos, des) == 0.0f)
+        if (Vector2.Distance(pos, des) < 0.01f)
         {
             SetState(UnitState.Build);
             curBuildRoom.SetRoomState(RoomState.UnderConstruction);

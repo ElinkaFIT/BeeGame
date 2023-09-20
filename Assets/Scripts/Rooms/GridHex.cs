@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GridHex : MonoBehaviour
@@ -57,6 +58,11 @@ public class GridHex : MonoBehaviour
 
                     Instantiate(hexEmpty, hexagons[x, y], Quaternion.identity);
                 }
+                else
+                {
+                    hexagons[x, y] = new Vector3(0, 0, -99);
+                }
+                
 
             }
         }
