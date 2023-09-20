@@ -24,7 +24,7 @@ public class BuildSelector : MonoBehaviour
         // UI
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            return new Vector3(0, -99, 0);
+            return new Vector3(0, 0, -99);
         }
         // spravna pozice
         else
@@ -35,14 +35,16 @@ public class BuildSelector : MonoBehaviour
 
             // convert array of all hexagons to list for easier searching
             List<Vector3> hexList = GridHex.hexagons.Cast<Vector3>().ToList();
-            
+           
 
             Vector3 closestHex = hexList[0];
+
             foreach (Vector3 hex in hexList)
             {
+
                 if (Vector3.Distance(position, hex) < Vector3.Distance(position, closestHex))
                 {
-                    closestHex = hex;
+                    closestHex = hex;   
                 }
             }
 

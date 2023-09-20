@@ -1561,7 +1561,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1586,7 +1586,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1603,7 +1603,6 @@ GameObject:
   - component: {fileID: 523509866}
   - component: {fileID: 523509865}
   - component: {fileID: 523509864}
-  - component: {fileID: 523509867}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -1624,9 +1623,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 523509865}
-  width: 4
-  height: 4
-  offset: {x: -1, y: 2, z: 0}
+  width: 20
+  height: 20
+  offset: {x: -5, y: -5, z: 0}
+  noiseLevel: 0.4
+  noiseScale: 0.1
+  hexEmpty: {fileID: 8454819381984453326, guid: d1987a0811349f04097471cf2486d496, type: 3}
 --- !u!156049354 &523509865
 Grid:
   m_ObjectHideFlags: 0
@@ -1654,28 +1656,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &523509867
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523509863}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &579303612 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
@@ -4492,7 +4472,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 17.821579, y: 10.041404, z: 1}
+  m_LocalScale: {x: 60, y: 30, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1687958799}

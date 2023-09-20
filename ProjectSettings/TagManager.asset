@@ -7,6 +7,7 @@ TagManager:
   - Unit
   - Ground
   - Resource
+  - Room
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Unit
   - Ground
   - Resource
-  - 
+  - Room
   - 
   - 
   - 

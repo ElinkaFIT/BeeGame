@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,11 @@ public class GridHex : MonoBehaviour
     public int width;
     public int height;
     public Vector3 offset;
+    public float noiseLevel;
+    public float noiseScale;
+
+    public GameObject hexEmpty;
+
 
 
     private void Awake()
@@ -22,42 +28,39 @@ public class GridHex : MonoBehaviour
 
     public void CreateAllHexCenter()
     {
+        float[,] noiseMap = new float[width, height];
+        float xOffset = UnityEngine.Random.Range(-10000f, 10000f);
+        float yOffset = UnityEngine.Random.Range(-10000f, 10000f);
+
         int hexSize = (int)grid.cellSize.x;
-        hexagons = new Vector3[height, width];
+        hexagons = new Vector3[width, height];
 
-        for (int y = 0; y < width; y++)
+        for (int y = 0; y < height; y++)
         {
-            for (int x = 0; x < height; x++)
+            for (int x = 0; x < width; x++)
             {
-                Vector3 centrePosition = HexMath.Center(hexSize, x, y);
-
-                hexagons[x, y] = centrePosition - offset;
+                float noiseValue = Mathf.PerlinNoise(x * noiseScale + xOffset, y * noiseScale + yOffset);
+                noiseMap[x, y] = noiseValue;
             }
         }
-    }
 
-    // mozna muzu zkratit nazaklade toho ze to poscitam uz ve funkci nahore
-    private void OnDrawGizmos()
-    {
-        int hexSize = (int)grid.cellSize.x;
-
-        for (int y = 0; y < width; y++)
+        for (int y = 0; y < height; y++)
         {
-            for (int x = 0; x < height; x++)
+            for (int x = 0; x < width; x++)
             {
-                Vector3 centrePosition = HexMath.Center(hexSize, x, y);
+                float noiseValue = noiseMap[x, y];
 
-                for (int s = 0; s < HexMath.Corners(hexSize).Length; s++)
+                if (noiseValue > noiseLevel)
                 {
-                    // vykreslim cary z rohu do rohu
-                    Gizmos.DrawLine(
-                        centrePosition - offset + HexMath.Corners(hexSize)[s % 6],
-                        centrePosition - offset + HexMath.Corners(hexSize)[(s + 1) % 6]
-                        );
+                    Vector3 centrePosition = HexMath.Center(hexSize, x, y) + offset;
+                    hexagons[x, y] = centrePosition;
 
+                    Instantiate(hexEmpty, hexagons[x, y], Quaternion.identity);
                 }
+
             }
         }
+
     }
 
 }

@@ -29,6 +29,7 @@ public class RoomsPlacement : MonoBehaviour
         {
             lastUpdateTime = Time.time;
             // get the currently selected tile position
+            
             curIndicatorPos = BuildSelector.instance.GetCurTilePosition();
 
             if (currentlyPlacing)
