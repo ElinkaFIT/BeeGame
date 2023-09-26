@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Resource
   - Room
+  - EmptyRoom
   layers:
   - Default
   - TransparentFX
