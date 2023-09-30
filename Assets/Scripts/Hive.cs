@@ -10,6 +10,8 @@ public class Hive : MonoBehaviour
     public int wax;
     public int propolis;
 
+    public GameObject waxAbsence;
+
     public List<Room> rooms = new List<Room>();
 
     public static Hive instance;
@@ -23,21 +25,27 @@ public class Hive : MonoBehaviour
         GameUI.instance.UpdatePropolisText(propolis);
     }
 
-    public void OnPlaceBuilding(Room room)
+    public void OnPlaceBuilding(RoomPreset preset, Vector3 curIndicatorPos)
     {
-        if (wax < room.preset.waxCost)
+        if (wax < preset.waxCost)
         {
-            Debug.Log("Neni dostatek vosku");
+            waxAbsence.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.red;
+            waxAbsence.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = Color.red;
+            GameUI.instance.UpdateWaxText(wax);
             return;
         }
-        else if (propolis < room.preset.propolisCost)
+        else if (propolis < preset.propolisCost)
         {
             Debug.Log("Neni dostatek propolisu");
             return;
         }
-        wax -= room.preset.waxCost;
-        propolis -= room.preset.propolisCost;
-        rooms.Add(room);
+
+        wax -= preset.waxCost;
+        propolis -= preset.propolisCost;
+
+        GameObject newRoom = Instantiate(preset.prefab, curIndicatorPos, Quaternion.identity);
+        rooms.Add(newRoom.GetComponent<Room>());
+
         GameUI.instance.UpdateWaxText(wax);
     }
 

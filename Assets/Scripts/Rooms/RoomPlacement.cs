@@ -59,8 +59,7 @@ public class RoomsPlacement : MonoBehaviour
 
     void PlaceBuilding()
     {
-        GameObject roomObj = Instantiate(curBuildingPreset.prefab, curIndicatorPos, Quaternion.identity);
-        Hive.instance.OnPlaceBuilding(roomObj.GetComponent<Room>());
+        Hive.instance.OnPlaceBuilding(curBuildingPreset, curIndicatorPos);
         CancelBuildingPlacement();
     }
 
