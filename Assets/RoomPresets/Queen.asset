@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768bb30843ce1f64290c853c64e7049f, type: 3}
   m_Name: Queen
   m_EditorClassIdentifier: 
+  roomType: 2
   waxCost: 3
   propolisCost: 3
   costPerTurn: 1

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class Hive : MonoBehaviour
 {
@@ -40,11 +41,21 @@ public class Hive : MonoBehaviour
             return;
         }
 
+        if (preset.roomType == RoomType.Nursery)
+        {
+            if(NurseryPlacement(curIndicatorPos) == false)
+            {
+                Debug.Log("Musi sousedit s kralovnou nebo lihni");
+                return;
+            }
+        }
+
         wax -= preset.waxCost;
         propolis -= preset.propolisCost;
 
-        GameObject newRoom = Instantiate(preset.prefab, curIndicatorPos, Quaternion.identity);
-        rooms.Add(newRoom.GetComponent<Room>());
+        GameObject newObject = Instantiate(preset.prefab, curIndicatorPos, Quaternion.identity);
+        Room newRoom = newObject.GetComponent<Room>();
+        rooms.Add(newRoom);
 
         GameUI.instance.UpdateWaxText(wax);
     }
@@ -75,5 +86,21 @@ public class Hive : MonoBehaviour
                     break;
                 }
         }
+    }
+
+    // vrati true pokud sousedi s queen nebo nursery, jinak false
+    public bool NurseryPlacement(Vector3 newNursery)
+    {
+        foreach (Room room in rooms)
+        {
+            float gridSize = GridHex.instance.grid.cellSize.x;
+
+            if (Vector3.Distance(room.transform.position, newNursery) < 2.2f * HexMath.InnerRadius(gridSize))
+            {
+                if (room.preset.roomType == RoomType.Queen)
+                    return true;
+            }
+        }
+        return false;
     }
 }

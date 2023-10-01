@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class GridHex : MonoBehaviour
 {
@@ -20,11 +23,11 @@ public class GridHex : MonoBehaviour
 
     public GameObject hexEmpty;
 
-
-
+    public static GridHex instance;
 
     private void Awake()
     {
+        instance = this;
         grid = GetComponent<Grid>();
         CreateAllHexCenter();
     }
@@ -41,7 +44,7 @@ public class GridHex : MonoBehaviour
     public void CreateAllHexCenter()
     {
 
-        int hexSize = (int)grid.cellSize.x;
+        float hexSize = grid.cellSize.x;
         int xCenter = width / 2;
         int yCenter = height / 2;
         hexagons = new Vector3[width, height];
@@ -108,5 +111,13 @@ public class GridHex : MonoBehaviour
         }
     }
 
+    public List<Vector3> GetNeighbors2(Vector3 middlePosition)
+    {
+        float hexSize = grid.cellSize.x;
+
+        List<Vector3> neighbors = HexMath.GetNeighbors(hexSize, middlePosition);
+
+        return neighbors;
+    }
 }
  

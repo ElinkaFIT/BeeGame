@@ -74,6 +74,7 @@ public class Room : MonoBehaviour
         {
             SetRoomState(RoomState.Built);
             progressBar.CloseProgressBar();
+            // deleteRoomButton.SetActive(false);  
             doneIcon.SetActive(true);
             return;
         }
@@ -81,6 +82,13 @@ public class Room : MonoBehaviour
         buildProgress += amount;
         progressBar.UpdateProgressBar(buildProgress, 100);
 
+    }
+
+    public void DeleteRoom()
+    {
+        Debug.Log("1");
+        Hive.instance.OnRemoveBuilding(this);
+        
     }
 
     public void SetRoomState(RoomState toState)
