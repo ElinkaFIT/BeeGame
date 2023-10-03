@@ -97,7 +97,7 @@ public class Hive : MonoBehaviour
 
             if (Vector3.Distance(room.transform.position, newNursery) < 2.2f * HexMath.InnerRadius(gridSize))
             {
-                if (room.preset.roomType == RoomType.Queen)
+                if (room.preset.roomType == RoomType.Queen || room.preset.roomType == RoomType.Nursery)
                     return true;
             }
         }

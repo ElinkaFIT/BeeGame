@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 768bb30843ce1f64290c853c64e7049f, type: 3}
-  m_Name: House
+  m_Name: Nursery
   m_EditorClassIdentifier: 
-  roomType: 1
+  roomType: 3
   waxCost: 3
   propolisCost: 3
   costPerTurn: 1
-  prefab: {fileID: 3233998705632412183, guid: 9f0993254d762a547b8f230fb506590c, type: 3}
+  prefab: {fileID: 3233998705632412183, guid: e799c17acd14dec46a705882825a440c, type: 3}
   population: 1
   jobs: 3
   food: 1

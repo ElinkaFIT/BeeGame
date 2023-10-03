@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public static class HexMath
 {
@@ -38,24 +37,24 @@ public static class HexMath
         return centrePosition;
     }
 
-    public static List<Vector3> GetNeighbors(float hexSize, Vector3 middlePosition)
-    {
-        float outer = OuterRadius(hexSize);
-        float inner = InnerRadius(hexSize);
+    //public static List<Vector3> GetNeighbors(float hexSize, Vector3 middlePosition)
+    //{
+    //    float outer = OuterRadius(hexSize);
+    //    float inner = InnerRadius(hexSize);
 
-        List<Vector3> neighbors = new List<Vector3>
-        {
-            new Vector3(middlePosition.x + inner * 2f, middlePosition.y, middlePosition.z),
-            new Vector3(middlePosition.x - inner * 2f, middlePosition.y, middlePosition.z),
+    //    List<Vector3> neighbors = new List<Vector3>
+    //    {
+    //        new Vector3(middlePosition.x + inner * 2f, middlePosition.y, middlePosition.z),
+    //        new Vector3(middlePosition.x - inner * 2f, middlePosition.y, middlePosition.z),
 
-            new Vector3(middlePosition.x + inner, middlePosition.y + outer * 1.5f, middlePosition.z),
-            new Vector3(middlePosition.x + inner, middlePosition.y - outer * 1.5f, middlePosition.z),
+    //        new Vector3(middlePosition.x + inner, middlePosition.y + outer * 1.5f, middlePosition.z),
+    //        new Vector3(middlePosition.x + inner, middlePosition.y - outer * 1.5f, middlePosition.z),
 
-            new Vector3(middlePosition.x -  inner, middlePosition.y + outer * 1.5f, middlePosition.z),
-            new Vector3(middlePosition.x -  inner, middlePosition.y - outer * 1.5f, middlePosition.z)
-        };
+    //        new Vector3(middlePosition.x -  inner, middlePosition.y + outer * 1.5f, middlePosition.z),
+    //        new Vector3(middlePosition.x -  inner, middlePosition.y - outer * 1.5f, middlePosition.z)
+    //    };
 
-        return neighbors;
-    }
+    //    return neighbors;
+    //}
 
 }
