@@ -8,59 +8,71 @@ using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
+/// <summary>
+/// Generating empty hive rooms using perlin noise.
+/// In the centre, they are almost certainly placed, and progressively less towards the edges.
+/// The room objects here are for visual purposes only.
+/// </summary>
 public class GridHex : MonoBehaviour
 {
+    public static GridHex instance;
+
+    // serialized field
+    [SerializeField] private int width;
+    [SerializeField] private int height;
+    [SerializeField] private Vector3 offset;
+    [SerializeField] private float noiseLimit;
+    [SerializeField] private float noiseScale;
+
+    // component references
     public Grid grid;
-    public static Vector3[,] hexagons; // dvourozmerne pole uchovavajici stredy hexagonu
-
-
-    [Header("Info")]
-    public int width;
-    public int height;
-    public Vector3 offset;
-    public float noiseLimit;
-    public float noiseScale;
-
     public GameObject hexEmpty;
 
-    public static GridHex instance;
+    // other references
+    public static Vector3[,] hexagons; // dvourozmerne pole uchovavajici stredy hexagonu
+
 
     private void Awake()
     {
         instance = this;
         grid = GetComponent<Grid>();
-        CreateAllHexCenter();
+    }
+
+    private void Start()
+    {
+        GenerateHexMap();
     }
 
     private void Update()
     {
+        // jen pro testovani
         if (Input.GetMouseButtonDown(2))
         {
             DeleteRooms();
-            CreateAllHexCenter();
+            GenerateHexMap();
         }
     }
 
-    public void CreateAllHexCenter()
+    // Generate empty rooms to scene according to the specified limit and offset
+    private void GenerateHexMap()
     {
-
         float hexSize = grid.cellSize.x;
         int xCenter = width / 2;
         int yCenter = height / 2;
+
         hexagons = new Vector3[width, height];
 
         float[,] noiseMap = CreatePerlinNoise();
 
         for (int y = 0; y < height; y++)
         {
-            // spocita pravdepodobnost vygenerovani policka pro y
+            // calculates the probability of generating a room -> y
             float yDistance = Math.Abs(y - yCenter);
             float yPercentage = 1 - (yDistance / yCenter);
 
-
             for (int x = 0; x < width; x++)
             {
-                // spocita pravdepodobnost vygenerovani policka pro x
+                // calculates the probability of generating a room -> x
                 float xDistance = Math.Abs(x - xCenter);
                 float xPercentage = 1 - (xDistance / xCenter);
 
@@ -75,7 +87,7 @@ public class GridHex : MonoBehaviour
                 }
                 else
                 {
-                    hexagons[x, y] = new Vector3(0, 0, -99);
+                    hexagons[x, y] = new Vector3(-999, -999, -999);
                 }
 
             }
@@ -83,7 +95,8 @@ public class GridHex : MonoBehaviour
 
     }
 
-    public float[,] CreatePerlinNoise()
+    // Calculates random perlin noise and resizes it according to scale
+    private float[,] CreatePerlinNoise()
     {
         float[,] noiseMap = new float[width, height];
         float xOffset = UnityEngine.Random.Range(-10000f, 10000f);
@@ -101,7 +114,8 @@ public class GridHex : MonoBehaviour
         return noiseMap;
     }
 
-    public void DeleteRooms()
+    // Zatim jen pro testovani
+    private void DeleteRooms()
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("EmptyRoom");
 
@@ -111,6 +125,7 @@ public class GridHex : MonoBehaviour
         }
     }
 
+    // Ziska sousedici hexagony
     //public List<Vector3> GetNeighbors2(Vector3 middlePosition)
     //{
     //    float hexSize = grid.cellSize.x;

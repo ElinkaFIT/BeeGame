@@ -3,30 +3,24 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+/// <summary>
+/// Mathematical functions for determining the properties of a flat-top oriented hexagons
+/// </summary>
 public static class HexMath
 {
+    // Lenght from left to right corner
     public static float OuterRadius (float hexSize)
     {
         return hexSize;
     }
 
+
+    // Height from bottom to top edge 
     public static float InnerRadius (float hexSize)
     {
-        return hexSize * (Mathf.Sqrt(3) / 2);   
+        return (hexSize / 2) * Mathf.Sqrt(3);   
     }
 
-    public static Vector3[] Corners(float hexSize)
-    {
-        Vector3[] corners = new Vector3[6];
-        for (int i = 0; i < 6; i++) 
-        {
-            // + 30f kvuli pointtop
-            float angle = 60f * i + 30f;
-            // jednotlivy bod
-            corners[i] = new Vector3(hexSize * Mathf.Cos(angle * Mathf.Deg2Rad), hexSize * Mathf.Sin(angle * Mathf.Deg2Rad), 0f);
-        }
-        return corners;
-    }
 
     public static Vector3 Center(float hexSize, int x, int y)
     {
@@ -37,6 +31,23 @@ public static class HexMath
         return centrePosition;
     }
 
+
+    // Find the positions of the six corners of the hexagon
+    //public static Vector3[] Corners(float hexSize)
+    //{
+    //    Vector3[] corners = new Vector3[6];
+    //    for (int i = 0; i < 6; i++) 
+    //    {
+    //        // added 30f becouse hexagon is flat-top
+    //        float angle = 60f * i + 30f;
+
+    //        corners[i] = new Vector3(hexSize * Mathf.Cos(angle * Mathf.Deg2Rad), hexSize * Mathf.Sin(angle * Mathf.Deg2Rad), 0f);
+    //    }
+    //    return corners;
+    //}
+
+
+    // Find the positions of the six neighbors of the hexagon
     //public static List<Vector3> GetNeighbors(float hexSize, Vector3 middlePosition)
     //{
     //    float outer = OuterRadius(hexSize);
