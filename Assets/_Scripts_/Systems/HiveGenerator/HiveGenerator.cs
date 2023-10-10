@@ -13,9 +13,9 @@ using Vector3 = UnityEngine.Vector3;
 /// In the centre, they are almost certainly placed, and progressively less towards the edges.
 /// The room objects here are for visual purposes only.
 /// </summary>
-public class GridHex : MonoBehaviour
+public class HiveGenerator : MonoBehaviour
 {
-    public static GridHex instance;
+    public static HiveGenerator instance;
 
     // serialized field
     [SerializeField] private int width;

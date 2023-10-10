@@ -93,7 +93,7 @@ public class Hive : MonoBehaviour
     {
         foreach (Room room in rooms)
         {
-            float gridSize = GridHex.instance.grid.cellSize.x;
+            float gridSize = HiveGenerator.instance.grid.cellSize.x;
 
             if (Vector3.Distance(room.transform.position, newNursery) < 2.2f * HexMath.InnerRadius(gridSize))
             {

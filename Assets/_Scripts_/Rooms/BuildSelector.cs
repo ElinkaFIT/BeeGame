@@ -34,7 +34,7 @@ public class BuildSelector : MonoBehaviour
             Vector3 position = new Vector3(mouse.x, mouse.y, 0);
 
             // convert array of all hexagons to list for easier searching
-            List<Vector3> hexList = GridHex.hexagons.Cast<Vector3>().ToList();
+            List<Vector3> hexList = HiveGenerator.hexagons.Cast<Vector3>().ToList();
            
 
             Vector3 closestHex = hexList[0];

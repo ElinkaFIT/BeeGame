@@ -2087,7 +2087,7 @@ GameObject:
   - component: {fileID: 523509865}
   - component: {fileID: 523509864}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: HiveGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2105,12 +2105,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce5cdabeb1687dd45a994ae31787285a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 523509865}
   width: 10
   height: 9
   offset: {x: -4, y: -4, z: 0}
   noiseLimit: 1.5
   noiseScale: 0.1
+  grid: {fileID: 523509865}
   hexEmpty: {fileID: 8454819381984453326, guid: d1987a0811349f04097471cf2486d496, type: 3}
 --- !u!156049354 &523509865
 Grid:
