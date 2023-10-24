@@ -1,7 +1,7 @@
 ## Google-drive link
 https://drive.google.com/drive/folders/1NbrwYcY4Wu6WOZORkHAZZtgHB2DaPYYP?usp=sharing
 
-## Build
+## Linux build
 https://drive.google.com/drive/folders/188Vx0hxG8CnD0Vv2NC12a5DZFf-c8twm?usp=sharing
 
 ## Text BP
