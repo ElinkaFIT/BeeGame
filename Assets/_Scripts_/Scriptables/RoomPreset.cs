@@ -16,11 +16,9 @@ public enum RoomType
 public class RoomPreset : ScriptableObject
 {
     public RoomType roomType;
+    public GameObject prefab;
+
     public int waxCost;
     public int propolisCost;
     public int costPerTurn;
-    public GameObject prefab;
-    public int population;
-    public int jobs;
-    public int food;
 }

@@ -22,6 +22,8 @@ public static class HexMath
     }
 
 
+    // Position of hexagon center according to given coordinates,
+    // coordinates determine the order of the hexagon in the grid.
     public static Vector3 Center(float hexSize, int x, int y)
     {
         Vector3 centrePosition;
