@@ -50,6 +50,16 @@ public class Hive : MonoBehaviour
             }
         }
 
+        foreach (Room room in rooms)
+        {
+            if (curIndicatorPos == room.transform.position)
+            {
+                Debug.Log("Zde je jiz umisten jiny pokoj");
+                return;
+            }
+
+        }
+
         wax -= preset.waxCost;
         propolis -= preset.propolisCost;
 
