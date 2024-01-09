@@ -12,6 +12,7 @@ public class GameOver : MonoBehaviour
     public void OpenGameOverMenu()
     {
         gameObject.SetActive(true);
+        Pause();
     }
 
     public void Reset()
@@ -22,5 +23,21 @@ public class GameOver : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    void Pause()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void Continue()
+    {
+        gameObject.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
