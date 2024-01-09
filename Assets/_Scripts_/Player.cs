@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 {
     public bool isMe;
     public static Player me;
+    public GameOver gameOver;
 
     [Header("Units")]
     public List<Unit> units = new List<Unit>();
@@ -25,6 +26,14 @@ public class Player : MonoBehaviour
             me = this;
     }
 
+
+    private void Update()
+    {
+        if (isMe & me.units.Count == 0)
+        {
+            gameOver.OpenGameOverMenu();
+        }
+    }
 
     public bool IsMyUnit(Unit unit)
     {

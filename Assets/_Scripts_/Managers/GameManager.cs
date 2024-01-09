@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public Player[] players;
     public static GameManager instance;
+
+
     void Awake()
     {
         instance = this;
