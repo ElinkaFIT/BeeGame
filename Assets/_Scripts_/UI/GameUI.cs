@@ -9,6 +9,8 @@ public class GameUI : MonoBehaviour
     public TextMeshProUGUI waterText;
     public TextMeshProUGUI waxText;
     public TextMeshProUGUI propolisText;
+    public TextMeshProUGUI beesText;
+    public TextMeshProUGUI enemyText;
 
     public static GameUI instance;
     void Awake()
@@ -34,5 +36,14 @@ public class GameUI : MonoBehaviour
     public void UpdatePropolisText(int value)
     {
         propolisText.text = value.ToString();
+    }
+
+    public void UpdateBeesText(int value)
+    {
+        beesText.text = value.ToString();
+    }
+    public void UpdateEnemyText(int value)
+    {
+        enemyText.text = value.ToString();
     }
 }

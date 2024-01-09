@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour
     public bool isMe;
     public static Player me;
     public GameOver gameOver;
+    public TextMeshPro beeCount;
 
     [Header("Units")]
     public List<Unit> units = new List<Unit>();
@@ -29,7 +31,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (isMe & me.units.Count == 0)
+        // bee text
+        GameUI.instance.UpdateBeesText(me.units.Count);
+
+        // pokud neni jiz zadna jednotka nastane konec hry
+        if (me.units.Count == 0)
         {
             gameOver.OpenGameOverMenu();
         }
