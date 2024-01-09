@@ -16,6 +16,11 @@ public class GameOver : MonoBehaviour
 
     public void Reset()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Game");
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
