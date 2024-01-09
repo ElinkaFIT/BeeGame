@@ -984,7 +984,11 @@ PrefabInstance:
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 785146809}
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
+      propertyPath: playerAI
+      value: 
+      objectReference: {fileID: 785146807}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: healthBar
       value: 
@@ -3637,7 +3641,6 @@ GameObject:
   m_Component:
   - component: {fileID: 785146808}
   - component: {fileID: 785146807}
-  - component: {fileID: 785146809}
   m_Layer: 0
   m_Name: EnemyPlayer
   m_TagString: Untagged
@@ -3659,6 +3662,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSpawnRate: 10
   maxSpawnRate: 20
+  units:
+  - {fileID: 1612369957}
 --- !u!4 &785146808
 Transform:
   m_ObjectHideFlags: 0
@@ -3674,23 +3679,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1219923932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &785146809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785146806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adf4bf0d4c6d3404397e1e068b634ea3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isMe: 0
-  gameOver: {fileID: 1642930317}
-  beeCount: {fileID: 0}
-  units:
-  - {fileID: 1612369957}
 --- !u!1 &848030683
 GameObject:
   m_ObjectHideFlags: 0
@@ -4236,6 +4224,8 @@ MonoBehaviour:
   waterText: {fileID: 1386506847}
   waxText: {fileID: 1623105973}
   propolisText: {fileID: 219339566}
+  beesText: {fileID: 420606620}
+  enemyText: {fileID: 2093842087}
 --- !u!1 &948358308
 GameObject:
   m_ObjectHideFlags: 0
