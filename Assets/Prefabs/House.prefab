@@ -281,8 +281,8 @@ GameObject:
   - component: {fileID: 7971559673237179102}
   - component: {fileID: 8003751947007770461}
   m_Layer: 11
-  m_Name: 'Room '
-  m_TagString: Room
+  m_Name: RoomColor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

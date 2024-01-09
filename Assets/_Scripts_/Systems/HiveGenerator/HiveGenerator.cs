@@ -27,6 +27,7 @@ public class HiveGenerator : MonoBehaviour
     // component references
     public Grid grid;
     public GameObject hexEmpty;
+    public List<GameObject> emptyRooms;
 
     // other references
     public static Vector3[,] hexagons; // dvourozmerne pole uchovavajici stredy hexagonu
@@ -83,7 +84,9 @@ public class HiveGenerator : MonoBehaviour
                     Vector3 centrePosition = HexMath.Center(hexSize, x, y) + offset;
                     hexagons[x, y] = centrePosition;
 
-                    Instantiate(hexEmpty, hexagons[x, y], Quaternion.identity);
+                    Vector3 finalPosition = new Vector3(centrePosition.x, centrePosition.y, 0.1f);
+                    GameObject newEmptyRoom = Instantiate(hexEmpty, finalPosition, Quaternion.identity);
+                    emptyRooms.Add(newEmptyRoom);
                 }
                 else
                 {
@@ -118,6 +121,7 @@ public class HiveGenerator : MonoBehaviour
     private void DeleteRooms()
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("EmptyRoom");
+        emptyRooms.Clear();
 
         foreach (GameObject go in gameObjects)
         {
