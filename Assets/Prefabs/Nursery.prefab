@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 5112717831301658528}
   - component: {fileID: 6632012906290437813}
   - component: {fileID: 3203572660696476118}
+  - component: {fileID: 6970813615706146636}
   m_Layer: 11
   m_Name: Nursery
   m_TagString: Room
@@ -212,13 +213,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preset: {fileID: 11400000, guid: c76041b1eeb9d4c4ab89d81a85f2ac6e, type: 2}
-  state: 0
   progressBar: {fileID: 2468487547999082038}
   doneIcon: {fileID: 1339673689780979466}
   buildProgress: 1
-  onStateChange:
-    m_PersistentCalls:
-      m_Calls: []
+  concructionDone: 0
 --- !u!60 &3203572660696476118
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -270,6 +268,23 @@ PolygonCollider2D:
       - {x: 0, y: -1}
       - {x: 0.866, y: -0.5}
   m_UseDelaunayMesh: 0
+--- !u!114 &6970813615706146636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3233998705632412183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee85ef2b7e3aadb42a77b186aaed2d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  curBuildRoom: {fileID: 6632012906290437813}
+  onStateChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6270047969573922143
 GameObject:
   m_ObjectHideFlags: 0

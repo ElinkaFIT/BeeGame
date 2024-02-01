@@ -209,7 +209,6 @@ public class Unit : MonoBehaviour
         if (Vector2.Distance(pos, des) < 0.01f)
         {
             SetState(UnitState.Build);
-            curBuildRoom.SetRoomState(RoomState.UnderConstruction);
         }
     }
 

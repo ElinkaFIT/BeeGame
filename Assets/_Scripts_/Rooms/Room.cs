@@ -13,66 +13,24 @@ public enum RoomState
 public class Room : MonoBehaviour
 {
     public RoomPreset preset;
-    public RoomState state;
     public BuildProgressBar progressBar;
     public GameObject doneIcon;
 
-
     public int buildProgress;
 
-    // events
-    [System.Serializable]
-    public class StateChangeEvent : UnityEvent<RoomState> { }
-    public StateChangeEvent onStateChange;
+    public bool concructionDone;
 
     private void Start()
     {
+        concructionDone = false;
         doneIcon.SetActive(false);
-        SetRoomState(RoomState.Blueprint);
-    }
-    void Update()
-    {
-        switch (state)
-        {
-            case RoomState.Blueprint:
-                {
-                    BlueprintUpdate();
-                    break;
-                }
-            case RoomState.UnderConstruction:
-                {
-                    UnderConstructionUpdate();
-                    break;
-                }
-            case RoomState.Built:
-                {
-                    BuiltUpdate();
-                    break;
-                }
-
-        }
-    }
-
-    void BlueprintUpdate()
-    {
-        
-    }
-
-    void UnderConstructionUpdate()
-    {
-        
-    }
-
-    void BuiltUpdate() 
-    {
-        
     }
 
     public void BuildRoom(int amount)
     {
         if (buildProgress >= 100)
         {
-            SetRoomState(RoomState.Built);
+            concructionDone = true;
             progressBar.CloseProgressBar();
             // deleteRoomButton.SetActive(false);  
             doneIcon.SetActive(true);
@@ -89,14 +47,6 @@ public class Room : MonoBehaviour
         Debug.Log("1");
         Hive.instance.OnRemoveBuilding(this);
         
-    }
-
-    public void SetRoomState(RoomState toState)
-    {
-        state = toState;
-        // calling the event
-        if (onStateChange != null)
-            onStateChange.Invoke(state);
     }
 
 }
