@@ -19,6 +19,10 @@ public class UnitCommander : MonoBehaviour
 
     void Update()
     {
+        if (unitSelection == null) {
+            Debug.Log("LOG: Error In UnitCommander");
+        }
+
         if (Input.GetMouseButtonDown(1) && unitSelection.AreUnitsSelected())
         {
             Unit[] selectedUnits = unitSelection.GetSelectedUnits();
@@ -44,6 +48,11 @@ public class UnitCommander : MonoBehaviour
                 else if (hit.collider.CompareTag("Room"))
                 {
                     UnitsBuildRoom(hit.collider.GetComponent<Room>(), selectedUnits);
+
+                }
+                else if (hit.collider.CompareTag("Queen"))
+                {
+                    UnitsOnQueen(hit.collider.GetComponent<Room>(), selectedUnits);
 
                 }
                 else if (hit.collider.CompareTag("Unit"))
@@ -103,11 +112,30 @@ public class UnitCommander : MonoBehaviour
         }
         else
         {
-            for (int x = 0; x < units.Length; x++)
-            {
-                units[x].BuildRoom(room, room.transform.position);
-            }
-        }
+            //for (int x = 0; x < units.Length; x++)
+            //{
+            //    units[x].BuildRoom(room, room.transform.position);
+            //}
 
+            units[0].BuildRoom(room, room.transform.position);
+        }
+    }
+
+    void UnitsOnQueen(Room room, Unit[] units)
+    {
+        if (units.Length == 1)
+        {
+            units[0].WorkInRoom(room, room.transform.position);
+        }
+        else
+        {
+            // pro vsechny jednotky
+            //for (int x = 0; x < units.Length; x++)
+            //{
+            //    units[x].BuildRoom(room, room.transform.position);
+            //}
+
+            units[0].WorkInRoom(room, room.transform.position);
+        }
     }
 }

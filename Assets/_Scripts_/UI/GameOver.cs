@@ -5,8 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
+    public static GameOver instance;
+
     public void Start()
     {
+        instance = this;
         gameObject.SetActive(false);
     }
     public void OpenGameOverMenu()
@@ -40,4 +43,7 @@ public class GameOver : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+
+    
 }

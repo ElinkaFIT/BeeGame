@@ -9,6 +9,7 @@ TagManager:
   - Resource
   - Room
   - EmptyRoom
+  - Queen
   layers:
   - Default
   - TransparentFX

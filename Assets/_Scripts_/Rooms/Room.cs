@@ -20,6 +20,8 @@ public class Room : MonoBehaviour
 
     public bool concructionDone;
 
+    public List<Unit> roomWorkers;
+
     private void Start()
     {
         concructionDone = false;
@@ -40,6 +42,23 @@ public class Room : MonoBehaviour
         buildProgress += amount;
         progressBar.UpdateProgressBar(buildProgress, 100);
 
+    }
+
+    public void WorkInRoom(Unit newWorker)
+    {
+        // Pridej vcelu do seznamu pracovniku
+        if (!roomWorkers.Contains(newWorker)) {
+            roomWorkers.Add(newWorker);
+        }
+    }
+
+    public void StopWorkInRoom(Unit newWorker)
+    {
+        // Oddelej vcelu ze seznamu pracovniku
+        if (roomWorkers.Contains(newWorker))
+        {
+            roomWorkers.Remove(newWorker);
+        }
     }
 
     public void DeleteRoom()

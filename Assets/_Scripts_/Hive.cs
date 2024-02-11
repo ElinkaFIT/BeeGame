@@ -26,6 +26,31 @@ public class Hive : MonoBehaviour
         GameUI.instance.UpdatePropolisText(propolis);
     }
 
+    public void RemoveMaterial(ResourceType resourceType)
+    {
+        switch (resourceType)
+        {
+            case ResourceType.Nectar:
+                nectar--;
+                GameUI.instance.UpdateNectarText(nectar);
+                break;
+            case ResourceType.Water:
+                water--;
+                GameUI.instance.UpdateWaterText(water);
+                break;
+            case ResourceType.Wax:
+                wax--;
+                GameUI.instance.UpdateWaterText(wax);
+                break;
+            case ResourceType.Propolis:
+                propolis--;
+                GameUI.instance.UpdateWaterText(propolis);
+                break;
+            default:
+                break;
+        }
+    }
+
     public void OnPlaceBuilding(RoomPreset preset, Vector3 curIndicatorPos)
     {
         if (wax < preset.waxCost)

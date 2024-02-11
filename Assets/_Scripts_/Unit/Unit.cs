@@ -12,7 +12,9 @@ public enum UnitState
     MoveToEnemy,
     Attack,
     MoveToBuild,
-    Build
+    Build,
+    MoveToWork,
+    Work
 }
 
 public class Unit : MonoBehaviour
@@ -108,6 +110,16 @@ public class Unit : MonoBehaviour
             case UnitState.Build:
             {
                 BuildUpdate();
+                break;
+            }
+            case UnitState.MoveToWork:
+            {
+                MoveToWorkUpdate();
+                break;
+            }
+            case UnitState.Work:
+            {
+                WorkUpdate();
                 break;
             }
 
@@ -229,6 +241,23 @@ public class Unit : MonoBehaviour
         // zacne se stavet
     }
 
+    void MoveToWorkUpdate()
+    {
+
+        Vector2 pos = new Vector2(transform.position.x, transform.position.y);
+        Vector2 des = new Vector2(agent.destination.x, agent.destination.y);
+
+
+        if (Vector2.Distance(pos, des) < 0.01f)
+        {
+            SetState(UnitState.Work);
+        }
+    }
+
+    void WorkUpdate()
+    {
+        curBuildRoom.WorkInRoom(gameObject.GetComponent<Unit>());
+    }
 
 
     // zobrazit vyber jednotky
@@ -262,8 +291,22 @@ public class Unit : MonoBehaviour
         agent.SetDestination(pos);
     }
 
+    public void WorkInRoom(Room room, Vector3 pos)
+    {
+        curBuildRoom = room;
+        SetState(UnitState.MoveToWork);
+        agent.isStopped = false;
+        agent.SetDestination(pos);
+    }
+
     void SetState(UnitState toState)
     {
+        // pokud pracovala, prestane odchodem pracovat
+        if (state == UnitState.Work)
+        {
+            curBuildRoom.StopWorkInRoom(gameObject.GetComponent<Unit>());
+        }
+
         state = toState;
         // calling the event
         if (onStateChange != null)

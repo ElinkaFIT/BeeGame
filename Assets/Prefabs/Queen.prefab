@@ -215,8 +215,9 @@ MonoBehaviour:
   preset: {fileID: 11400000, guid: ec344f2b3cee20840b2a891c6277acf4, type: 2}
   progressBar: {fileID: 2468487547999082038}
   doneIcon: {fileID: 1339673689780979466}
-  buildProgress: 1
+  buildProgress: 70
   concructionDone: 0
+  roomWorkers: []
 --- !u!60 &3203572660696476118
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -281,10 +282,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  queenState: 0
   curBuildRoom: {fileID: 6632012906290437813}
   onStateChange:
     m_PersistentCalls:
       m_Calls: []
+  queenConsumption: 60
+  consumptionRate: 1
+  lowConsumptionLimit: 40
+  criticalConsumptionLimit: 4
 --- !u!1 &6270047969573922143
 GameObject:
   m_ObjectHideFlags: 0

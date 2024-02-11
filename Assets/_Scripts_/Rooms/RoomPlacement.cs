@@ -22,7 +22,9 @@ public class RoomsPlacement : MonoBehaviour
     {
         // cancel building placement
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
             CancelBuildingPlacement();
+        }
 
         // called every 0.05 seconds
         if (Time.time - lastUpdateTime > indicatorUpdateRate)
@@ -33,7 +35,9 @@ public class RoomsPlacement : MonoBehaviour
             curIndicatorPos = BuildSelector.instance.GetCurTilePosition();
 
             if (currentlyPlacing)
+            {
                 placementIndicator.transform.position = curIndicatorPos;
+            }
         }
 
         if (Input.GetMouseButtonDown(0) && currentlyPlacing)
