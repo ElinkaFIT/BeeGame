@@ -10,6 +10,7 @@ TagManager:
   - Room
   - EmptyRoom
   - Queen
+  - Nursery
   layers:
   - Default
   - TransparentFX

@@ -50,9 +50,9 @@ public class UnitCommander : MonoBehaviour
                     UnitsBuildRoom(hit.collider.GetComponent<Room>(), selectedUnits);
 
                 }
-                else if (hit.collider.CompareTag("Queen"))
+                else if (hit.collider.CompareTag("Queen") || hit.collider.CompareTag("Nursery"))
                 {
-                    UnitsOnQueen(hit.collider.GetComponent<Room>(), selectedUnits);
+                    UnitsToWork(hit.collider.GetComponent<Room>(), selectedUnits);
 
                 }
                 else if (hit.collider.CompareTag("Unit"))
@@ -121,7 +121,7 @@ public class UnitCommander : MonoBehaviour
         }
     }
 
-    void UnitsOnQueen(Room room, Unit[] units)
+    void UnitsToWork(Room room, Unit[] units)
     {
         if (units.Length == 1)
         {

@@ -6,24 +6,23 @@ using UnityEngine.VFX;
 
 public class PlayerAI : MonoBehaviour
 {
-    public float minSpawnRate = 1.0f;
-    public float maxSpawnRate = 1.0f;
+    public float minSpawnRate;
+    public float maxSpawnRate;
 
     [Header("Units")]
-    public List<Unit> units = new List<Unit>();
+    public List<UnitAI> units = new List<UnitAI>();
 
-    private Player player;
     public GameObject unitPrefab;
 
 
     void Start()
     {
-        //InvokeRepeating("SpawnUnit", 0.0f, Random.Range(minSpawnRate, maxSpawnRate + 1));
+        InvokeRepeating("SpawnUnit", 0.0f, Random.Range(minSpawnRate, maxSpawnRate));
     }
 
     void Awake()
     {
-        player = GetComponent<Player>();
+        
     }
 
     void Update()
@@ -32,13 +31,12 @@ public class PlayerAI : MonoBehaviour
     }
 
 
-
     // called when a new unit is created
     public void SpawnUnit()
     {
         Vector3 spawnPos = new Vector3(5, -3, 0);
         GameObject unitObj = Instantiate(unitPrefab, spawnPos, Quaternion.identity, transform);
-        Unit unit = unitObj.GetComponent<Unit>();
+        UnitAI unit = unitObj.GetComponent<UnitAI>();
         units.Add(unit);
     }
 

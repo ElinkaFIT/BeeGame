@@ -25,7 +25,6 @@ public class Unit : MonoBehaviour
     NavMeshAgent agent;
 
     public Player player;
-    public PlayerAI playerAI;
 
     [Header("Stats")]
     public UnitState state;
@@ -339,12 +338,6 @@ public class Unit : MonoBehaviour
         if (player != null)
         {
             player.units.Remove(this);
-            Destroy(gameObject);
-        }
-        // enemy
-        else
-        {
-            playerAI.units.Remove(this);
             Destroy(gameObject);
         }
     }

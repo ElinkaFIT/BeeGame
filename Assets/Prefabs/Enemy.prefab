@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 9199666716046054771}
   - component: {fileID: 948603383244672641}
   - component: {fileID: 952223216474128569}
-  - component: {fileID: 5592013543471240106}
   - component: {fileID: 548887993126684645}
   m_Layer: 8
   m_Name: Enemy
-  m_TagString: Unit
+  m_TagString: AIUnit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,36 +146,6 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &5592013543471240106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 951653222406228660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 383dd2cd30044824cb06b9dbe13b4013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectionVisual: {fileID: 2202410772364491234}
-  healthBar: {fileID: 4048698876485322439}
-  player: {fileID: 0}
-  playerAI: {fileID: 0}
-  state: 0
-  curHp: 15
-  maxHp: 15
-  minAttackDamage: 1
-  maxAttackDamage: 3
-  attackRate: 0.5
-  pathUpdateRate: 1
-  gatherAmount: 2
-  gatherRate: 0.5
-  buildAmount: 0
-  buildRate: 0
-  onStateChange:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &548887993126684645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,8 +163,7 @@ MonoBehaviour:
   unitLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  playerAI: {fileID: 0}
-  unit: {fileID: 5592013543471240106}
+  unit: {fileID: 0}
 --- !u!1 &1414515998249238271
 GameObject:
   m_ObjectHideFlags: 0

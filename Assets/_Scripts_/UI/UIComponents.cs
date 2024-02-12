@@ -7,14 +7,14 @@ public class UIComponents : MonoBehaviour
     public static UIComponents instance;
 
     public GameObject gameOverReminder;
-    private bool isGameOverReminderActive;
+    //private bool isGameOverReminderActive;
 
     void Awake()
     {
         instance = this;
 
         gameOverReminder.SetActive(false);
-        isGameOverReminderActive = false;
+        //isGameOverReminderActive = false;
     }
 
     /// <summary>

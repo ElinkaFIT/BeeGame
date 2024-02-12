@@ -216,7 +216,9 @@ MonoBehaviour:
   progressBar: {fileID: 2468487547999082038}
   doneIcon: {fileID: 1339673689780979466}
   buildProgress: 1
+  buildModifier: 10
   concructionDone: 0
+  roomWorkers: []
 --- !u!60 &3203572660696476118
 PolygonCollider2D:
   m_ObjectHideFlags: 0

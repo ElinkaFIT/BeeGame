@@ -17,6 +17,7 @@ public class Room : MonoBehaviour
     public GameObject doneIcon;
 
     public int buildProgress;
+    public int buildModifier;
 
     public bool concructionDone;
 
@@ -39,7 +40,7 @@ public class Room : MonoBehaviour
             return;
         }
 
-        buildProgress += amount;
+        buildProgress = buildProgress + buildModifier + amount;
         progressBar.UpdateProgressBar(buildProgress, 100);
 
     }

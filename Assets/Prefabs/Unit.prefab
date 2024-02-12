@@ -27,6 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045879625724715642}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.26, y: 1.83, z: 0}
   m_LocalScale: {x: 0.6282665, y: 0.60396105, z: 1}
@@ -34,7 +35,6 @@ Transform:
   m_Children:
   - {fileID: 2869332955529848507}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8943179403599953341
 SpriteRenderer:
@@ -158,6 +158,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectionVisual: {fileID: 2100874832681210156}
+  healthBar: {fileID: 0}
+  player: {fileID: 0}
+  playerAI: {fileID: 0}
+  state: 0
+  curHp: 15
+  maxHp: 15
+  minAttackDamage: 1
+  maxAttackDamage: 3
+  attackRate: 0.5
+  pathUpdateRate: 1
+  gatherAmount: 2
+  gatherRate: 0.5
+  buildAmount: 1
+  buildRate: 0.5
+  onStateChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2100874832681210156
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,13 +199,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100874832681210156}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7357292897684293113}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &212382364116884116
 SpriteRenderer:

@@ -216,8 +216,8 @@ MonoBehaviour:
   progressBar: {fileID: 2468487547999082038}
   doneIcon: {fileID: 1339673689780979466}
   buildProgress: 1
+  buildModifier: 5
   concructionDone: 0
-  workersInRoom: 0
   roomWorkers: []
 --- !u!60 &3203572660696476118
 PolygonCollider2D:
@@ -284,6 +284,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   curBuildRoom: {fileID: 6632012906290437813}
+  nurseryState: 0
+  timeToGrow: 20
+  timeToSpawn: 5
+  newBeeConsumption: 10
+  consumptionRate: 1
+  lowConsumptionLimit: 5
+  beePrefab: {fileID: 1045879625724715642, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
   onStateChange:
     m_PersistentCalls:
       m_Calls: []

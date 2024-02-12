@@ -1,38 +1,71 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class AI : MonoBehaviour
+public enum AIUnitState
 {
-    public float checkRate = 1.0f;
+    Idle,
+    MoveToEnemy,
+    Attack
+}
+
+public class UnitAI : MonoBehaviour
+{
+    public float checkRate;
     public float nearbyEnemyAttackRange;
     public LayerMask unitLayerMask;
-    public PlayerAI playerAI;
-    public Unit unit;
+
+    private PlayerAI playerAI;
+    private Unit curEnemyTarget;
+
+    public AIUnitState unitState;
+    NavMeshAgent agent;
 
 
-    void Start()
+    private void Start()
     {
         InvokeRepeating("Check", 0.0f, checkRate);
+    }
+    private void Awake()
+    {
+        playerAI = GetComponent<PlayerAI>();
+
+    }
+    void Update()
+    {
+        switch (unitState)
+        {
+            case AIUnitState.Idle:
+                {
+                    
+                    break;
+                }
+            case AIUnitState.MoveToEnemy:
+                {
+                    
+                    break;
+                }
+            case AIUnitState.Attack:
+                {
+                    
+                    break;
+                }
+
+
+        }
     }
     void Check()
     {
         // check if we have nearby enemies - if so, attack them
-        if (unit.state != UnitState.Attack && unit.state != UnitState.MoveToEnemy)
+        if (unitState != AIUnitState.Attack && unitState != AIUnitState.MoveToEnemy)
         {
             Unit potentialEnemy = CheckForNearbyEnemies();
-            if (potentialEnemy != null)
-                unit.AttackUnit(potentialEnemy);
+            AttackUnit(potentialEnemy);
         }
-        if (unit.state == UnitState.Idle)
+        if (unitState == AIUnitState.Idle)
             PursueEnemy();
 
-    }
-
-    public void InitializeAI(PlayerAI playerAI, Unit unit)
-    {
-        this.playerAI = playerAI;
-        this.unit = unit;
     }
 
     Unit CheckForNearbyEnemies()
@@ -47,8 +80,8 @@ public class AI : MonoBehaviour
             if (hits[x].collider.gameObject == gameObject)
                 continue;
             // is this a teammate?
-            if (unit.player.IsMyUnit(hits[x].collider.GetComponent<Unit>()))
-                continue;
+            //if (unit.player.IsMyUnit(hits[x].collider.GetComponent<Unit>()))
+            //    continue;
 
             if (!closest || Vector3.Distance(transform.position, hits[x].transform.position) < closestDist)
             {
@@ -64,10 +97,38 @@ public class AI : MonoBehaviour
     }
     void PursueEnemy()
     {
-        Player enemyPlayer = GameManager.instance.GetRandomEnemyPlayer(unit.player);
+        Player enemyPlayer = Player.me;
         if (enemyPlayer.units.Count > 0)
-            unit.AttackUnit(enemyPlayer.units[Random.Range(0, enemyPlayer.units.Count)]);
+        {
+            AttackUnit(enemyPlayer.units[Random.Range(0, enemyPlayer.units.Count)]);
+        }
 
+    }
+
+    public void AttackUnit(Unit target)
+    {
+        curEnemyTarget = target;
+        SetState(AIUnitState.MoveToEnemy);
+    }
+
+    void Die()
+    {
+
+        playerAI.units.Remove(this);
+        Destroy(gameObject);
+        
+    }
+
+    void SetState(AIUnitState toState)
+    {
+
+        unitState = toState;
+
+        if (toState == AIUnitState.Idle)
+        {
+            agent.isStopped = true;
+            agent.ResetPath();
+        }
     }
 
 }

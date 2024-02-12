@@ -129,14 +129,39 @@ public class Queen : MonoBehaviour
         }
     }
 
-    // neni void ale Room ?
-    void PickingNursery()
+    private Room PickingNursery()
     {
-         // foreach (lihen)
-         // if lihen ma opatrovnici
-         // return lihen
+        List<Room> rooms = Hive.instance.rooms;
+        List<Room> nurseryRooms = new List<Room>();
 
-        // jinak na konci cyklu return lihen[0]
+        // vebere jen prazdne postavene lihne
+        foreach (Room room in rooms)
+        {
+            if (room.preset.roomType == RoomType.Nursery && room.concructionDone)
+            {
+                GameObject gameObject = room.gameObject;
+                if (gameObject.GetComponent<Nursery>().nurseryState == NurseryState.Empty)
+                {
+                    nurseryRooms.Add(room);
+                }
+            }
+        }
+
+        // vybere vhodne lihne
+        foreach (Room nursery in nurseryRooms)
+        {
+            // pokud je to lihen a je zde pracovnik
+            if (nursery.roomWorkers.Count > 0)
+            {
+                return nursery;
+            }
+        }
+
+        if (nurseryRooms.Count > 0)
+        {
+            return nurseryRooms[0];
+        }
+        return null;
     }
 
     void QueenLayingEggs()
@@ -151,12 +176,13 @@ public class Queen : MonoBehaviour
         {
             lastLayingEggTime = Time.time;
             
-            PickingNursery();
-            // TODO
-            // vybere vhodnou volnou lihen
-            // list lihni = lihne ve fazi prazdné
-            // 
-            // 
+            Room pickedRoom = PickingNursery();
+            if (pickedRoom != null)
+            {
+                Debug.Log("Nove vajicko nakladeno do" + pickedRoom);
+                pickedRoom.gameObject.GetComponent<Nursery>().AddNewEgg();
+
+            }
 
         }
     }
