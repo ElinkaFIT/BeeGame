@@ -160,7 +160,6 @@ MonoBehaviour:
   selectionVisual: {fileID: 2100874832681210156}
   healthBar: {fileID: 0}
   player: {fileID: 0}
-  playerAI: {fileID: 0}
   state: 0
   curHp: 15
   maxHp: 15

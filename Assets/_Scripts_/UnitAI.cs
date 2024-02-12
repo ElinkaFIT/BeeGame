@@ -21,15 +21,32 @@ public class UnitAI : MonoBehaviour
 
     public AIUnitState unitState;
     NavMeshAgent agent;
+    public UnitHealth healthBar;
+
+    public int curHp;
+    public int maxHp;
+
+    public int minAttackDamage;
+    public int maxAttackDamage;
+
+    public float pathUpdateRate;
+    private float lastPathUpdateTime;
+
+    public float attackRate;
+    private float lastAttackTime;
 
 
     private void Start()
     {
-        InvokeRepeating("Check", 0.0f, checkRate);
+        SetState(AIUnitState.Idle);
+        InvokeRepeating(nameof(Check), 0.0f, checkRate);
     }
     private void Awake()
     {
-        playerAI = GetComponent<PlayerAI>();
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
 
     }
     void Update()
@@ -43,12 +60,12 @@ public class UnitAI : MonoBehaviour
                 }
             case AIUnitState.MoveToEnemy:
                 {
-                    
+                    MoveToEnemyUpdate();
                     break;
                 }
             case AIUnitState.Attack:
                 {
-                    
+                    AttackUpdate();
                     break;
                 }
 
@@ -58,35 +75,72 @@ public class UnitAI : MonoBehaviour
     void Check()
     {
         // check if we have nearby enemies - if so, attack them
-        if (unitState != AIUnitState.Attack && unitState != AIUnitState.MoveToEnemy)
+        if (unitState == AIUnitState.Idle || unitState == AIUnitState.MoveToEnemy)
         {
             Unit potentialEnemy = CheckForNearbyEnemies();
-            AttackUnit(potentialEnemy);
+            if (potentialEnemy != null)
+            {
+                AttackUnit(potentialEnemy);
+            }
+            
         }
-        if (unitState == AIUnitState.Idle)
-            PursueEnemy();
 
+    }
+
+    void MoveToEnemyUpdate()
+    {
+        if (curEnemyTarget == null)
+        {
+            SetState(AIUnitState.Idle);
+            return;
+        }
+
+        if (Time.time - lastPathUpdateTime > pathUpdateRate)
+        {
+            lastPathUpdateTime = Time.time;
+            agent.isStopped = false;
+            agent.SetDestination(curEnemyTarget.transform.position);
+        }
+
+        if (Vector3.Distance(transform.position, curEnemyTarget.transform.position) <= 1.5)
+            SetState(AIUnitState.Attack);
+    }
+
+    void AttackUpdate()
+    {
+        if (curEnemyTarget == null)
+        {
+            SetState(AIUnitState.Idle);
+            return;
+        }
+
+        if (!agent.isStopped)
+            agent.isStopped = true;
+
+        if (Time.time - lastAttackTime > attackRate)
+        {
+            lastAttackTime = Time.time;
+            curEnemyTarget.TakeDamage(Random.Range(minAttackDamage, maxAttackDamage + 1));
+        }
+
+        // pokud je daleko pohnu se za nim
+        if (Vector3.Distance(transform.position, curEnemyTarget.transform.position) > 1.5)
+            SetState(AIUnitState.MoveToEnemy);
     }
 
     Unit CheckForNearbyEnemies()
     {
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, nearbyEnemyAttackRange, Vector3.up, unitLayerMask);
+        List<Unit> targets = Player.me.units;
         GameObject closest = null;
 
         float closestDist = 0.0f;
-        for (int x = 0; x < hits.Length; x++)
+        foreach (Unit target in targets)
         {
-            // skip if this is us
-            if (hits[x].collider.gameObject == gameObject)
-                continue;
-            // is this a teammate?
-            //if (unit.player.IsMyUnit(hits[x].collider.GetComponent<Unit>()))
-            //    continue;
 
-            if (!closest || Vector3.Distance(transform.position, hits[x].transform.position) < closestDist)
+            if (!closest || Vector3.Distance(transform.position, target.transform.position) < closestDist)
             {
-            closest = hits[x].collider.gameObject;
-            closestDist = Vector3.Distance(transform.position, hits[x].transform.position);
+                closest = target.gameObject;
+                closestDist = Vector3.Distance(transform.position, target.transform.position);
             }
         }
 
@@ -95,15 +149,7 @@ public class UnitAI : MonoBehaviour
         else
             return null;
     }
-    void PursueEnemy()
-    {
-        Player enemyPlayer = Player.me;
-        if (enemyPlayer.units.Count > 0)
-        {
-            AttackUnit(enemyPlayer.units[Random.Range(0, enemyPlayer.units.Count)]);
-        }
 
-    }
 
     public void AttackUnit(Unit target)
     {
@@ -111,10 +157,19 @@ public class UnitAI : MonoBehaviour
         SetState(AIUnitState.MoveToEnemy);
     }
 
+    public void TakeDamage(int damage)
+    {
+        curHp -= damage;
+        if (curHp <= 0)
+            Die();
+
+        healthBar.UpdateHealthBar(curHp, maxHp);
+    }
+
     void Die()
     {
 
-        playerAI.units.Remove(this);
+        PlayerAI.enemy.units.Remove(this);
         Destroy(gameObject);
         
     }

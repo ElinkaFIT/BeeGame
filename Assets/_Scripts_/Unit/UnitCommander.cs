@@ -55,13 +55,11 @@ public class UnitCommander : MonoBehaviour
                     UnitsToWork(hit.collider.GetComponent<Room>(), selectedUnits);
 
                 }
-                else if (hit.collider.CompareTag("Unit"))
+                else if (hit.collider.CompareTag("AIUnit"))
                 {
-                    Unit enemy = hit.collider.gameObject.GetComponent<Unit>();
-                    if (!Player.me.IsMyUnit(enemy))
-                    {
-                        UnitsAttackEnemy(enemy, selectedUnits);
-                    }
+                    UnitAI enemy = hit.collider.gameObject.GetComponent<UnitAI>();
+                    UnitsAttackEnemy(enemy, selectedUnits);
+
                 }
 
             }
@@ -69,7 +67,7 @@ public class UnitCommander : MonoBehaviour
         }
     }
 
-    void UnitsAttackEnemy(Unit target, Unit[] units)
+    void UnitsAttackEnemy(UnitAI target, Unit[] units)
     {
         for (int x = 0; x < units.Length; x++)
             units[x].AttackUnit(target);

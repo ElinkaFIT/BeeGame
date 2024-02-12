@@ -49,7 +49,7 @@ public class Unit : MonoBehaviour
     public float buildRate;
     private float lastBuildTime;
 
-    private Unit curEnemyTarget;
+    private UnitAI curEnemyTarget;
     private ResourceSource curResourceSource;
     private Room curBuildRoom;
 
@@ -317,7 +317,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void AttackUnit(Unit target)
+    public void AttackUnit(UnitAI target)
     {
         curEnemyTarget = target;
         SetState(UnitState.MoveToEnemy);
