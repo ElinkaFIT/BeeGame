@@ -8,7 +8,8 @@ public enum RoomType
     House,
     Queen,
     Nursery,
-    Warehouse
+    Warehouse,
+    RestRoom
 }
 
 [CreateAssetMenu(fileName = "Building Preset", menuName = "New Building Preset")]

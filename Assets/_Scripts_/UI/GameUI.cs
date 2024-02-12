@@ -12,6 +12,11 @@ public class GameUI : MonoBehaviour
     public TextMeshProUGUI beesText;
     public TextMeshProUGUI enemyText;
 
+    public TextMeshProUGUI nectarCapacity;
+    public TextMeshProUGUI waterCapacity;
+    public TextMeshProUGUI waxCapacity;
+    public TextMeshProUGUI propolisCapacity;
+
     public static GameUI instance;
     void Awake()
     {
@@ -23,9 +28,19 @@ public class GameUI : MonoBehaviour
         nectarText.text = value.ToString();
     }
 
+    public void UpdateNectarCapacity(int value)
+    {
+        nectarCapacity.text = "/ " + value.ToString();
+    }
+
     public void UpdateWaterText(int value)
     {
         waterText.text = value.ToString();
+    }
+
+    public void UpdateWaterCapacity(int value)
+    {
+        waterCapacity.text = "/ " + value.ToString();
     }
 
     public void UpdateWaxText(int value)
@@ -33,9 +48,19 @@ public class GameUI : MonoBehaviour
         waxText.text = value.ToString();
     }
 
+    public void UpdateWaxCapacity(int value)
+    {
+        waxCapacity.text = " /" + value.ToString();
+    }
+
     public void UpdatePropolisText(int value)
     {
         propolisText.text = value.ToString();
+    }
+
+    public void UpdatePropolisCapacity(int value)
+    {
+        propolisCapacity.text = "/ " + value.ToString();
     }
 
     public void UpdateBeesText(int value)

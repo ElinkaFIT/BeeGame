@@ -7,9 +7,16 @@ using Unity.VisualScripting;
 public class Hive : MonoBehaviour
 {
     public int nectar;
+    public int nectarCapacity;
+
     public int water;
+    public int waterCapacity;
+
     public int wax;
+    public int waxCapacity;
+
     public int propolis;
+    public int propolisCapacity;
 
     public GameObject waxAbsence;
 
@@ -20,9 +27,13 @@ public class Hive : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        GameUI.instance.UpdateWaterText(water);
+        GameUI.instance.UpdateNectarCapacity(nectarCapacity);
         GameUI.instance.UpdateNectarText(nectar);
+        GameUI.instance.UpdateNectarCapacity(waterCapacity);
+        GameUI.instance.UpdateWaterText(water);
+        GameUI.instance.UpdateNectarCapacity(waxCapacity);
         GameUI.instance.UpdateWaxText(wax);
+        GameUI.instance.UpdateNectarCapacity(propolisCapacity);
         GameUI.instance.UpdatePropolisText(propolis);
     }
 
@@ -110,13 +121,25 @@ public class Hive : MonoBehaviour
         {
             case ResourceType.Nectar:
                 {
-                    nectar += amount;
+                    int newNectarValue = nectar + amount;
+                    if (newNectarValue > nectarCapacity)
+                    {
+                        nectar = nectarCapacity;
+                        // TODO hlaseni nedostatek kapacity
+                    }
+                    else { nectar = newNectarValue; }
                     GameUI.instance.UpdateNectarText(nectar);
                     break;
                 }
             case ResourceType.Water:
                 {
-                    water += amount;
+                    int newWaterValue = water + amount;
+                    if (newWaterValue > waterCapacity)
+                    {
+                        water = waterCapacity;
+                        // TODO hlaseni nedostatek kapacity
+                    }
+                    else { water = newWaterValue; }
                     GameUI.instance.UpdateWaterText(water);
                     break;
                 }
