@@ -22,25 +22,29 @@ public class UIComponents : MonoBehaviour
     /// </summary>
     public void StartGameOverReminder()
     {
-        isGameOverReminderActive = true;
-        float lastConsumptionTime = 0;
-        bool redIsOn = false;
+        gameOverReminder.SetActive(true);
 
-        while (isGameOverReminderActive)
-        {
-            if (Time.time - lastConsumptionTime > 1)
-            {
-                lastConsumptionTime = Time.time;
-                gameOverReminder.SetActive(!redIsOn);
-                redIsOn = !redIsOn;
-            }
-        }
+        //isGameOverReminderActive = true;
+        //bool redIsOn = false;
+
+        //while (isGameOverReminderActive)
+        //{
+        //    gameOverReminder.SetActive(!redIsOn);
+        //    redIsOn = !redIsOn;
+
+        //    BlinkingWait();
+        //}
 
     }
 
+    //IEnumerator BlinkingWait()
+    //{
+    //    yield return new WaitForSeconds(3f);
+    //}
+
     public void StopGameOverReminder()
     {
-        isGameOverReminderActive = false;
-
+        //isGameOverReminderActive = false;
+        gameOverReminder.SetActive(false);
     }
 }

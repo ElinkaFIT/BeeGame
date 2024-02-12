@@ -30,6 +30,9 @@ public class Queen : MonoBehaviour
     public int lowConsumptionLimit;
     public int criticalConsumptionLimit;
 
+    public float LayingEggRate;
+    private float lastLayingEggTime;
+
     private void Start()
     { 
         SetRoomState(RoomState.Blueprint);
@@ -124,13 +127,45 @@ public class Queen : MonoBehaviour
                 queenConsumption -= 1;
             }
         }
+    }
 
+    // neni void ale Room ?
+    void PickingNursery()
+    {
+         // foreach (lihen)
+         // if lihen ma opatrovnici
+         // return lihen
 
+        // jinak na konci cyklu return lihen[0]
+    }
+
+    void QueenLayingEggs()
+    {
+        
+        // prodlouzi cyklus kladeni dle toho jak je kralovna hladova
+        // TODO jeste potreba lepe vypocitat
+        float delay = 100 - queenConsumption;
+
+        // kladeni vajicek
+        if (Time.time - lastLayingEggTime > LayingEggRate + delay)
+        {
+            lastLayingEggTime = Time.time;
+            
+            PickingNursery();
+            // TODO
+            // vybere vhodnou volnou lihen
+            // list lihni = lihne ve fazi prazdné
+            // 
+            // 
+
+        }
     }
 
     void NormalQueenUpdate()
     {
         QueenConsumption();
+
+        QueenLayingEggs();
 
         // pokud dosahne okrajove hladiny konzumace prejdi do jineho stavu
         if (queenConsumption <= lowConsumptionLimit)

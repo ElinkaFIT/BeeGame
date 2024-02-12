@@ -290,7 +290,7 @@ MonoBehaviour:
   queenConsumption: 60
   consumptionRate: 1
   lowConsumptionLimit: 40
-  criticalConsumptionLimit: 4
+  criticalConsumptionLimit: 30
 --- !u!1 &6270047969573922143
 GameObject:
   m_ObjectHideFlags: 0

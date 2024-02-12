@@ -2346,7 +2346,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7d79ea3322dc24da7d1e5de8257227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverReminder: {fileID: 1049688750}
 --- !u!1 &497708896
 GameObject:
   m_ObjectHideFlags: 0
@@ -7986,7 +7985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7d79ea3322dc24da7d1e5de8257227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverReminder: {fileID: 1049688750}
 --- !u!114 &1642930318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9267,6 +9265,7 @@ GameObject:
   - component: {fileID: 2013487035}
   - component: {fileID: 2013487036}
   - component: {fileID: 2013487037}
+  - component: {fileID: 2013487038}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -9358,6 +9357,19 @@ MonoBehaviour:
   propolis: 30
   waxAbsence: {fileID: 508927872}
   rooms: []
+--- !u!114 &2013487038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013487030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dbadd5bca3b3a544a39440150f8a188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverReminder: {fileID: 1049688750}
 --- !u!1 &2018098416
 GameObject:
   m_ObjectHideFlags: 0
