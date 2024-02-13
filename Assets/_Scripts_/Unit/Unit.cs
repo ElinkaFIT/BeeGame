@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using static UnityEngine.GraphicsBuffer;
 
 public enum UnitState
 {
@@ -14,7 +15,11 @@ public enum UnitState
     MoveToBuild,
     Build,
     MoveToWork,
-    Work
+    Work,
+    MoveToFoodRoom,
+    Eat,
+    MoveToRestRoom,
+    Sleep
 }
 
 public class Unit : MonoBehaviour
@@ -49,9 +54,17 @@ public class Unit : MonoBehaviour
     public float buildRate;
     private float lastBuildTime;
 
+    public int curFeed;
+    public int maxFeed;
+
+    public int curEnergy;
+    public int maxEnergy;
+
     private UnitAI curEnemyTarget;
     private ResourceSource curResourceSource;
     private Room curBuildRoom;
+
+    public float checkRate;
 
     // events
     [System.Serializable]
@@ -61,6 +74,8 @@ public class Unit : MonoBehaviour
     private void Start()
     {
         SetState(UnitState.Idle);
+        InvokeRepeating(nameof(RecalculateHunger), 0.0f, checkRate);
+        InvokeRepeating(nameof(RecalculateEnergy), 0.0f, checkRate);
     }
     private void Awake()
     {
@@ -121,6 +136,25 @@ public class Unit : MonoBehaviour
                 WorkUpdate();
                 break;
             }
+            case UnitState.MoveToFoodRoom:
+                {
+                    break;
+                }
+            case UnitState.Eat:
+                {
+                   
+                    break;
+                }
+            case UnitState.MoveToRestRoom:
+                {
+                    MoveToRestRoomUpdate();
+                    break;
+                }
+            case UnitState.Sleep:
+                {
+                    WorkUpdate();
+                    break;
+                }
 
         }
     }
@@ -258,6 +292,75 @@ public class Unit : MonoBehaviour
         curBuildRoom.WorkInRoom(gameObject.GetComponent<Unit>());
     }
 
+    void MoveToRestRoomUpdate()
+    {
+
+        Vector2 pos = new Vector2(transform.position.x, transform.position.y);
+        Vector2 des = new Vector2();
+
+        // TODO najdi nejblizsi volny rest room
+        GameObject[] restRooms = GameObject.FindGameObjectsWithTag("RestRoom");
+
+        if (restRooms.Length > 0)
+        {
+            des = new Vector2(restRooms[0].transform.position.x, restRooms[0].transform.position.y);
+            agent.SetDestination(new Vector3(des.x, des.y, 0));
+        }
+
+        if (Vector2.Distance(pos, des) < 0.01f)
+        {
+            SetState(UnitState.Sleep);
+        }
+    }
+
+    // repeating funkce
+    void RecalculateHunger()
+    {
+        curFeed--;
+        if (curFeed <= 0)
+        {
+            Log.instance.AddNewLogText(Time.time, "Bee died of hunger", Color.red);
+            Die();
+        }
+        else if (curFeed < 15)
+        {
+            // prestane pracovat a jde se najist
+
+        }
+
+        if (curFeed < 5)
+        {
+            // Log.instance.AddNewLogText(Time.time, "Bee is starving", Color.red);
+        }
+    }
+
+    void RecalculateEnergy()
+    {
+        // tady odebere energii podle toho v jakem je unitstate
+        switch (state)
+        {
+            // pokud se nekam pohybuje
+            case (UnitState)1 or (UnitState)2 or (UnitState)4 or (UnitState)6 or (UnitState)8 or (UnitState)10 or (UnitState)12:
+                {
+                    curEnergy -= 1;
+                    break;
+                }
+            // pokud pracuje
+            case (UnitState)3 or (UnitState)5 or (UnitState)7 or (UnitState)9:
+                {
+                    curEnergy -= 3;
+                    break;
+                }
+            // pokud je v IDLE nebo jine nenarocne cinnosti
+            default: { break; }
+        }
+
+        // pokud dojde energie prestane pracovat a jde spat
+        if(curEnergy <= 0)
+        {
+            SetState(UnitState.MoveToRestRoom);
+        }
+    }
 
     // zobrazit vyber jednotky
     public void ToggleSelectionVisual(bool selected)
@@ -301,7 +404,7 @@ public class Unit : MonoBehaviour
     void SetState(UnitState toState)
     {
         // pokud pracovala, prestane odchodem pracovat
-        if (state == UnitState.Work)
+        if (state == UnitState.Work || state == UnitState.Sleep)
         {
             curBuildRoom.StopWorkInRoom(gameObject.GetComponent<Unit>());
         }

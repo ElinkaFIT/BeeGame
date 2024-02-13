@@ -171,6 +171,11 @@ MonoBehaviour:
   gatherRate: 0.5
   buildAmount: 1
   buildRate: 0.5
+  curFeed: 50
+  maxFeed: 100
+  curEnergy: 50
+  maxEnergy: 100
+  checkRate: 2
   onStateChange:
     m_PersistentCalls:
       m_Calls: []

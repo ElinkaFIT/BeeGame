@@ -11,6 +11,9 @@ TagManager:
   - EmptyRoom
   - Queen
   - Nursery
+  - AIUnit
+  - RestRoom
+  - FoodRoom
   layers:
   - Default
   - TransparentFX

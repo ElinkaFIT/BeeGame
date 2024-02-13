@@ -18,8 +18,9 @@ public class GameOver : MonoBehaviour
         Pause();
     }
 
-    public void Reset()
+    public void RestartGame()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Game");
     }
 
@@ -41,6 +42,7 @@ public class GameOver : MonoBehaviour
 
     public void MainMenu()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
     }
 

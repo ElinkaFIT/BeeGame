@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -153,8 +152,7 @@ public class Nursery : MonoBehaviour
             // larva zemrela
             if(newBeeConsumption <= 0)
             {
-                Debug.Log("UPOZORNENI");
-                Debug.Log("larva zemrela");
+                Log.instance.AddNewLogText(Time.time, "Larva did not survive", Color.red);
 
                 careIdentifire = 0;
                 newBeeConsumption = startBeeConsumption;
@@ -162,13 +160,12 @@ public class Nursery : MonoBehaviour
             }
             else if (newBeeConsumption < lowConsumptionLimit)
             {
-                Debug.Log("UPOZORNENI");
-                Debug.Log("larva hladovi");
+                // larva hladovi
             }
         }
         else
         {
-            Debug.Log("cas dobehl");
+            Log.instance.AddNewLogText(Time.time, "Larva pupated", Color.black);
             timeOfStartGrow = 0;
             timeOfStartPupation = Time.time;
             SetNurseryState(NurseryState.WaitingForLive);
@@ -189,7 +186,7 @@ public class Nursery : MonoBehaviour
 
     void NewBeeUpdate()
     {
-        Debug.Log(careIdentifire);
+        Log.instance.AddNewLogText(Time.time, "A new bee was born", Color.black);
         Vector3 spawnPosition = new Vector3(0,0,0);
 
         GameObject newBee = Instantiate(beePrefab, spawnPosition, Quaternion.identity);
@@ -205,6 +202,7 @@ public class Nursery : MonoBehaviour
     void SetNewBee(GameObject newBee)
     {
         // vypocet atributu vcely
+        // TODO vyrovnat hodnoty (pohrat si s vypoctem)
         Unit newUnit = newBee.GetComponent<Unit>();
 
         Player.me.units.Add(newUnit);
@@ -215,6 +213,12 @@ public class Nursery : MonoBehaviour
         newUnit.maxAttackDamage = 2 * careIdentifire / 5;
         newUnit.gatherAmount = careIdentifire / 5;
         newUnit.buildAmount = 2 * careIdentifire / 5;
+
+        newUnit.curFeed = newBeeConsumption;
+        newUnit.maxFeed = 100;
+        newUnit.curEnergy = 50;
+        newUnit.maxEnergy = 100;
+
 
     }
 

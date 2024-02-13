@@ -179,7 +179,7 @@ public class Queen : MonoBehaviour
             Room pickedRoom = PickingNursery();
             if (pickedRoom != null)
             {
-                Debug.Log("Nove vajicko nakladeno do" + pickedRoom);
+                Log.instance.AddNewLogText(Time.time, "Queen lay a new egg", Color.black);
                 pickedRoom.gameObject.GetComponent<Nursery>().AddNewEgg();
 
             }
@@ -196,6 +196,7 @@ public class Queen : MonoBehaviour
         // pokud dosahne okrajove hladiny konzumace prejdi do jineho stavu
         if (queenConsumption <= lowConsumptionLimit)
         {
+            Log.instance.AddNewLogText(Time.time, "Queen is hungry", Color.red);
             SetQueenState(QueenState.Hungry);
         }
     }
@@ -208,6 +209,7 @@ public class Queen : MonoBehaviour
         // pokud dosahne okrajove hladiny konzumace prejdi do jineho stavu
         if (queenConsumption <= criticalConsumptionLimit)
         {
+            Log.instance.AddNewLogText(Time.time, "Queen is starving", Color.red);
             SetQueenState(QueenState.QueenIsDying);
         }
         else if (queenConsumption > lowConsumptionLimit)

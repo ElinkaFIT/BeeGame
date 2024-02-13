@@ -154,7 +154,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.92307687, a: 0.6862745}
+  m_Color: {r: 0.5178572, g: 0.25, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -175,9 +175,9 @@ GameObject:
   - component: {fileID: 5112717831301658528}
   - component: {fileID: 6632012906290437813}
   - component: {fileID: 3203572660696476118}
-  - component: {fileID: -1007802997734292662}
+  - component: {fileID: -2825304924393259829}
   m_Layer: 11
-  m_Name: RestRoom
+  m_Name: FoodRoom
   m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb83434ba2402048a245ce38dd6b24f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preset: {fileID: 11400000, guid: 7aa73990540c71343815bf71ac72d6c1, type: 2}
+  preset: {fileID: 11400000, guid: ed5d6f7c708574040a2d0bef5b8f41db, type: 2}
   progressBar: {fileID: 2468487547999082038}
   doneIcon: {fileID: 1339673689780979466}
   buildProgress: 1
@@ -270,7 +270,7 @@ PolygonCollider2D:
       - {x: 0, y: -1}
       - {x: 0.866, y: -0.5}
   m_UseDelaunayMesh: 0
---- !u!114 &-1007802997734292662
+--- !u!114 &-2825304924393259829
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,13 +279,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3233998705632412183}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e50a2ae7ac6100f40a65fbafc01b006e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ebcf5bbf551fa84d9e22b537f52a01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
   curBuildRoom: {fileID: 6632012906290437813}
-  restCapacity: 5
-  restRate: 1
+  roomCapacity: 5
+  eatRate: 1
   onStateChange:
     m_PersistentCalls:
       m_Calls: []
@@ -363,7 +363,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 0.15566039, g: 1, b: 0.8730772, a: 0.28235295}
+  m_Color: {r: 0.7091384, g: 0.4009434, b: 1, a: 0.28235295}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

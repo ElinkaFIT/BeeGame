@@ -125,7 +125,7 @@ public class Hive : MonoBehaviour
                     if (newNectarValue > nectarCapacity)
                     {
                         nectar = nectarCapacity;
-                        // TODO hlaseni nedostatek kapacity
+                        Log.instance.AddNewLogText(Time.time, "Capacity of nectar is full", Color.red);
                     }
                     else { nectar = newNectarValue; }
                     GameUI.instance.UpdateNectarText(nectar);
@@ -137,7 +137,7 @@ public class Hive : MonoBehaviour
                     if (newWaterValue > waterCapacity)
                     {
                         water = waterCapacity;
-                        // TODO hlaseni nedostatek kapacity
+                        Log.instance.AddNewLogText(Time.time, "Capacity of water is full", Color.red);
                     }
                     else { water = newWaterValue; }
                     GameUI.instance.UpdateWaterText(water);

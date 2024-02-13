@@ -50,7 +50,7 @@ public class UnitCommander : MonoBehaviour
                     UnitsBuildRoom(hit.collider.GetComponent<Room>(), selectedUnits);
 
                 }
-                else if (hit.collider.CompareTag("Queen") || hit.collider.CompareTag("Nursery"))
+                else if (hit.collider.CompareTag("Queen") || hit.collider.CompareTag("Nursery") || hit.collider.CompareTag("RestRoom") || hit.collider.CompareTag("FoodRoom"))
                 {
                     UnitsToWork(hit.collider.GetComponent<Room>(), selectedUnits);
 
