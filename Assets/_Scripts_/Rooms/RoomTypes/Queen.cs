@@ -169,7 +169,7 @@ public class Queen : MonoBehaviour
         
         // prodlouzi cyklus kladeni dle toho jak je kralovna hladova
         // TODO jeste potreba lepe vypocitat
-        float delay = 100 - queenConsumption;
+        float delay = 50 - queenConsumption;
 
         // kladeni vajicek
         if (Time.time - lastLayingEggTime > LayingEggRate + delay)

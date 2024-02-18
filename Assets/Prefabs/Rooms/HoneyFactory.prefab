@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.394}
   m_SizeDelta: {x: 1.5, y: 0.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &243419323235063618
@@ -100,12 +100,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1339673689780979466}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5112717831301658528}
+  m_Father: {fileID: 5056447749979082405}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -154,7 +154,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 1, g: 0.91838396, b: 0, a: 0.5803922}
+  m_Color: {r: 0.8030298, g: 1, b: 0, a: 0.5803922}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -175,8 +175,9 @@ GameObject:
   - component: {fileID: 5112717831301658528}
   - component: {fileID: 6632012906290437813}
   - component: {fileID: 3203572660696476118}
+  - component: {fileID: -1841661285359591157}
   m_Layer: 11
-  m_Name: Test
+  m_Name: HoneyFactory
   m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -196,7 +197,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7971559673237179102}
-  - {fileID: 8754965002533698213}
   - {fileID: 5056447749979082405}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -212,14 +212,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb83434ba2402048a245ce38dd6b24f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preset: {fileID: 11400000, guid: 21edc4ecf9913914b99ce4b95c4df8fe, type: 2}
-  state: 0
+  preset: {fileID: 11400000, guid: 6f02925eee5320c409a0ebaf0c6f8ed3, type: 2}
   progressBar: {fileID: 2468487547999082038}
   doneIcon: {fileID: 1339673689780979466}
   buildProgress: 1
-  onStateChange:
-    m_PersistentCalls:
-      m_Calls: []
+  buildModifier: 10
+  concructionDone: 0
+  roomWorkers: []
 --- !u!60 &3203572660696476118
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -271,6 +270,23 @@ PolygonCollider2D:
       - {x: 0, y: -1}
       - {x: 0.866, y: -0.5}
   m_UseDelaunayMesh: 0
+--- !u!114 &-1841661285359591157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3233998705632412183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46150cedd62341d48812283d5014cc08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  curBuildRoom: {fileID: 6632012906290437813}
+  onStateChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6270047969573922143
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,8 +298,8 @@ GameObject:
   - component: {fileID: 7971559673237179102}
   - component: {fileID: 8003751947007770461}
   m_Layer: 11
-  m_Name: 'Room '
-  m_TagString: Room
+  m_Name: RoomColor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -345,7 +361,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 0.998996, g: 1, b: 0, a: 0.28235295}
+  m_Color: {r: 0.82061434, g: 1, b: 0, a: 0.57254905}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -382,17 +398,18 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7554956649845409557}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8754965002533698213}
   - {fileID: 8158237514629497001}
   m_Father: {fileID: 5112717831301658528}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 960, y: 540}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1.5, y: 0.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1616607776162488194
 Canvas:
@@ -411,8 +428,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0

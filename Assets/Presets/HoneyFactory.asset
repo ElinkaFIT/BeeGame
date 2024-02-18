@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 768bb30843ce1f64290c853c64e7049f, type: 3}
-  m_Name: Room
+  m_Name: HoneyFactory
   m_EditorClassIdentifier: 
   roomType: 0
   waxCost: 3

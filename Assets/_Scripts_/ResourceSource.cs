@@ -8,7 +8,7 @@ public enum ResourceType
     Nectar,
     Water,
     Wax,
-    Propolis
+    Pollen
 }
 
 

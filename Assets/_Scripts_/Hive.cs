@@ -15,8 +15,8 @@ public class Hive : MonoBehaviour
     public int wax;
     public int waxCapacity;
 
-    public int propolis;
-    public int propolisCapacity;
+    public int pollen;
+    public int pollenCapacity;
 
     public GameObject waxAbsence;
 
@@ -33,8 +33,8 @@ public class Hive : MonoBehaviour
         GameUI.instance.UpdateWaterText(water);
         GameUI.instance.UpdateNectarCapacity(waxCapacity);
         GameUI.instance.UpdateWaxText(wax);
-        GameUI.instance.UpdateNectarCapacity(propolisCapacity);
-        GameUI.instance.UpdatePropolisText(propolis);
+        GameUI.instance.UpdateNectarCapacity(pollenCapacity);
+        GameUI.instance.UpdatePropolisText(pollen);
     }
 
     public void RemoveMaterial(ResourceType resourceType)
@@ -53,9 +53,9 @@ public class Hive : MonoBehaviour
                 wax--;
                 GameUI.instance.UpdateWaterText(wax);
                 break;
-            case ResourceType.Propolis:
-                propolis--;
-                GameUI.instance.UpdateWaterText(propolis);
+            case ResourceType.Pollen:
+                pollen--;
+                GameUI.instance.UpdateWaterText(pollen);
                 break;
             default:
                 break;
@@ -69,11 +69,6 @@ public class Hive : MonoBehaviour
             waxAbsence.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.red;
             waxAbsence.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = Color.red;
             GameUI.instance.UpdateWaxText(wax);
-            return;
-        }
-        else if (propolis < preset.propolisCost)
-        {
-            Debug.Log("Neni dostatek propolisu");
             return;
         }
 
@@ -97,7 +92,6 @@ public class Hive : MonoBehaviour
         }
 
         wax -= preset.waxCost;
-        propolis -= preset.propolisCost;
 
         GameObject newObject = Instantiate(preset.prefab, curIndicatorPos, Quaternion.identity);
         Room newRoom = newObject.GetComponent<Room>();
@@ -109,7 +103,6 @@ public class Hive : MonoBehaviour
     public void OnRemoveBuilding(Room room)
     {
         wax += room.preset.waxCost;
-        propolis += room.preset.propolisCost;
         rooms.Remove(room);
         Destroy(room.gameObject);
         GameUI.instance.UpdateWaxText(wax);

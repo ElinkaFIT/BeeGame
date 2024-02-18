@@ -154,7 +154,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 1, g: 0.11814082, b: 0, a: 0.5803922}
+  m_Color: {r: 0.048704147, g: 1, b: 0, a: 0.5803922}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -175,9 +175,9 @@ GameObject:
   - component: {fileID: 5112717831301658528}
   - component: {fileID: 6632012906290437813}
   - component: {fileID: 3203572660696476118}
-  - component: {fileID: 5891165187026672759}
+  - component: {fileID: -1841661285359591157}
   m_Layer: 11
-  m_Name: Queen
+  m_Name: WaxFactory
   m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb83434ba2402048a245ce38dd6b24f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preset: {fileID: 11400000, guid: ec344f2b3cee20840b2a891c6277acf4, type: 2}
+  preset: {fileID: 11400000, guid: 9ccb38ae1cbf43640a6548c8dad7b600, type: 2}
   progressBar: {fileID: 2468487547999082038}
   doneIcon: {fileID: 1339673689780979466}
   buildProgress: 1
@@ -270,7 +270,7 @@ PolygonCollider2D:
       - {x: 0, y: -1}
       - {x: 0.866, y: -0.5}
   m_UseDelaunayMesh: 0
---- !u!114 &5891165187026672759
+--- !u!114 &-1841661285359591157
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,20 +279,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3233998705632412183}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 374f859fd27830545bd486f00a60bc7b, type: 3}
+  m_Script: {fileID: 11500000, guid: 46150cedd62341d48812283d5014cc08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  queenState: 0
   curBuildRoom: {fileID: 6632012906290437813}
   onStateChange:
     m_PersistentCalls:
       m_Calls: []
-  queenConsumption: 60
-  consumptionRate: 1
-  lowConsumptionLimit: 30
-  criticalConsumptionLimit: 5
-  LayingEggRate: 10
 --- !u!1 &6270047969573922143
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,7 +361,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 1, g: 0.31193793, b: 0, a: 0.28235295}
+  m_Color: {r: 0, g: 1, b: 0.1812067, a: 0.28235295}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

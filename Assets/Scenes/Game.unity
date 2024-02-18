@@ -1507,7 +1507,7 @@ GameObject:
   - component: {fileID: 219339567}
   - component: {fileID: 219339566}
   m_Layer: 5
-  m_Name: PropolisValue
+  m_Name: PollenValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6006,7 +6006,7 @@ GameObject:
   - component: {fileID: 1116007248}
   - component: {fileID: 1116007247}
   m_Layer: 5
-  m_Name: PropolisText
+  m_Name: PollenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6051,7 +6051,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Propolis:'
+  m_text: 'Pollen:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6947,7 +6947,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1315360423}
   m_Layer: 5
-  m_Name: Propolis
+  m_Name: Pollen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8182,7 +8182,7 @@ GameObject:
   - component: {fileID: 1534148363}
   - component: {fileID: 1534148362}
   m_Layer: 5
-  m_Name: PropolisCapacity
+  m_Name: PollenCapacity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9026,7 +9026,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -198.7, y: 0.000030517578}
+  m_AnchoredPosition: {x: -198.7, y: 0}
   m_SizeDelta: {x: 372.65, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1670851671
@@ -9961,7 +9961,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 122901221}
   m_HandleRect: {fileID: 122901220}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -11263,7 +11263,11 @@ PrefabInstance:
       objectReference: {fileID: 2028162518}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: curFeed
-      value: 70
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
+      propertyPath: maxFeed
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: buildRate
@@ -11275,12 +11279,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: curEnergy
-      value: 100
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1940944417}
+    - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
+      propertyPath: maxEnergy
+      value: 2000
+      objectReference: {fileID: 0}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: attackRate
       value: 0.5
