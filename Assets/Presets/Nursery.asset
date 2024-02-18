@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768bb30843ce1f64290c853c64e7049f, type: 3}
   m_Name: Nursery
   m_EditorClassIdentifier: 
-  roomType: 3
+  roomType: 1
   prefab: {fileID: 3233998705632412183, guid: 4a2787d7b50c65e4699bce2c4b18c2b3, type: 3}
   waxCost: 3
-  propolisCost: 3
   costPerTurn: 1
+  workersCapacity: 3

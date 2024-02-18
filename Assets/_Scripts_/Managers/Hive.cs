@@ -18,6 +18,8 @@ public class Hive : MonoBehaviour
     public int pollen;
     public int pollenCapacity;
 
+    public int honey;
+
     public GameObject waxAbsence;
 
     public List<Room> rooms = new List<Room>();
@@ -29,12 +31,17 @@ public class Hive : MonoBehaviour
         instance = this;
         GameUI.instance.UpdateNectarCapacity(nectarCapacity);
         GameUI.instance.UpdateNectarText(nectar);
-        GameUI.instance.UpdateNectarCapacity(waterCapacity);
+
+        GameUI.instance.UpdateWaterCapacity(waterCapacity);
         GameUI.instance.UpdateWaterText(water);
-        GameUI.instance.UpdateNectarCapacity(waxCapacity);
+
+        GameUI.instance.UpdateWaxCapacity(waxCapacity);
         GameUI.instance.UpdateWaxText(wax);
-        GameUI.instance.UpdateNectarCapacity(pollenCapacity);
-        GameUI.instance.UpdatePropolisText(pollen);
+
+        GameUI.instance.UpdatePollenCapacity(pollenCapacity);
+        GameUI.instance.UpdatePollenText(pollen);
+
+        GameUI.instance.UpdateHoneyText(honey);
     }
 
     public void RemoveMaterial(ResourceType resourceType)
@@ -42,20 +49,58 @@ public class Hive : MonoBehaviour
         switch (resourceType)
         {
             case ResourceType.Nectar:
-                nectar--;
-                GameUI.instance.UpdateNectarText(nectar);
+                if (nectar <= 0)
+                {
+                    Log.instance.AddNewLogText(Time.time, "Amount of nectar is low", Color.black);
+                }
+                else{
+                    nectar--;
+                    GameUI.instance.UpdateNectarText(nectar);
+                }
                 break;
             case ResourceType.Water:
-                water--;
-                GameUI.instance.UpdateWaterText(water);
+                if (water <= 0)
+                {
+                    Log.instance.AddNewLogText(Time.time, "Amount of water is low", Color.black);
+                }
+                else
+                {
+                    water--;
+                    GameUI.instance.UpdateWaterText(water);
+                }
                 break;
             case ResourceType.Wax:
-                wax--;
-                GameUI.instance.UpdateWaterText(wax);
+                if (wax <= 0)
+                {
+                    Log.instance.AddNewLogText(Time.time, "Amount of wax is low", Color.black);
+                }
+                else
+                {
+                    wax--;
+                    GameUI.instance.UpdateWaxText(wax);
+                }
                 break;
             case ResourceType.Pollen:
-                pollen--;
-                GameUI.instance.UpdateWaterText(pollen);
+                if (pollen <= 0)
+                {
+                    Log.instance.AddNewLogText(Time.time, "Amount of pollen is low", Color.black);
+                }
+                else
+                {
+                    pollen--;
+                    GameUI.instance.UpdatePollenText(pollen);
+                }
+                break;
+            case ResourceType.Honey:
+                if (honey <= 0)
+                {
+                    Log.instance.AddNewLogText(Time.time, "Amount of honey is low", Color.black);
+                }
+                else
+                {
+                    honey--;
+                    GameUI.instance.UpdateHoneyText(honey);
+                }
                 break;
             default:
                 break;
@@ -134,6 +179,36 @@ public class Hive : MonoBehaviour
                     }
                     else { water = newWaterValue; }
                     GameUI.instance.UpdateWaterText(water);
+                    break;
+                }
+            case ResourceType.Pollen:
+                {
+                    int newPollenValue = pollen + amount;
+                    if (newPollenValue > pollenCapacity)
+                    {
+                        pollen = pollenCapacity;
+                        Log.instance.AddNewLogText(Time.time, "Capacity of pollen is full", Color.red);
+                    }
+                    else { pollen = newPollenValue; }
+                    GameUI.instance.UpdatePollenText(pollen);
+                    break;
+                }
+            case ResourceType.Wax:
+                {
+                    int newValue = wax + amount;
+                    if (newValue > waxCapacity)
+                    {
+                        wax = waxCapacity;
+                        Log.instance.AddNewLogText(Time.time, "Capacity of wax is full", Color.red);
+                    }
+                    else { wax = newValue; }
+                    GameUI.instance.UpdateWaxText(wax);
+                    break;
+                }
+            case ResourceType.Honey:
+                {
+                    honey += amount;
+                    GameUI.instance.UpdateHoneyText(honey);
                     break;
                 }
         }

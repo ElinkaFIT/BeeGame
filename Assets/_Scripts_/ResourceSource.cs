@@ -8,7 +8,8 @@ public enum ResourceType
     Nectar,
     Water,
     Wax,
-    Pollen
+    Pollen,
+    Honey
 }
 
 

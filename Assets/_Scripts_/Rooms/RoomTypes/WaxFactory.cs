@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class RoomTypeDuplicate : MonoBehaviour
+public class WaxFactory : MonoBehaviour
 {
 
     public RoomState state;
     public Room curBuildRoom;
+
+    public float productionRate;
+    private float lastProductionTime;
 
     // events
     [System.Serializable]
@@ -17,6 +20,7 @@ public class RoomTypeDuplicate : MonoBehaviour
     private void Start()
     {
         SetRoomState(RoomState.Blueprint);
+        
     }
 
     void Update()
@@ -52,12 +56,24 @@ public class RoomTypeDuplicate : MonoBehaviour
         if (curBuildRoom.concructionDone == true)
         {
             SetRoomState(RoomState.Built);
+            gameObject.tag = "WaxFactory";
         }
     }
 
     void BuiltUpdate()
     {
+        // tvorba nove suroviny
+        if (Time.time - lastProductionTime > productionRate)
+        {
+            lastProductionTime = Time.time;
 
+            if (curBuildRoom.roomWorkers.Count > 0)
+            {
+                Hive.instance.GainResource(ResourceType.Wax, 1);
+            }
+            
+
+        }
     }
 
     public void SetRoomState(RoomState toState)

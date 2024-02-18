@@ -12,11 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768bb30843ce1f64290c853c64e7049f, type: 3}
   m_Name: WaxFactory
   m_EditorClassIdentifier: 
-  roomType: 0
+  roomType: 6
+  prefab: {fileID: 3233998705632412183, guid: 9f0993254d762a547b8f230fb506590c, type: 3}
   waxCost: 3
-  propolisCost: 3
   costPerTurn: 1
-  prefab: {fileID: 3233998705632412183, guid: 4addf65115ceca54196f01ff8f490fe9, type: 3}
-  population: 1
-  jobs: 1
-  food: 1
+  workersCapacity: 1

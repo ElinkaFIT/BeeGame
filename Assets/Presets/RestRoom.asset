@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768bb30843ce1f64290c853c64e7049f, type: 3}
   m_Name: RestRoom
   m_EditorClassIdentifier: 
-  roomType: 5
+  roomType: 3
   prefab: {fileID: 3233998705632412183, guid: 2a9104757bc29274c9065b3b9af1ac72, type: 3}
   waxCost: 3
-  propolisCost: 3
-  costPerTurn: 1
+  costPerTurn: 0
+  workersCapacity: 5

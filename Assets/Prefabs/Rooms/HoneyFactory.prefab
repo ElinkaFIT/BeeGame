@@ -279,11 +279,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3233998705632412183}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46150cedd62341d48812283d5014cc08, type: 3}
+  m_Script: {fileID: 11500000, guid: 8426e405496a1d94784c856b18a5f897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
   curBuildRoom: {fileID: 6632012906290437813}
+  productionRate: 6
   onStateChange:
     m_PersistentCalls:
       m_Calls: []

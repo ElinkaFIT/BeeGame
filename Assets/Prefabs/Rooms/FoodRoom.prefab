@@ -284,8 +284,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   curBuildRoom: {fileID: 6632012906290437813}
+  feedRate: 1
   roomCapacity: 5
-  eatRate: 1
+  eatAmount: 10
   onStateChange:
     m_PersistentCalls:
       m_Calls: []

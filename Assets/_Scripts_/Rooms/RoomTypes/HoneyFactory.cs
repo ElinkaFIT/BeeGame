@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class House : MonoBehaviour
+public class HoneyFactory : MonoBehaviour
 {
 
     public RoomState state;
     public Room curBuildRoom;
+
+    public float productionRate;
+    private float lastProductionTime;
 
     // events
     [System.Serializable]
@@ -52,12 +55,27 @@ public class House : MonoBehaviour
         if (curBuildRoom.concructionDone == true)
         {
             SetRoomState(RoomState.Built);
+            gameObject.tag = "HoneyFactory";
         }
     }
 
     void BuiltUpdate()
     {
+        // tvorba nove suroviny
+        if (Time.time - lastProductionTime > productionRate)
+        {
+            lastProductionTime = Time.time;
 
+            bool isNectarAvailable = Hive.instance.nectar > 0;
+
+            if (curBuildRoom.roomWorkers.Count > 0 && isNectarAvailable)
+            {
+                Hive.instance.RemoveMaterial(ResourceType.Nectar);
+                Hive.instance.GainResource(ResourceType.Honey, 1);
+            }
+
+
+        }
     }
 
     public void SetRoomState(RoomState toState)

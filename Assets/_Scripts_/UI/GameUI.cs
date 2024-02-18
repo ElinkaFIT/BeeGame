@@ -8,14 +8,17 @@ public class GameUI : MonoBehaviour
     public TextMeshProUGUI nectarText;
     public TextMeshProUGUI waterText;
     public TextMeshProUGUI waxText;
-    public TextMeshProUGUI propolisText;
-    public TextMeshProUGUI beesText;
-    public TextMeshProUGUI enemyText;
+    public TextMeshProUGUI pollenText;
+    public TextMeshProUGUI honeyText;
 
     public TextMeshProUGUI nectarCapacity;
     public TextMeshProUGUI waterCapacity;
     public TextMeshProUGUI waxCapacity;
-    public TextMeshProUGUI propolisCapacity;
+    public TextMeshProUGUI pollenCapacity;
+    public TextMeshProUGUI honeyCapacity;
+
+    public TextMeshProUGUI beesText;
+    public TextMeshProUGUI enemyText;
 
     public static GameUI instance;
     void Awake()
@@ -23,6 +26,7 @@ public class GameUI : MonoBehaviour
         instance = this;
     }
 
+    // Nectar
     public void UpdateNectarText(int value)
     {
         nectarText.text = value.ToString();
@@ -33,6 +37,7 @@ public class GameUI : MonoBehaviour
         nectarCapacity.text = "/ " + value.ToString();
     }
 
+    // Water
     public void UpdateWaterText(int value)
     {
         waterText.text = value.ToString();
@@ -43,6 +48,7 @@ public class GameUI : MonoBehaviour
         waterCapacity.text = "/ " + value.ToString();
     }
 
+    // Wax
     public void UpdateWaxText(int value)
     {
         waxText.text = value.ToString();
@@ -53,16 +59,29 @@ public class GameUI : MonoBehaviour
         waxCapacity.text = " /" + value.ToString();
     }
 
-    public void UpdatePropolisText(int value)
+    // Pollen
+    public void UpdatePollenText(int value)
     {
-        propolisText.text = value.ToString();
+        pollenText.text = value.ToString();
     }
 
-    public void UpdatePropolisCapacity(int value)
+    public void UpdatePollenCapacity(int value)
     {
-        propolisCapacity.text = "/ " + value.ToString();
+        pollenCapacity.text = "/ " + value.ToString();
     }
 
+    // Honey
+    public void UpdateHoneyText(int value)
+    {
+        honeyText.text = value.ToString();
+    }
+
+    public void UpdateHoneyCapacity(int value)
+    {
+        honeyCapacity.text = "/ " + value.ToString();
+    }
+
+    // Units
     public void UpdateBeesText(int value)
     {
         beesText.text = value.ToString();

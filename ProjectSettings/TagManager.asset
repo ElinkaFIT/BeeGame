@@ -14,6 +14,8 @@ TagManager:
   - AIUnit
   - RestRoom
   - FoodRoom
+  - HoneyFactory
+  - WaxFactory
   layers:
   - Default
   - TransparentFX
