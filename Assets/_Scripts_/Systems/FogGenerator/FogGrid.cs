@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+
+public class FogGrid : MonoBehaviour
+{
+    public int width;
+    public int height;
+
+    public FogTile tilePrefab;
+
+    private void Start()
+    {
+        GridGenerator();
+    }
+    void GridGenerator()
+    {
+        int startX = (int)transform.position.x;
+        int startY = (int)transform.position.y;
+
+        // ziska velikost skoku dle velikosti policka
+        int tileShiftX = (int)tilePrefab.gameObject.GetComponent<Transform>().localScale.x;
+        int tileShiftY = (int)tilePrefab.gameObject.GetComponent<Transform>().localScale.y;
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                int positionX = startX + x * tileShiftX;
+                int positionY = startY + y * tileShiftY;
+                var newTile = Instantiate(tilePrefab, new Vector3(positionX, positionY), Quaternion.identity);
+            }
+        }
+    }
+
+}

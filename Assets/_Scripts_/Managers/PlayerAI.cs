@@ -21,7 +21,7 @@ public class PlayerAI : MonoBehaviour
     void Start()
     {
         enemy = this;
-        InvokeRepeating("SpawnUnit", 0.0f, Random.Range(minSpawnRate, maxSpawnRate));
+        InvokeRepeating("SpawnUnit", maxSpawnRate, Random.Range(minSpawnRate, maxSpawnRate));
     }
 
     void Update()
