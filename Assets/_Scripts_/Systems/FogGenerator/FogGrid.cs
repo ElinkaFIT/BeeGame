@@ -8,7 +8,7 @@ public class FogGrid : MonoBehaviour
     public int width;
     public int height;
 
-    public FogTile tilePrefab;
+    public ResourceTile tilePrefab;
 
     private void Start()
     {
@@ -29,9 +29,27 @@ public class FogGrid : MonoBehaviour
             {
                 int positionX = startX + x * tileShiftX;
                 int positionY = startY + y * tileShiftY;
-                var newTile = Instantiate(tilePrefab, new Vector3(positionX, positionY), Quaternion.identity);
+
+                if (!IsInHiveSpace(positionX, positionY))
+                {
+                    var newTile = Instantiate(tilePrefab, new Vector3(positionX, positionY), Quaternion.identity);
+                }
+                 
+
             }
         }
     }
+
+    private bool IsInHiveSpace(int posX, int posY)
+    {
+        if(-20 < posX && posX < 20)
+        {
+            if(-10 < posY && posY < 20)
+            {
+                return true;
+            }
+        }
+        return false;
+    } 
 
 }

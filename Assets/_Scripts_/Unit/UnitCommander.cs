@@ -36,13 +36,14 @@ public class UnitCommander : MonoBehaviour
             {
                 unitSelection.RemoveNullUnitsFromSelection();
 
-                if (hit.collider.CompareTag("Ground"))
-                {
-                    UnitsMoveToPosition(target, selectedUnits);
-                }
-                else if (hit.collider.CompareTag("Resource"))
+                if (hit.collider.CompareTag("Resource"))
                 {
                     UnitsGatherResource(hit.collider.GetComponent<ResourceSource>(), selectedUnits);
+
+                }
+                else if (hit.collider.CompareTag("FogTile"))
+                {
+                    UnitsSearching(hit.collider.GetComponent<ResourceTile>(), selectedUnits);
 
                 }
                 else if (hit.collider.CompareTag("Room"))
@@ -62,6 +63,10 @@ public class UnitCommander : MonoBehaviour
                     UnitAI enemy = hit.collider.gameObject.GetComponent<UnitAI>();
                     UnitsAttackEnemy(enemy, selectedUnits);
 
+                }
+                else if (hit.collider.CompareTag("Ground"))
+                {
+                    UnitsMoveToPosition(target, selectedUnits);
                 }
 
             }
@@ -102,6 +107,22 @@ public class UnitCommander : MonoBehaviour
             }
         }
 
+    }
+
+    void UnitsSearching(ResourceTile tile, Unit[] units)
+    {
+        if (units.Length == 1)
+        {
+            units[0].Searching(tile, tile.transform.position);
+        }
+        else
+        {
+            for (int x = 0; x < units.Length; x++)
+            {
+                units[x].Searching(tile, tile.transform.position);
+            }
+
+        }
     }
 
     void UnitsBuildRoom(Room room, Unit[] units)

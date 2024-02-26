@@ -2302,12 +2302,20 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
+      propertyPath: searchRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: buildAmount
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: gatherAmount
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
+      propertyPath: searchAmount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: maxAttackDamage
@@ -7303,12 +7311,20 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
+      propertyPath: searchRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: buildAmount
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: gatherAmount
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
+      propertyPath: searchAmount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: maxAttackDamage
@@ -11474,12 +11490,20 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
+      propertyPath: searchRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: buildAmount
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: gatherAmount
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
+      propertyPath: searchAmount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5633322375518108516, guid: a55b229995a4a2845984b5df9a30f898, type: 3}
       propertyPath: maxAttackDamage

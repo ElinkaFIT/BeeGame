@@ -19,7 +19,9 @@ public enum UnitState
     MoveToFoodRoom,
     Eat,
     MoveToRestRoom,
-    Sleep
+    Sleep,
+    SearchMove,
+    Searching
 }
 
 public class Unit : MonoBehaviour
@@ -54,6 +56,10 @@ public class Unit : MonoBehaviour
     public float buildRate;
     private float lastBuildTime;
 
+    public int searchAmount;
+    public float searchRate;
+    private float lastSearchTime;
+
     public int curFeed;
     public int maxFeed;
 
@@ -63,6 +69,8 @@ public class Unit : MonoBehaviour
     private UnitAI curEnemyTarget;
     private ResourceSource curResourceSource;
     private Room curBuildRoom;
+
+    private ResourceTile curResourceTile;
 
     public float checkRate;
 
@@ -150,12 +158,56 @@ public class Unit : MonoBehaviour
                     MoveToRestRoomUpdate();
                     break;
                 }
+            case UnitState.SearchMove:
+                {
+                    SearchMoveUpdate();
+                    break;
+                }
+            case UnitState.Searching:
+                {
+                    SearchingUpdate();
+                    break;
+                }
             case UnitState.Sleep:
                 {
                     WorkUpdate();
                     break;
                 }
 
+        }
+    }
+
+    private void SearchingUpdate()
+    {
+        if (curResourceTile == null)
+        {
+            SetState(UnitState.Idle);
+            return;
+        }
+
+        if (Time.time - lastSearchTime > searchRate)
+        {
+            lastSearchTime = Time.time;
+            curResourceTile.SearchArea(searchAmount);
+        }
+
+    }
+
+    private void SearchMoveUpdate()
+    {
+        if (curResourceTile == null)
+        {
+            SetState(UnitState.Idle);
+            return;
+        }
+
+        Vector2 pos = new Vector2(transform.position.x, transform.position.y);
+        Vector2 des = new Vector2(agent.destination.x, agent.destination.y);
+
+
+        if (Vector2.Distance(pos, des) < 0.01f)
+        {
+            SetState(UnitState.Searching);
         }
     }
 
@@ -389,6 +441,14 @@ public class Unit : MonoBehaviour
     {
         curBuildRoom = room;
         SetState(UnitState.MoveToBuild);
+        agent.isStopped = false;
+        agent.SetDestination(pos);
+    }
+
+    public void Searching(ResourceTile tile, Vector3 pos)
+    {
+        curResourceTile = tile;
+        SetState(UnitState.SearchMove);
         agent.isStopped = false;
         agent.SetDestination(pos);
     }
