@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomType: 4
   prefab: {fileID: 3233998705632412183, guid: 5f1f4a61011c9ef49b105d5d9645fe48, type: 3}
-  waxCost: 3
+  waxCost: 2
   costPerTurn: 1
   workersCapacity: 5

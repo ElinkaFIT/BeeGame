@@ -179,7 +179,7 @@ public class Unit : MonoBehaviour
 
     private void SearchingUpdate()
     {
-        if (curResourceTile == null)
+        if (curResourceTile == null || curResourceTile.state == ResourceTileState.Exposed)
         {
             SetState(UnitState.Idle);
             return;
@@ -189,8 +189,16 @@ public class Unit : MonoBehaviour
         {
             lastSearchTime = Time.time;
             curResourceTile.SearchArea(searchAmount);
-        }
 
+            // procentualni moznost ze jednotka neprezije
+            if (Random.Range(0, 100) < curResourceTile.dangerValue / 20)
+            { 
+                Log.instance.AddNewLogText(Time.time, "Bee died while exploring the area.", Color.black);
+                Die();
+            }
+
+        }
+        
     }
 
     private void SearchMoveUpdate()
