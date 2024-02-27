@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5391297846372351428}
   - component: {fileID: 2352464530414260174}
   - component: {fileID: -6112163103436627748}
-  - component: {fileID: -2105891581350915936}
+  - component: {fileID: 3768526462139647011}
   m_Layer: 7
   m_Name: FogTileDown
   m_TagString: FogTile
@@ -56,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,9 +110,11 @@ MonoBehaviour:
   - {fileID: 6216587798057160734, guid: 6895c66cf5d4ded48afed6a48d87ed41, type: 3}
   - {fileID: 8868664587808886748, guid: f1a57c61340f12a40bde1c8f8f3d60d6, type: 3}
   dangerText: {fileID: 2547078103778301944}
+  dangerValue: 0
+  difficultyModifier: 0
   resourceCountMin: 1
   resourceCountMax: 6
---- !u!61 &-2105891581350915936
+--- !u!61 &3768526462139647011
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

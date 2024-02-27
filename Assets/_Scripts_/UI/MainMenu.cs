@@ -11,6 +11,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
+    public void StartCampaign()
+    {
+        SceneManager.LoadScene("TutorialPreset");
+    }
+
     public void GoToSettings()
     {
         SceneManager.LoadScene("Settings");

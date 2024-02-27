@@ -56,7 +56,7 @@ public class Room : MonoBehaviour
         if (curRoomHealth <= 0)
         {
             Hive.instance.rooms.Remove(this);
-            gameObject.SetActive(false);
+            Destroy(gameObject);
             return;
         }
 

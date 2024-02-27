@@ -16,5 +16,5 @@ MonoBehaviour:
   prefab: {fileID: 3233998705632412183, guid: 9f0993254d762a547b8f230fb506590c, type: 3}
   waxCost: 6
   costPerTurn: 1
-  roomHealthMax: 100
+  roomHealthMax: 20
   workersCapacity: 1

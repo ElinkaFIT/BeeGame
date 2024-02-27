@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -84,7 +87,90 @@ public class Unit : MonoBehaviour
         SetState(UnitState.Idle);
         InvokeRepeating(nameof(RecalculateHunger), 0.0f, checkRate);
         InvokeRepeating(nameof(RecalculateEnergy), 0.0f, checkRate);
+
+        InvokeRepeating(nameof(CheckForEnemies), 0.0f, checkRate);
     }
+
+    // repeating funkce
+    void RecalculateHunger()
+    {
+        curFeed--;
+        if (curFeed <= 0)
+        {
+            Log.instance.AddNewLogText(Time.time, "Bee died of hunger", Color.red);
+            Die();
+        }
+        else if (curFeed < 15)
+        {
+            // prestane pracovat a jde se najist
+
+        }
+
+        if (curFeed < 5)
+        {
+            // Log.instance.AddNewLogText(Time.time, "Bee is starving", Color.red);
+        }
+    }
+
+    void RecalculateEnergy()
+    {
+        // tady odebere energii podle toho v jakem je unitstate
+        switch (state)
+        {
+            // pokud se nekam pohybuje
+            case (UnitState)1 or (UnitState)2 or (UnitState)4 or (UnitState)6 or (UnitState)8 or (UnitState)10 or (UnitState)12:
+                {
+                    curEnergy -= 1;
+                    break;
+                }
+            // pokud pracuje
+            case (UnitState)3 or (UnitState)5 or (UnitState)7 or (UnitState)9:
+                {
+                    curEnergy -= 3;
+                    break;
+                }
+            // pokud je v IDLE nebo jine nenarocne cinnosti
+            default: { break; }
+        }
+
+        // pokud dojde energie prestane pracovat a jde spat
+        if (curEnergy <= 0)
+        {
+            SetState(UnitState.MoveToRestRoom);
+        }
+    }
+
+    private void CheckForEnemies()
+    {
+
+        // pokud nepracuje zautoci
+        if (state != (UnitState)3 || state != (UnitState)5 || state != (UnitState)7 || state != (UnitState)9)
+        {
+            List<UnitAI> targets = PlayerAI.enemy.units;
+            GameObject newTarget = null;
+            float closestDist = 0.0f;
+
+            foreach (UnitAI target in targets)
+            {
+                if (!newTarget || Vector3.Distance(transform.position, target.transform.position) < closestDist)
+                {
+                    newTarget = target.gameObject;
+                    closestDist = Vector3.Distance(transform.position, target.transform.position);
+                }
+            }
+
+            // pokud je enemy jednotka dostatecne blizko
+            if (newTarget != null && closestDist < 10)
+            {
+                AttackUnit(newTarget.GetComponent<UnitAI>());
+            }
+
+        }
+
+
+        
+    }
+
     private void Awake()
     {
         // potrebne nastaveni jednotky kvuli NavMeshPlus
@@ -370,55 +456,6 @@ public class Unit : MonoBehaviour
         if (Vector2.Distance(pos, des) < 0.01f)
         {
             SetState(UnitState.Sleep);
-        }
-    }
-
-    // repeating funkce
-    void RecalculateHunger()
-    {
-        curFeed--;
-        if (curFeed <= 0)
-        {
-            Log.instance.AddNewLogText(Time.time, "Bee died of hunger", Color.red);
-            Die();
-        }
-        else if (curFeed < 15)
-        {
-            // prestane pracovat a jde se najist
-
-        }
-
-        if (curFeed < 5)
-        {
-            // Log.instance.AddNewLogText(Time.time, "Bee is starving", Color.red);
-        }
-    }
-
-    void RecalculateEnergy()
-    {
-        // tady odebere energii podle toho v jakem je unitstate
-        switch (state)
-        {
-            // pokud se nekam pohybuje
-            case (UnitState)1 or (UnitState)2 or (UnitState)4 or (UnitState)6 or (UnitState)8 or (UnitState)10 or (UnitState)12:
-                {
-                    curEnergy -= 1;
-                    break;
-                }
-            // pokud pracuje
-            case (UnitState)3 or (UnitState)5 or (UnitState)7 or (UnitState)9:
-                {
-                    curEnergy -= 3;
-                    break;
-                }
-            // pokud je v IDLE nebo jine nenarocne cinnosti
-            default: { break; }
-        }
-
-        // pokud dojde energie prestane pracovat a jde spat
-        if(curEnergy <= 0)
-        {
-            SetState(UnitState.MoveToRestRoom);
         }
     }
 
