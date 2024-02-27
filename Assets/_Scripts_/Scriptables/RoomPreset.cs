@@ -11,7 +11,8 @@ public enum RoomType
     RestRoom,
     FoodRoom,
     HoneyFactory,
-    WaxFactory
+    WaxFactory,
+    Defensive
 }
 
 [CreateAssetMenu(fileName = "Building Preset", menuName = "New Building Preset")]
@@ -23,5 +24,6 @@ public class RoomPreset : ScriptableObject
 
     public int waxCost;
     public int costPerTurn;
+    public int roomHealthMax;
     public int workersCapacity;
 }

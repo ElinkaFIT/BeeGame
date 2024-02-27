@@ -9,11 +9,13 @@ public class RoomCost : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
 {
     public RoomPreset preset;
     public GameObject panel;
-    public TextMeshProUGUI textMeshPro;
+    public TextMeshProUGUI textCost;
+    public TextMeshProUGUI textDurability;
     public void OnPointerEnter(PointerEventData eventData)
     {
         panel.SetActive(true);
-        textMeshPro.text = " Wax cost: " + preset.waxCost;
+        textCost.text = "Wax cost: " + preset.waxCost;
+        textDurability.text = "Durability: " + preset.roomHealthMax;
     }
     public void OnPointerExit(PointerEventData eventData)
     {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -21,10 +22,13 @@ public class Room : MonoBehaviour
 
     public bool concructionDone;
 
+    public int curRoomHealth;
+
     public List<Unit> roomWorkers;
 
     private void Start()
     {
+        curRoomHealth = preset.roomHealthMax;
         concructionDone = false;
         doneIcon.SetActive(false);
     }
@@ -42,6 +46,19 @@ public class Room : MonoBehaviour
 
         buildProgress = buildProgress + buildModifier + amount;
         progressBar.UpdateProgressBar(buildProgress, 100);
+
+    }
+
+    public void TakeRoomDmg(int amount)
+    {
+        curRoomHealth -= amount;
+
+        if (curRoomHealth <= 0)
+        {
+            Hive.instance.rooms.Remove(this);
+            gameObject.SetActive(false);
+            return;
+        }
 
     }
 

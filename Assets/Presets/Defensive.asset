@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 768bb30843ce1f64290c853c64e7049f, type: 3}
-  m_Name: FoodRoom
+  m_Name: Defensive
   m_EditorClassIdentifier: 
-  roomType: 4
-  prefab: {fileID: 3233998705632412183, guid: 5f1f4a61011c9ef49b105d5d9645fe48, type: 3}
-  waxCost: 2
+  roomType: 7
+  prefab: {fileID: 3233998705632412183, guid: 90dc3c6859e2c7941af2920752a840e1, type: 3}
+  waxCost: 10
   costPerTurn: 1
-  roomHealthMax: 100
-  workersCapacity: 5
+  roomHealthMax: 1000
+  workersCapacity: 0

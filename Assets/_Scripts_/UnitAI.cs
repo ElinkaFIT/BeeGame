@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,17 +8,28 @@ public enum AIUnitState
 {
     Idle,
     MoveToEnemy,
-    Attack
+    Attack,
+    MoveToHive,
+    DestroyRoom
+}
+
+public enum AIUnitType
+{
+    BeeAttacker,
+    HiveDestroyer
+
 }
 
 public class UnitAI : MonoBehaviour
 {
+    public AIUnitType unitType;
     public float checkRate;
     public float nearbyEnemyAttackRange;
     public LayerMask unitLayerMask;
 
     private PlayerAI playerAI;
     private Unit curEnemyTarget;
+    private Room curHiveTarget;
 
     public AIUnitState unitState;
     NavMeshAgent agent;
@@ -38,8 +50,14 @@ public class UnitAI : MonoBehaviour
 
     private void Start()
     {
-        SetState(AIUnitState.Idle);
-        InvokeRepeating(nameof(Check), 0.0f, checkRate);
+        if(unitType == AIUnitType.BeeAttacker)
+        {
+            InvokeRepeating(nameof(CheckEnemy), 0.0f, checkRate);
+        }
+        else if(unitType == AIUnitType.HiveDestroyer)
+        {
+            InvokeRepeating(nameof(CheckHive), 0.0f, checkRate);
+        }
     }
     private void Awake()
     {
@@ -55,7 +73,6 @@ public class UnitAI : MonoBehaviour
         {
             case AIUnitState.Idle:
                 {
-                    
                     break;
                 }
             case AIUnitState.MoveToEnemy:
@@ -68,11 +85,63 @@ public class UnitAI : MonoBehaviour
                     AttackUpdate();
                     break;
                 }
+            case AIUnitState.MoveToHive:
+                {
+                    MoveToHiveUpdate();
+                    break;
+                }
+            case AIUnitState.DestroyRoom:
+                {
+                    DestroyRoomUpdate();
+                    break;
+                }
 
 
         }
     }
-    void Check()
+
+    private void MoveToHiveUpdate()
+    {
+        if (curHiveTarget == null)
+        {
+            SetState(AIUnitState.Idle);
+            return;
+        }
+
+        if (Time.time - lastPathUpdateTime > pathUpdateRate)
+        {
+            lastPathUpdateTime = Time.time;
+            agent.isStopped = false;
+            agent.SetDestination(curHiveTarget.transform.position);
+        }
+
+        if (Vector3.Distance(transform.position, curHiveTarget.transform.position) <= 1.5)
+            SetState(AIUnitState.DestroyRoom);
+    }
+
+    private void DestroyRoomUpdate()
+    {
+        if (curHiveTarget == null)
+        {
+            SetState(AIUnitState.Idle);
+            return;
+        }
+
+        if (!agent.isStopped)
+            agent.isStopped = true;
+
+        if (Time.time - lastAttackTime > attackRate)
+        {
+            lastAttackTime = Time.time;
+            curHiveTarget.TakeRoomDmg(Random.Range(minAttackDamage, maxAttackDamage + 1));
+            if(curHiveTarget.curRoomHealth < 0)
+            {
+                SetState(AIUnitState.Idle);
+            }
+        }
+    }
+
+    void CheckEnemy()
     {
         // check if we have nearby enemies - if so, attack them
         if (unitState == AIUnitState.Idle || unitState == AIUnitState.MoveToEnemy)
@@ -83,6 +152,22 @@ public class UnitAI : MonoBehaviour
                 AttackUnit(potentialEnemy);
             }
             
+        }
+
+    }
+
+    void CheckHive()
+    {
+        // check if we have built hive rooms nearby - attack them
+        if (unitState == AIUnitState.Idle)
+        {
+            Room potentialRoom = CheckForNearbyRooms();
+            if (potentialRoom != null)
+            {
+                curHiveTarget = potentialRoom;
+                SetState(AIUnitState.MoveToHive);
+            }
+
         }
 
     }
@@ -146,6 +231,28 @@ public class UnitAI : MonoBehaviour
 
         if (closest != null)
             return closest.GetComponent<Unit>();
+        else
+            return null;
+    }
+
+    Room CheckForNearbyRooms()
+    {
+        List<Room> targets = Hive.instance.rooms;
+        GameObject closest = null;
+
+        float closestDist = 0.0f;
+        foreach (Room target in targets)
+        {
+
+            if (!closest || Vector3.Distance(transform.position, target.transform.position) < closestDist)
+            {
+                closest = target.gameObject;
+                closestDist = Vector3.Distance(transform.position, target.transform.position);
+            }
+        }
+
+        if (closest != null)
+            return closest.GetComponent<Room>();
         else
             return null;
     }

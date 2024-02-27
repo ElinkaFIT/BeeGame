@@ -16,12 +16,14 @@ public class PlayerAI : MonoBehaviour
     public List<UnitAI> units = new List<UnitAI>();
 
     public GameObject unitPrefab;
+    public GameObject hiveUnitPrefab;
 
 
     void Start()
     {
         enemy = this;
         InvokeRepeating("SpawnUnit", maxSpawnRate, Random.Range(minSpawnRate, maxSpawnRate));
+        InvokeRepeating("SpawnHiveUnit", maxSpawnRate, Random.Range(minSpawnRate, maxSpawnRate));
     }
 
     void Update()
@@ -46,4 +48,12 @@ public class PlayerAI : MonoBehaviour
         units.Add(unit);
     }
 
+    public void SpawnHiveUnit()
+    {
+        Vector3 spawnPos = new(-20, -20, 0);
+        GameObject unitObj = Instantiate(hiveUnitPrefab, spawnPos, Quaternion.identity);
+
+        UnitAI unit = unitObj.GetComponent<UnitAI>();
+        units.Add(unit);
+    }
 }
