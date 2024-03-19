@@ -175,7 +175,6 @@ GameObject:
   - component: {fileID: 5112717831301658528}
   - component: {fileID: 6632012906290437813}
   - component: {fileID: 3203572660696476118}
-  - component: {fileID: -9101883376933813317}
   m_Layer: 11
   m_Name: WaxFactory
   m_TagString: Room
@@ -218,6 +217,7 @@ MonoBehaviour:
   buildProgress: 1
   buildModifier: 10
   concructionDone: 0
+  curRoomHealth: 0
   roomWorkers: []
 --- !u!60 &3203572660696476118
 PolygonCollider2D:
@@ -270,24 +270,6 @@ PolygonCollider2D:
       - {x: 0, y: -1}
       - {x: 0.866, y: -0.5}
   m_UseDelaunayMesh: 0
---- !u!114 &-9101883376933813317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3233998705632412183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0dd9e7a47af5924986e95306d70056d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  curBuildRoom: {fileID: 6632012906290437813}
-  productionRate: 5
-  onStateChange:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &6270047969573922143
 GameObject:
   m_ObjectHideFlags: 0
