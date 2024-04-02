@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CommandB : ICommand
+public class SpawnEnemyBCommand : ICommand
 {
-    PlayerMover playerMover;
-    public CommandB(PlayerMover player)
+    PlayerAI spawnReciever;
+    public SpawnEnemyBCommand(PlayerAI reciever)
     {
-        this.playerMover = player;
+        this.spawnReciever = reciever;
 
     }
     public void Execute()
     {
-        playerMover.Move();
+        spawnReciever.SpawnHiveUnit();
     }
-    public void Undo()
-    {
-        playerMover.Move();
-    }
+    //public void Undo()
+    //{
+    //    spawnReciever.Spawn();
+    //}
 }

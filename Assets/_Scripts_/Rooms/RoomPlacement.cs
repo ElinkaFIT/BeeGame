@@ -72,7 +72,11 @@ public class RoomsPlacement : MonoBehaviour
     void PlaceBuilding()
     {
         Hive.instance.OnPlaceBuilding(curBuildingPreset, curIndicatorPos);
-        CancelBuildingPlacement();
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            CancelBuildingPlacement();
+
+        }
     }
 
     // correct position indicator

@@ -18,12 +18,16 @@ public class PlayerAI : MonoBehaviour
     public GameObject unitPrefab;
     public GameObject hiveUnitPrefab;
 
+    public CommandManager commandManager;
+
 
     void Start()
     {
         enemy = this;
-        InvokeRepeating("SpawnUnit", maxSpawnRate, Random.Range(minSpawnRate, maxSpawnRate));
-        InvokeRepeating("SpawnHiveUnit", maxSpawnRate, Random.Range(minSpawnRate, maxSpawnRate));
+
+        // add command
+        commandManager.RunSpawnEnemy();
+        commandManager.RunSpawnHiveEnemy();
     }
 
     void Update()
