@@ -25,9 +25,9 @@ public class PlayerAI : MonoBehaviour
     {
         enemy = this;
 
-        // add command
-        commandManager.RunSpawnEnemy();
-        commandManager.RunSpawnHiveEnemy();
+        // how to add add command
+        commandManager.AddSpawnEnemy();
+        commandManager.AddSpawnHiveEnemy();
     }
 
     void Update()

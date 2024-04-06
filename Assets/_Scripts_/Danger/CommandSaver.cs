@@ -26,14 +26,19 @@ public class CommandSaver : MonoBehaviour
 
     public CommandList calendar;
 
-    private void Start()
+    private void Awake()
     {
 
         // naète data pro potøebnou kampaò
-        if (jsonFile != null) {
+        if (jsonFile != null || jsonFile.text != null) {
             calendar = JsonUtility.FromJson<CommandList>(jsonFile.text);
         }
-
+        CommandObject endObject = new()
+        {
+            time = 5000,
+            type = "END"
+        };
+        calendar.commandObject.Add(endObject);
     }
 
     public void AddNewCommand(int time, string type)
@@ -43,17 +48,23 @@ public class CommandSaver : MonoBehaviour
             time = time,
             type = type
         };
+
         calendar.commandObject.Add(newObject);
     }
 
     public string GetNextCommand(int realTime)
     {
+        if (calendar.commandObject[0] == null || calendar.commandObject == null)
+        {
+            return null;
+        }
+
         int earliest = calendar.commandObject[0].time;
         CommandObject earliestObject = calendar.commandObject[0];
 
         foreach (var commandObject in calendar.commandObject)
         {
-            if (commandObject.time < earliest)
+            if (commandObject != null && commandObject.time < earliest)
             {
                 earliest = commandObject.time;
                 earliestObject = commandObject;
@@ -62,9 +73,6 @@ public class CommandSaver : MonoBehaviour
         if (earliest < realTime && earliestObject.type != null)
         {
             string nextCommand = earliestObject.type;
-
-            Debug.Log("vyhazuju" + earliestObject.time);
-            Debug.Log("vyhazuju" + earliestObject.type);
 
             calendar.commandObject.Remove(earliestObject);
 

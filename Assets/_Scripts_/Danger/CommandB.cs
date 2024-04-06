@@ -13,9 +13,6 @@ public class SpawnEnemyBCommand : ICommand
     public void Execute()
     {
         spawnReciever.SpawnHiveUnit();
+        Log.instance.AddNewLogText(Time.time, "New enemy", Color.black);
     }
-    //public void Undo()
-    //{
-    //    spawnReciever.Spawn();
-    //}
 }

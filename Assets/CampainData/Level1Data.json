@@ -11,14 +11,6 @@
     {
       "time": 2,
       "type": "Enemy"
-    },
-    {
-      "time": 2,
-      "type": "HiveEnemy"
-    },
-    {
-      "time": 3,
-      "type": "HiveEnemy"
     }
   ]
 }

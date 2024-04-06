@@ -12,6 +12,7 @@ public class CommandData
 public class CommandInvoker : MonoBehaviour
 {
     public CommandSaver commandSaver;
+    public PlayerAI spawnReciever;
 
     private static Stack<ICommand> undoStack = new Stack<ICommand>();
 
@@ -21,25 +22,31 @@ public class CommandInvoker : MonoBehaviour
     }
     public void ExecuteCommand()
     {
-        string test = commandSaver.GetNextCommand(3);
+        string commandType = commandSaver.GetNextCommand(3);
 
-        if (test == null)
+        switch (commandType)
         {
-            return;
+            case "HiveEnemy":
+                {
+                    ICommand command = new SpawnEnemyBCommand(spawnReciever);
+                    command.Execute();
+                    undoStack.Push(command);
+                    break;
+                }
+            case "Enemy":
+                {
+                    ICommand command = new SpawnEnemyACommand(spawnReciever);
+                    command.Execute();
+                    undoStack.Push(command);
+                    break;
+                }
+            case "END":
+                {
+                    break;
+                }
+            default: { break; }
+
         }
 
-        // tady pakl bude switch
-
-
-        //command.Execute();
-        //undoStack.Push(command);
     }
-    //public static void UndoCommand()
-    //{
-    //    if (undoStack.Count > 0)
-    //    {
-    //        ICommand activeCommand = undoStack.Pop();
-    //        activeCommand.Undo();
-    //    }
-    //}
 }

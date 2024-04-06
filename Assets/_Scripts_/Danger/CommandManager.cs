@@ -9,7 +9,7 @@ public class CommandManager : MonoBehaviour
     public PlayerAI spawnReciever;
     public CommandSaver commandSaver;
     
-    public void RunSpawnEnemy()
+    public void AddSpawnEnemy()
     {
         if (spawnReciever == null)
         {
@@ -18,13 +18,12 @@ public class CommandManager : MonoBehaviour
         else
         {
             Debug.Log("enemy unit");
-            //ICommand command = new SpawnEnemyACommand(spawnReciever);
-            //CommandInvoker.AddCommand(command, commandToJson);
+
             commandSaver.AddNewCommand(1, "Enemy");
         }
     }
 
-    public void RunSpawnHiveEnemy()
+    public void AddSpawnHiveEnemy()
     {
         if (spawnReciever == null)
         {
@@ -33,8 +32,8 @@ public class CommandManager : MonoBehaviour
         else
         {
             Debug.Log("enemy unit hive");
-            //ICommand command = new SpawnEnemyBCommand(spawnReciever);
-            //CommandInvoker.ExecuteCommand(command);
+
+            commandSaver.AddNewCommand(1, "HiveEnemy");
         }
     }
 }
