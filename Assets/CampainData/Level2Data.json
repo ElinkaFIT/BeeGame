@@ -5,6 +5,14 @@
       "type": "HiveEnemy"
     },
     {
+      "time": 3,
+      "type": "Enemy"
+    },
+    {
+      "time": 1,
+      "type": "HiveEnemy"
+    },
+    {
       "time": 1,
       "type": "Enemy"
     },

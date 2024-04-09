@@ -1,10 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Numerics;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 // nacte predpripravene commandy, nebo k nim prida novy
 public class CommandSaver : MonoBehaviour
@@ -12,36 +8,35 @@ public class CommandSaver : MonoBehaviour
     public TextAsset jsonFile;
 
     [System.Serializable]
-    public class CommandObject
+    private class CommandObject
     {
-        public int time;
+        public float time;
         public string type;
     }
 
     [System.Serializable]
-    public class CommandList
+    private class CommandList
     {
         public List<CommandObject> commandObject;
     }
 
-    public CommandList calendar;
+    private CommandList calendar;
 
     private void Awake()
     {
-
         // naète data pro potøebnou kampaò
         if (jsonFile != null || jsonFile.text != null) {
             calendar = JsonUtility.FromJson<CommandList>(jsonFile.text);
         }
         CommandObject endObject = new()
         {
-            time = 5000,
+            time = float.PositiveInfinity,
             type = "END"
         };
         calendar.commandObject.Add(endObject);
     }
 
-    public void AddNewCommand(int time, string type)
+    public void AddNewCommand(float time, string type)
     {
         CommandObject newObject = new()
         {
@@ -52,14 +47,14 @@ public class CommandSaver : MonoBehaviour
         calendar.commandObject.Add(newObject);
     }
 
-    public string GetNextCommand(int realTime)
+    public string GetNextCommand(float realTime)
     {
-        if (calendar.commandObject[0] == null || calendar.commandObject == null)
+        if (calendar.commandObject == null || calendar.commandObject[0] == null)
         {
             return null;
         }
 
-        int earliest = calendar.commandObject[0].time;
+        float earliest = calendar.commandObject[0].time;
         CommandObject earliestObject = calendar.commandObject[0];
 
         foreach (var commandObject in calendar.commandObject)

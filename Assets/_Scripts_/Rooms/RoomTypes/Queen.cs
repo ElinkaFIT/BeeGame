@@ -81,6 +81,7 @@ public class Queen : MonoBehaviour
         {
             case QueenState.Normal:
                 {
+                    
                     NormalQueenUpdate();
                     break;
                 }
@@ -181,6 +182,12 @@ public class Queen : MonoBehaviour
             {
                 Log.instance.AddNewLogText(Time.time, "Queen lay a new egg", Color.black);
                 pickedRoom.gameObject.GetComponent<Nursery>().AddNewEgg();
+
+                // s 60% šancí se do hry pøidá enemy jednotka - zmenit na 0.6
+                if(Random.Range(0f, 1f) < 1f) {
+                    CommandManager.instance.RunSpawnEnemy();
+                }
+
 
             }
 

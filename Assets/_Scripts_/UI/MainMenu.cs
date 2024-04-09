@@ -11,9 +11,15 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
+    public void StartSavedGame()
+    {
+        SceneManager.LoadScene("Game");
+        SaveManager.instance.LoadGame();
+    }
+
     public void StartCampaign()
     {
-        SceneManager.LoadScene("TutorialPreset");
+        SceneManager.LoadScene("Level_1");
     }
 
     public void GoToSettings()

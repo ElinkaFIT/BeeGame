@@ -9,12 +9,12 @@ public class CommandData
     public string data;
 }
 
-public class CommandInvoker : MonoBehaviour
+public class NextEvenetCalendar : MonoBehaviour
 {
     public CommandSaver commandSaver;
     public PlayerAI spawnReciever;
 
-    private static Stack<ICommand> undoStack = new Stack<ICommand>();
+    private static Stack<ICommand> finishedStack = new Stack<ICommand>();
 
     private void Start()
     {
@@ -22,7 +22,7 @@ public class CommandInvoker : MonoBehaviour
     }
     public void ExecuteCommand()
     {
-        string commandType = commandSaver.GetNextCommand(3);
+        string commandType = commandSaver.GetNextCommand(Time.time);
 
         switch (commandType)
         {
@@ -30,14 +30,14 @@ public class CommandInvoker : MonoBehaviour
                 {
                     ICommand command = new SpawnEnemyBCommand(spawnReciever);
                     command.Execute();
-                    undoStack.Push(command);
+                    finishedStack.Push(command);
                     break;
                 }
             case "Enemy":
                 {
                     ICommand command = new SpawnEnemyACommand(spawnReciever);
                     command.Execute();
-                    undoStack.Push(command);
+                    finishedStack.Push(command);
                     break;
                 }
             case "END":

@@ -29,6 +29,8 @@ public class Hive : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        //SaveManager.instance.LoadGame();
+
         GameUI.instance.UpdateNectarCapacity(nectarCapacity);
         GameUI.instance.UpdateNectarText(nectar);
 
