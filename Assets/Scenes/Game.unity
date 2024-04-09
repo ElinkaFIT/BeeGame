@@ -9993,8 +9993,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jsonFile: {fileID: 4900000, guid: 04be3c8063b26e544ad0442fe100d705, type: 3}
-  calendar:
-    commandObject: []
 --- !u!114 &1657281300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11479,7 +11477,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 122901221}
   m_HandleRect: {fileID: 122901220}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
