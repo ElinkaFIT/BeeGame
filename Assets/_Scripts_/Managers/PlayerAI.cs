@@ -26,8 +26,8 @@ public class PlayerAI : MonoBehaviour
         enemy = this;
 
         // how to add add command
-        commandManager.AddSpawnEnemy();
-        commandManager.AddSpawnHiveEnemy();
+        //commandManager.AddSpawnEnemy();
+        //commandManager.AddSpawnHiveEnemy();
     }
 
     void Update()
@@ -40,7 +40,6 @@ public class PlayerAI : MonoBehaviour
         return units.Contains(unit);
 
     }
-
 
     // called when a new unit is created
     public void SpawnUnit()
