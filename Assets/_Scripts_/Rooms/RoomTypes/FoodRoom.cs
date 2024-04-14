@@ -77,6 +77,7 @@ public class FoodRoom : MonoBehaviour
 
                 foreach (Unit worker in curBuildRoom.roomWorkers)
                 {
+
                     if(worker.curFeed < worker.maxFeed) {
                         worker.curFeed += eatAmount;
                     }

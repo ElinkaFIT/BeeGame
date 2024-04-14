@@ -66,11 +66,14 @@ public class HoneyFactory : MonoBehaviour
         {
             lastProductionTime = Time.time;
 
-            bool isNectarAvailable = Hive.instance.nectar > 0;
+            bool isNectarAvailable = Hive.instance.nectar > 3;
 
             if (curBuildRoom.roomWorkers.Count > 0 && isNectarAvailable)
             {
                 Hive.instance.RemoveMaterial(ResourceType.Nectar);
+                Hive.instance.RemoveMaterial(ResourceType.Nectar);
+                Hive.instance.RemoveMaterial(ResourceType.Nectar);
+
                 Hive.instance.GainResource(ResourceType.Honey, 1);
             }
 

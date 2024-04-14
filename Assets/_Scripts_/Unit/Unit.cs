@@ -100,15 +100,17 @@ public class Unit : MonoBehaviour
             Log.instance.AddNewLogText(Time.time, "Bee died of hunger", Color.red);
             Die();
         }
-        else if (curFeed < 15)
+        else if (curFeed < 20)
         {
-            // prestane pracovat a jde se najist
 
+            // jde se najisrt
+            SetState(UnitState.MoveToFoodRoom);
+           
         }
 
         if (curFeed < 5)
         {
-            // Log.instance.AddNewLogText(Time.time, "Bee is starving", Color.red);
+            Log.instance.AddNewLogText(Time.time, "Bee is starving", Color.red);
         }
     }
 
@@ -232,11 +234,12 @@ public class Unit : MonoBehaviour
             }
             case UnitState.MoveToFoodRoom:
                 {
+                    MoveToFoodRoomUpdate();
                     break;
                 }
             case UnitState.Eat:
                 {
-                   
+                    WorkUpdate();
                     break;
                 }
             case UnitState.MoveToRestRoom:
@@ -459,6 +462,27 @@ public class Unit : MonoBehaviour
         }
     }
 
+    void MoveToFoodRoomUpdate()
+    {
+
+        Vector2 pos = new Vector2(transform.position.x, transform.position.y);
+        Vector2 des = new Vector2();
+
+        // TODO najdi nejblizsi volny rest room
+        GameObject[] foodRooms = GameObject.FindGameObjectsWithTag("FoodRoom");
+
+        if (foodRooms.Length > 0)
+        {
+            des = new Vector2(foodRooms[0].transform.position.x, foodRooms[0].transform.position.y);
+            agent.SetDestination(new Vector3(des.x, des.y, 0));
+        }
+
+        if (Vector2.Distance(pos, des) < 0.01f)
+        {
+            SetState(UnitState.Eat);
+        }
+    }
+
     // zobrazit vyber jednotky
     public void ToggleSelectionVisual(bool selected)
     {
@@ -509,7 +533,7 @@ public class Unit : MonoBehaviour
     void SetState(UnitState toState)
     {
         // pokud pracovala, prestane odchodem pracovat
-        if (state == UnitState.Work || state == UnitState.Sleep)
+        if (state == UnitState.Work || state == UnitState.Sleep || state == UnitState.Eat)
         {
             curBuildRoom.StopWorkInRoom(gameObject.GetComponent<Unit>());
         }

@@ -19,9 +19,6 @@ public class UnitCommander : MonoBehaviour
 
     void Update()
     {
-        if (unitSelection == null) {
-            Debug.Log("LOG: Error In UnitCommander");
-        }
 
         if (Input.GetMouseButtonDown(1) && unitSelection.AreUnitsSelected())
         {

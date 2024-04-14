@@ -218,6 +218,7 @@ MonoBehaviour:
   buildProgress: 1
   buildModifier: 10
   concructionDone: 0
+  curRoomHealth: 0
   roomWorkers: []
 --- !u!60 &3203572660696476118
 PolygonCollider2D:

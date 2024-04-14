@@ -218,6 +218,7 @@ MonoBehaviour:
   buildProgress: 1
   buildModifier: 5
   concructionDone: 0
+  curRoomHealth: 0
   roomWorkers: []
 --- !u!60 &3203572660696476118
 PolygonCollider2D:
@@ -321,7 +322,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5112717831301658528}
@@ -367,8 +368,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 1, g: 0.8950032, b: 0, a: 0.43137255}
+  m_Sprite: {fileID: 21300000, guid: 06e8212e0f554094b918ccd0ca35807f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
