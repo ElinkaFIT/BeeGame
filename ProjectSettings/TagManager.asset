@@ -17,6 +17,7 @@ TagManager:
   - HoneyFactory
   - WaxFactory
   - FogTile
+  - Graphics
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - Ground
   - Resource
   - Room
-  - 
+  - Landscape
   - 
   - 
   - 
