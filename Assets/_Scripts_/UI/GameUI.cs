@@ -15,7 +15,6 @@ public class GameUI : MonoBehaviour
     public TextMeshProUGUI waterCapacity;
     public TextMeshProUGUI waxCapacity;
     public TextMeshProUGUI pollenCapacity;
-    public TextMeshProUGUI honeyCapacity;
 
     public TextMeshProUGUI beesText;
     public TextMeshProUGUI enemyText;
@@ -29,7 +28,7 @@ public class GameUI : MonoBehaviour
     // Nectar
     public void UpdateNectarText(int value)
     {
-        nectarText.text = value.ToString();
+        nectarText.text = "Nectar: " + value.ToString();
     }
 
     public void UpdateNectarCapacity(int value)
@@ -40,7 +39,7 @@ public class GameUI : MonoBehaviour
     // Water
     public void UpdateWaterText(int value)
     {
-        waterText.text = value.ToString();
+        waterText.text = "Water: " + value.ToString();
     }
 
     public void UpdateWaterCapacity(int value)
@@ -51,7 +50,7 @@ public class GameUI : MonoBehaviour
     // Wax
     public void UpdateWaxText(int value)
     {
-        waxText.text = value.ToString();
+        waxText.text = "Wax: " + value.ToString();
     }
 
     public void UpdateWaxCapacity(int value)
@@ -62,7 +61,7 @@ public class GameUI : MonoBehaviour
     // Pollen
     public void UpdatePollenText(int value)
     {
-        pollenText.text = value.ToString();
+        pollenText.text = "Pollen: " + value.ToString();
     }
 
     public void UpdatePollenCapacity(int value)
@@ -73,18 +72,13 @@ public class GameUI : MonoBehaviour
     // Honey
     public void UpdateHoneyText(int value)
     {
-        honeyText.text = value.ToString();
-    }
-
-    public void UpdateHoneyCapacity(int value)
-    {
-        honeyCapacity.text = "/ " + value.ToString();
+        honeyText.text = "Honey: " + value.ToString();
     }
 
     // Units
     public void UpdateBeesText(int value)
     {
-        beesText.text = value.ToString();
+        beesText.text = "Bees: " + value.ToString();
     }
     public void UpdateEnemyText(int value)
     {
