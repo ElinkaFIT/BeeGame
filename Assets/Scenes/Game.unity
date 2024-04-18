@@ -2148,6 +2148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placementIndicator: {fileID: 27699830}
+  colorCorrectPosition: {r: 0.6745098, g: 0.7372549, b: 0.5411765, a: 0.69803923}
+  colorBase: {r: 0.81960785, g: 0.654902, b: 0.34509805, a: 0.5019608}
 --- !u!4 &2013487034
 Transform:
   m_ObjectHideFlags: 0

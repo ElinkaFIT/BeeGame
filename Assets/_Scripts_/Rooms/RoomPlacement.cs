@@ -13,6 +13,8 @@ public class RoomsPlacement : MonoBehaviour
     private Vector3 curIndicatorPos;
 
     public GameObject placementIndicator;
+    public Color colorCorrectPosition;
+    public Color colorBase;
 
     private void Awake()
     {
@@ -88,7 +90,7 @@ public class RoomsPlacement : MonoBehaviour
             if (IsItCorrectPlacement(gameObject))
             {
                 SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-                spriteRenderer.color = new Color(0f, 0f, 1f, 0.5f);
+                spriteRenderer.color = colorCorrectPosition;
             }
         }
     }
@@ -145,7 +147,7 @@ public class RoomsPlacement : MonoBehaviour
         {
 
             SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            spriteRenderer.color = new Color(0f, 0f, 0f, 0.25f);
+            spriteRenderer.color = colorBase;
 
         }
     }
