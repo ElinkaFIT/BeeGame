@@ -26,7 +26,7 @@ public class Hive : MonoBehaviour
 
     public static Hive instance;
 
-    private void Awake()
+    private void Start()
     {
         instance = this;
         //SaveManager.instance.LoadGame();

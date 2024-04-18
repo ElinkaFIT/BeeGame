@@ -16,6 +16,7 @@ public class Room : MonoBehaviour
     public RoomPreset preset;
     public BuildProgressBar progressBar;
     public GameObject doneIcon;
+    public GameObject blueprint;
 
     public int buildProgress;
     public int buildModifier;
@@ -39,6 +40,7 @@ public class Room : MonoBehaviour
         {
             concructionDone = true;
             progressBar.CloseProgressBar();
+            blueprint.SetActive(false);
             // deleteRoomButton.SetActive(false);  
             doneIcon.SetActive(true);
             return;

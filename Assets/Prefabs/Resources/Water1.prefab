@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  quantity: 300
+  quantity: 200
   onQuantityChange:
     m_PersistentCalls:
       m_Calls: []
@@ -184,6 +184,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 3.6043086, y: 1.9869874}
+  m_Offset: {x: -0.070149906, y: 0.016369771}
+  m_Size: {x: 4.015904, y: 1.5427121}
   m_Direction: 1
