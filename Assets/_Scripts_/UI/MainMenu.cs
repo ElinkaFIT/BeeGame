@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartCampaign()
     {
-        SceneManager.LoadScene("Level_1");
+        SceneManager.LoadScene("OpeningLevel_1");
     }
 
     public void GoToSettings()

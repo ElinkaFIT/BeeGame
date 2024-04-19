@@ -104,10 +104,13 @@ MonoBehaviour:
   progressBar: {fileID: 1040921372954462201}
   buildProgress: 0
   buildModifier: 2
-  resourceOptions: []
+  resourceOptions:
+  - {fileID: 6216587798057160734, guid: 6895c66cf5d4ded48afed6a48d87ed41, type: 3}
   dangerText: {fileID: 3525771935348896683}
-  resourceCountMin: 0
-  resourceCountMax: 0
+  dangerValue: 0
+  difficultyModifier: 0
+  resourceCountMin: 1
+  resourceCountMax: 2
 --- !u!61 &6722141241283567605
 BoxCollider2D:
   m_ObjectHideFlags: 0

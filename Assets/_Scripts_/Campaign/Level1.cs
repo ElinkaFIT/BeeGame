@@ -3,49 +3,37 @@ using UnityEngine.UI;
 
 public class Level1 : MonoBehaviour
 {
-    public OpenPanel panel;
-    public Toggle taskMap;
+    public Toggle taskHive;
     public Toggle taskUnit;
+    public Toggle taskWater;
+    public Toggle taskNectar;
 
-    private bool taskMapDone;
+    private bool taskHiveDone;
     private bool taskUnitDone;
-
-    private bool wKeyDown;
-    private bool aKeyDown;
-    private bool sKeyDown;
-    private bool dKeyDown;
+    private bool taskWaterDone;
+    private bool taskNectarDone;
 
     private void Start()
     {
-        taskMapDone = false;
+        taskHiveDone = false;
         taskUnitDone = false;
-
-        wKeyDown = false;
-        aKeyDown = false;
-        sKeyDown = false;
-        dKeyDown = false;
-
-        panel.OpenClosePanel();
     }
 
     void Update()
     {
-        if (!taskMapDone) { TaskMapMove(); }
+        if (!taskHiveDone) { TaskHiveMove(); }
         if (!taskUnitDone) { TaskUnitMove(); }
     }
 
-    private void TaskMapMove()
+    private void TaskHiveMove()
     {
-        if (Input.GetKeyDown(KeyCode.W)) { wKeyDown = true; }
-        if (Input.GetKeyDown(KeyCode.A)) { aKeyDown = true; }
-        if (Input.GetKeyDown(KeyCode.S)) { sKeyDown = true; }
-        if (Input.GetKeyDown(KeyCode.D)) { dKeyDown = true; }
 
-        // ukol splnen
-        if (wKeyDown && aKeyDown && sKeyDown && dKeyDown)
+
+        // pokud je kamera na ukolu
+        if (true)
         {
-            taskMapDone = true;
-            taskMap.isOn = true;
+            taskHiveDone = true;
+            taskHive.isOn = true;
         }
     }
 

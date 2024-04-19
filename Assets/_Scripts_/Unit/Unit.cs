@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
 
 public enum UnitState
@@ -68,6 +69,12 @@ public class Unit : MonoBehaviour
 
     public int curEnergy;
     public int maxEnergy;
+
+    public Animator animator;
+    public Animator borderAnimator;
+
+    public GameObject graphic;
+    public GameObject selectGraphic;
 
     private UnitAI curEnemyTarget;
     private ResourceSource curResourceSource;
@@ -262,12 +269,19 @@ public class Unit : MonoBehaviour
                     WorkUpdate();
                     break;
                 }
+            case UnitState.Idle:
+                {
+                    SetAnimation(false);
+                    break;
+                }
 
         }
     }
 
     private void SearchingUpdate()
     {
+        SetAnimation(false);
+
         if (curResourceTile == null || curResourceTile.state == ResourceTileState.Exposed)
         {
             SetState(UnitState.Idle);
@@ -292,6 +306,8 @@ public class Unit : MonoBehaviour
 
     private void SearchMoveUpdate()
     {
+        SetAnimation(true);
+
         if (curResourceTile == null)
         {
             SetState(UnitState.Idle);
@@ -300,6 +316,8 @@ public class Unit : MonoBehaviour
 
         Vector2 pos = new Vector2(transform.position.x, transform.position.y);
         Vector2 des = new Vector2(agent.destination.x, agent.destination.y);
+
+        SetBeeDirection(pos.x, des.x);
 
 
         if (Vector2.Distance(pos, des) < 0.01f)
@@ -310,15 +328,21 @@ public class Unit : MonoBehaviour
 
     void MoveUpdate()
     {
+        SetAnimation(true);
+
         Vector2 pos = new Vector2(transform.position.x, transform.position.y);
         Vector2 des = new Vector2(agent.destination.x, agent.destination.y);
 
-        if (Vector2.Distance(pos, des) == 0.0f)
+        SetBeeDirection(pos.x, des.x);
+
+        if (Vector2.Distance(pos, des) <= 0.01f)
             SetState(UnitState.Idle);
     }
 
     void MoveToResourceUpdate()
     {
+        SetAnimation(true);
+
         if (curResourceSource == null)
         {
             SetState(UnitState.Idle);
@@ -328,12 +352,16 @@ public class Unit : MonoBehaviour
         Vector2 pos = new Vector2(transform.position.x, transform.position.y);
         Vector2 des = new Vector2(agent.destination.x, agent.destination.y);
 
+        SetBeeDirection(pos.x, des.x);
+
         if (Vector2.Distance(pos, des) == 0.0f)
             SetState(UnitState.Gather);
     }
 
     void GatherUpdate()
     {
+        SetAnimation(false);
+
         if (curResourceSource == null)
         {
             SetState(UnitState.Idle);
@@ -349,6 +377,8 @@ public class Unit : MonoBehaviour
 
     void MoveToEnemyUpdate()
     {
+        SetAnimation(true);
+
         if (curEnemyTarget == null)
         {
             SetState(UnitState.Idle);
@@ -360,6 +390,7 @@ public class Unit : MonoBehaviour
             lastPathUpdateTime = Time.time;
             agent.isStopped = false;
             agent.SetDestination(curEnemyTarget.transform.position);
+            SetBeeDirection(transform.position.x, curEnemyTarget.transform.position.x);
         }
 
         if (Vector3.Distance(transform.position, curEnemyTarget.transform.position) <= 1.5)
@@ -368,6 +399,8 @@ public class Unit : MonoBehaviour
 
     void AttackUpdate()
     {
+        SetAnimation(false);
+
         if (curEnemyTarget == null)
         {
             SetState(UnitState.Idle);
@@ -390,6 +423,8 @@ public class Unit : MonoBehaviour
 
     void MoveToBuildUpdate()
     {
+        SetAnimation(true);
+
         if (curBuildRoom == null)
         {
             SetState(UnitState.Idle);
@@ -398,6 +433,8 @@ public class Unit : MonoBehaviour
 
         Vector2 pos = new Vector2(transform.position.x, transform.position.y);
         Vector2 des = new Vector2(agent.destination.x, agent.destination.y);
+
+        SetBeeDirection(pos.x, des.x);
 
 
         if (Vector2.Distance(pos, des) < 0.01f)
@@ -408,9 +445,11 @@ public class Unit : MonoBehaviour
 
     void BuildUpdate()
     {
-        if (curBuildRoom == null)
+        SetAnimation(false);
+
+        if (curBuildRoom.concructionDone)
         {
-            SetState(UnitState.Idle);
+            MoveToPosition(new Vector2(0,0));
             return;
         }
 
@@ -425,10 +464,12 @@ public class Unit : MonoBehaviour
 
     void MoveToWorkUpdate()
     {
+        SetAnimation(true);
 
         Vector2 pos = new Vector2(transform.position.x, transform.position.y);
         Vector2 des = new Vector2(agent.destination.x, agent.destination.y);
 
+        SetBeeDirection(pos.x, des.x);
 
         if (Vector2.Distance(pos, des) < 0.01f)
         {
@@ -438,11 +479,13 @@ public class Unit : MonoBehaviour
 
     void WorkUpdate()
     {
+        SetAnimation(false);
         curBuildRoom.WorkInRoom(gameObject.GetComponent<Unit>());
     }
 
     void MoveToRestRoomUpdate()
     {
+        SetAnimation(true);
 
         Vector2 pos = new Vector2(transform.position.x, transform.position.y);
         Vector2 des = new Vector2();
@@ -450,20 +493,25 @@ public class Unit : MonoBehaviour
         // TODO najdi nejblizsi volny rest room
         GameObject[] restRooms = GameObject.FindGameObjectsWithTag("RestRoom");
 
-        if (restRooms.Length > 0)
+        if (restRooms != null && restRooms.Length > 0)
         {
             des = new Vector2(restRooms[0].transform.position.x, restRooms[0].transform.position.y);
             agent.SetDestination(new Vector3(des.x, des.y, 0));
+
+            SetBeeDirection(pos.x, des.x);
+
+            if (Vector2.Distance(pos, des) < 0.01f)
+            {
+                SetState(UnitState.Sleep);
+            }
         }
 
-        if (Vector2.Distance(pos, des) < 0.01f)
-        {
-            SetState(UnitState.Sleep);
-        }
+        
     }
 
     void MoveToFoodRoomUpdate()
     {
+        SetAnimation(true);
 
         Vector2 pos = new Vector2(transform.position.x, transform.position.y);
         Vector2 des = new Vector2();
@@ -471,15 +519,17 @@ public class Unit : MonoBehaviour
         // TODO najdi nejblizsi volny rest room
         GameObject[] foodRooms = GameObject.FindGameObjectsWithTag("FoodRoom");
 
-        if (foodRooms.Length > 0)
+        if (foodRooms != null && foodRooms.Length > 0)
         {
             des = new Vector2(foodRooms[0].transform.position.x, foodRooms[0].transform.position.y);
             agent.SetDestination(new Vector3(des.x, des.y, 0));
-        }
 
-        if (Vector2.Distance(pos, des) < 0.01f)
-        {
-            SetState(UnitState.Eat);
+            SetBeeDirection(pos.x, des.x);
+
+            if (Vector2.Distance(pos, des) < 0.01f)
+            {
+                SetState(UnitState.Eat);
+            }
         }
     }
 
@@ -571,6 +621,36 @@ public class Unit : MonoBehaviour
         {
             player.units.Remove(this);
             Destroy(gameObject);
+        }
+    }
+
+    public void SetAnimation(bool setFlyingOn)
+    {
+        if (setFlyingOn)
+        {
+            animator.SetFloat("Speed", 1);
+            borderAnimator.SetBool("Flies", true);
+        }
+        else
+        {
+            animator.SetFloat("Speed", 0);
+            borderAnimator.SetBool("Flies", false);
+        }
+    }
+
+    public void SetBeeDirection(float pos, float dest)
+    {
+        if (dest < pos)
+        {
+            // otoc smerem doleva
+            graphic.GetComponent<SpriteRenderer>().flipX = true;
+            selectGraphic.GetComponent<SpriteRenderer>().flipX = true;
+        } 
+        else if (dest > pos)
+        {
+            // otoc doprava
+            graphic.GetComponent<SpriteRenderer>().flipX = false;
+            selectGraphic.GetComponent<SpriteRenderer>().flipX = false;
         }
     }
 

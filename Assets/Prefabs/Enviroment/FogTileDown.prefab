@@ -107,13 +107,13 @@ MonoBehaviour:
   resourceOptions:
   - {fileID: 6216587798057160734, guid: c1036bf0cc311d34a9cae3dde368ccb5, type: 3}
   - {fileID: 6216587798057160734, guid: 28121364ad8453c41a9d2fafd69dd759, type: 3}
-  - {fileID: 6216587798057160734, guid: 6895c66cf5d4ded48afed6a48d87ed41, type: 3}
   - {fileID: 8868664587808886748, guid: f1a57c61340f12a40bde1c8f8f3d60d6, type: 3}
+  - {fileID: 8868664587808886748, guid: 5ee6fdd5c3f73364b891d7f0638baa4e, type: 3}
   dangerText: {fileID: 2547078103778301944}
   dangerValue: 0
   difficultyModifier: 0
   resourceCountMin: 1
-  resourceCountMax: 6
+  resourceCountMax: 5
 --- !u!61 &3768526462139647011
 BoxCollider2D:
   m_ObjectHideFlags: 0

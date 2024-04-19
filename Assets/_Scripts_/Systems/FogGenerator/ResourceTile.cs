@@ -31,6 +31,8 @@ public class ResourceTile : MonoBehaviour
     public int resourceCountMin;
     public int resourceCountMax;
 
+    public bool isVertical;
+
     private float posX;
     private float posY;
 
