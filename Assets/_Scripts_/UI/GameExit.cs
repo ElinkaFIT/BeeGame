@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameOver : MonoBehaviour
+public class GameExit : MonoBehaviour
 {
-    public static GameOver instance;
+    public static GameExit instance;
 
     public void Awake()
     {
         instance = this;
         gameObject.SetActive(false);
     }
-    public void OpenGameOverMenu()
+    public void OpenGameExitMenu()
     {
         gameObject.SetActive(true);
         Pause();
@@ -23,6 +23,13 @@ public class GameOver : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("Game");
     }
+
+    //public void SaveGame()
+    //{
+    //    Time.timeScale = 1;
+    //    SaveManager.instance.SaveGame();
+    //    SceneManager.LoadScene("MainMenu");
+    //}
 
     public void ExitGame()
     {

@@ -600,17 +600,6 @@ MonoBehaviour:
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 23800000, guid: 8f1826b039883d7418c8b4219b36b5bb, type: 2}
---- !u!114 &372225365 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 953045916582189462, guid: 53595cce4b8470547abafb421ea5c7e2, type: 3}
-  m_PrefabInstance: {fileID: 979326511388222321}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f7d79ea3322dc24da7d1e5de8257227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &374918515
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,6 +1143,7 @@ MonoBehaviour:
   offset: {x: -4, y: -4, z: 0}
   noiseLimit: 1.5
   noiseScale: 0.1
+  curBuildingPreset: {fileID: 11400000, guid: ec344f2b3cee20840b2a891c6277acf4, type: 2}
   grid: {fileID: 523509865}
   hexEmpty: {fileID: 8454819381984453326, guid: d1987a0811349f04097471cf2486d496, type: 3}
   emptyRooms: []
@@ -4051,7 +4041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMe: 1
-  gameOver: {fileID: 372225365}
+  gameOver: {fileID: 0}
   beeCount: {fileID: 0}
   units:
   - {fileID: 579303612}
@@ -5100,10 +5090,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 6549202415372185058, guid: 53595cce4b8470547abafb421ea5c7e2, type: 3}
-      propertyPath: m_RenderMode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6750124686461135147, guid: 53595cce4b8470547abafb421ea5c7e2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5301,21 +5287,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2023374751}
     m_Modifications:
-    - target: {fileID: 2271804751599907713, guid: 6c505b9da55057c43b714fe2e1607a73, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5606381554764901140, guid: 6c505b9da55057c43b714fe2e1607a73, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 6672436845520262902, guid: 6c505b9da55057c43b714fe2e1607a73, type: 3}
       propertyPath: m_Name
       value: Ground
-      objectReference: {fileID: 0}
-    - target: {fileID: 8406644346549606701, guid: 6c505b9da55057c43b714fe2e1607a73, type: 3}
-      propertyPath: m_SortingOrder
-      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 8856885124506134106, guid: 6c505b9da55057c43b714fe2e1607a73, type: 3}
       propertyPath: m_LocalPosition.x

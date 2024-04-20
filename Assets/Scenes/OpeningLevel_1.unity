@@ -891,10 +891,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: One summer day you set out to find a new source of nectar. You've wandered
-    too far from the hive and now, intoxicated by the scent of the flowers, you can't
-    find your way back. You're lost. You try to collect nectar to refresh yourself
-    for the journey and trying to remember which direction your hive might be.
+  m_text: 'One summer day you and your sisters set out to find a new source of nectar.
+    You''ve wandered too far from the hive and now, intoxicated by the scent of the
+    flowers, you can''t find your way back. You''re lost. You try to collect nectar
+    to refresh yourself for the journey and try to remember which direction your
+    hive might be.
+
+
+    In this section you will learn how to move with units and
+    collect resources.
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1786,7 +1793,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'After a type of flower blooms, the bees are forced to find new sources.
+  m_text: 'After a type of flower fades, the bees are forced to find new sources.
     When a bee discovers a rich food source, it returns to the hive and performs
     the so-called bee dance. This dance communicates information to the bees about
     the direction and distance to the nectar source, which includes angles relative
@@ -2666,7 +2673,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Movement
+  m_text: Lost Bees
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2693,8 +2700,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 77
+  m_fontSizeBase: 77
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

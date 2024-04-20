@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
+using Vector2 = UnityEngine.Vector2;
 
 /// <summary>
 /// Generating empty hive rooms using perlin noise.
@@ -23,6 +24,7 @@ public class HiveGenerator : MonoBehaviour
     [SerializeField] private Vector3 offset;
     [SerializeField] private float noiseLimit;
     [SerializeField] private float noiseScale;
+    [SerializeField] private RoomPreset curBuildingPreset;
 
     // component references
     public Grid grid;
@@ -42,6 +44,7 @@ public class HiveGenerator : MonoBehaviour
     private void Start()
     {
         GenerateHexMap();
+        AddQueenTile();
     }
 
     private void Update()
@@ -95,6 +98,55 @@ public class HiveGenerator : MonoBehaviour
 
             }
         }
+
+    }
+
+    private void AddQueenTile()
+    {
+        // vypocitej krajni pozice ulu
+        float minX = emptyRooms[0].transform.position.x;
+        float minY = emptyRooms[0].transform.position.y;
+        float maxX = emptyRooms[0].transform.position.x;
+        float maxY = emptyRooms[0].transform.position.y;
+
+        foreach(GameObject room in emptyRooms)
+        {
+            if (room.transform.position.x < minX)
+            {
+                minX = room.transform.position.x;
+            }
+            else if(room.transform.position.x > maxX)
+            {
+                maxX = room.transform.position.x;
+            }
+
+            if(room.transform.position.y < minY)
+            {
+                minY = room.transform.position.y;
+            }
+            else if(room.transform.position.y > maxY)
+            {
+                maxY = room.transform.position.y;
+            }
+        }
+
+        // vypocitej prostredni pole
+        Vector2 midPosition;
+        midPosition.x = (minX + maxX) / 2;
+        midPosition.y = (minY + maxY) / 2;
+
+        // vytvor kralovnu ve stredu
+        GameObject closest = emptyRooms[0];
+
+        foreach(GameObject room in emptyRooms)
+        {
+            if(Vector2.Distance(room.transform.position, midPosition) < Vector2.Distance(closest.transform.position, midPosition))
+            {
+                closest = room;
+            }
+        }
+
+        Hive.instance.OnPlaceBuilding(curBuildingPreset, closest.transform.position);
 
     }
 

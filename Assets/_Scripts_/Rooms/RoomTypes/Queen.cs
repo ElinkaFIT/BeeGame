@@ -23,7 +23,7 @@ public class Queen : MonoBehaviour
     public class StateChangeEvent : UnityEvent<RoomState> { }
     public StateChangeEvent onStateChange;
 
-    public int queenConsumption;
+    public float queenConsumption;
     public float consumptionRate;
     private float lastConsumptionTime;
 
@@ -34,7 +34,8 @@ public class Queen : MonoBehaviour
     private float lastLayingEggTime;
 
     private void Start()
-    { 
+    {
+
         SetRoomState(RoomState.Blueprint);
     }
 
@@ -68,6 +69,7 @@ public class Queen : MonoBehaviour
 
     void UnderConstructionUpdate()
     {
+        curBuildRoom.BuildRoom(100);
         if (curBuildRoom.concructionDone == true)
         {
             SetRoomState(RoomState.Built);
@@ -248,8 +250,8 @@ public class Queen : MonoBehaviour
 
     void QueenDeathUpdate()
     {
-        GameOver.instance.OpenGameOverMenu();
         // konec hry
+        GameOver.instance.OpenGameOverMenu();
     }
 
     public void SetRoomState(RoomState toState)

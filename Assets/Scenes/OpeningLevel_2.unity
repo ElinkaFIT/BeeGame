@@ -891,10 +891,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: One summer day you set out to find a new source of nectar. You've wandered
-    too far from the hive and now, intoxicated by the scent of the flowers, you can't
-    find your way back. You're lost. You try to collect nectar to refresh yourself
-    for the journey and trying to remember which direction your hive might be.
+  m_text: 'You finally found your way back home. However, the search for the food
+    took too long, and when you entered the hive, you found out, there wasn''t much
+    left. It''s time to breathe new life into your home. You need to build new cells,
+    take care of the birth of new bees, and recall how everything in the hive works
+    properly.
+
+
+    In this section you will learn how to build the cells of the
+    hive, how to work in them and what each cell does.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1786,11 +1791,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'After a type of flower blooms, the bees are forced to find new sources.
-    When a bee discovers a rich food source, it returns to the hive and performs
-    the so-called bee dance. This dance communicates information to the bees about
-    the direction and distance to the nectar source, which includes angles relative
-    to the sun and flight distance. '
+  m_text: Bees spend part of their lives working to build and maintain their hive,
+    making wax from special glands on their abdomen and creating cells that they
+    use as storage for honey and pollen and as hatcheries for new bees. In addition
+    to building honeycombs, bees perform other important tasks, feeding the larvae
+    and queen with royal jelly, regulating the temperature of the hive, keeping the
+    cells clean, and much more.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1924,7 +1930,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Part One
+  m_text: Part Two
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2666,7 +2672,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Movement
+  m_text: Finally Home
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2693,8 +2699,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 77
+  m_fontSizeBase: 77
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

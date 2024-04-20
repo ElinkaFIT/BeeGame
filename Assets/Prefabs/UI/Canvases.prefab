@@ -1335,8 +1335,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3171059142877191986}
-        m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
+      - m_Target: {fileID: 8912666949054889662}
+        m_TargetAssemblyTypeName: GameExit, Assembly-CSharp
         m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
@@ -2706,8 +2706,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3171059142877191986}
-        m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
+      - m_Target: {fileID: 8912666949054889662}
+        m_TargetAssemblyTypeName: GameExit, Assembly-CSharp
         m_MethodName: Continue
         m_Mode: 1
         m_Arguments:
@@ -2973,8 +2973,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3171059142877191986}
-        m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
+      - m_Target: {fileID: 8912666949054889662}
+        m_TargetAssemblyTypeName: GameExit, Assembly-CSharp
         m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
@@ -3304,9 +3304,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 953045916582189462}
         m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
-        m_MethodName: Reset
+        m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5101,7 +5101,7 @@ GameObject:
   - component: {fileID: 4540896211961595988}
   - component: {fileID: 1817614655719904522}
   - component: {fileID: 3435479400145816070}
-  - component: {fileID: 3171059142877191986}
+  - component: {fileID: 8912666949054889662}
   m_Layer: 5
   m_Name: ExitScreen
   m_TagString: Untagged
@@ -5168,7 +5168,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3171059142877191986
+--- !u!114 &8912666949054889662
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5177,7 +5177,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5743117986468623893}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f7d79ea3322dc24da7d1e5de8257227, type: 3}
+  m_Script: {fileID: 11500000, guid: e8198505e6489d345ab91e0bb8028033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5786197290791079565
@@ -5833,7 +5833,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 953045916582189462}
         m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
         m_MethodName: RestartGame
         m_Mode: 1
@@ -6391,10 +6391,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -6540,9 +6540,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3171059142877191986}
-        m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
-        m_MethodName: OpenGameOverMenu
+      - m_Target: {fileID: 8912666949054889662}
+        m_TargetAssemblyTypeName: GameExit, Assembly-CSharp
+        m_MethodName: OpenGameExitMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6691,7 +6691,7 @@ Canvas:
   m_GameObject: {fileID: 6693974269168463517}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -7988,8 +7988,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3171059142877191986}
-        m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
+      - m_Target: {fileID: 8912666949054889662}
+        m_TargetAssemblyTypeName: GameExit, Assembly-CSharp
         m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:

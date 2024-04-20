@@ -26,6 +26,19 @@ public class Level1 : MonoBehaviour
         taskSelectDone = false;
 
         nextLevel.SetActive(false);
+
+        Invoke(nameof(SetImmortalQueen), 0.1f);
+    }
+
+    void SetImmortalQueen()
+    {
+        GameObject queen = GameObject.FindWithTag("Queen");
+        if (queen != null)
+        {
+            Queen queenScript = queen.GetComponent<Queen>();
+            queenScript.queenConsumption = float.PositiveInfinity;
+
+        }
     }
 
     void Update()

@@ -212,7 +212,7 @@ MonoBehaviour:
   progressBar: {fileID: 2468487547999082038}
   doneIcon: {fileID: 727233470297217591}
   blueprint: {fileID: 6270047969573922143}
-  buildProgress: 1
+  buildProgress: 100
   buildModifier: 10
   concructionDone: 0
   curRoomHealth: 0
