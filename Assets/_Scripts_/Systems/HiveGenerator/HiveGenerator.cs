@@ -50,11 +50,11 @@ public class HiveGenerator : MonoBehaviour
     private void Update()
     {
         // jen pro testovani
-        if (Input.GetMouseButtonDown(2))
-        {
-            DeleteRooms();
-            GenerateHexMap();
-        }
+        //if (Input.GetMouseButtonDown(2))
+        //{
+        //    DeleteRooms();
+        //    GenerateHexMap();
+        //}
     }
 
     // Generate empty rooms to scene according to the specified limit and offset

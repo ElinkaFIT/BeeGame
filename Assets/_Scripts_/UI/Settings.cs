@@ -9,27 +9,39 @@ using Screen = UnityEngine.Device.Screen;
 
 public class Settings : MonoBehaviour
 {
-    Resolution[] resolutions;
+    private Resolution[] pcResolutions;
+    public List<Resolution> myResolutions;
+    private bool isFullscreenOn;
 
     public TMP_Dropdown dropdown;
 
     private void Start()
     {
-        resolutions = Screen.resolutions;
+        isFullscreenOn = true;
+        myResolutions = new List<Resolution>();
+
+        pcResolutions = Screen.resolutions;
 
         dropdown.ClearOptions();
 
         List<string> options = new List<string>();
+        HashSet<string> uniqueResolutions = new HashSet<string>();
 
         int curResolution = 0;
-        for (int i = 0; i < resolutions.Length; i++) {
-            
-            string option = resolutions[i].width + "x" + resolutions[i].height;
-            options.Add(option);
+        for (int i = 0; i < pcResolutions.Length; i++) {
 
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            string option = pcResolutions[i].width + "x" + pcResolutions[i].height;
+
+
+            if (uniqueResolutions.Add(option) && pcResolutions[i].width > 1000)
             {
-               curResolution = i;
+                myResolutions.Add(pcResolutions[i]); 
+                options.Add(option);
+
+                if (pcResolutions[i].width == Screen.currentResolution.width && pcResolutions[i].height == Screen.currentResolution.height)
+                {
+                    curResolution = options.Count - 1;  
+                }
             }
         }
 
@@ -41,13 +53,14 @@ public class Settings : MonoBehaviour
 
     public void SetResolution(int resolutionIndex)
     {
-        Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        Resolution resolution = myResolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, isFullscreenOn);
     }
 
     public void FullScreen(bool isFullScreen)
     {
         Screen.fullScreen = isFullScreen;
+        isFullscreenOn = isFullScreen;
     }
 
     public void BackToMainMenu()
