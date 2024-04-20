@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class RoomsPlacement : MonoBehaviour
@@ -96,7 +97,19 @@ public class RoomsPlacement : MonoBehaviour
     }
     bool IsItCorrectPlacement(GameObject emptyRoom)
     {
-        GameObject[] existingRooms = GameObject.FindGameObjectsWithTag("Room");
+        // získání existujícíchobjektù
+        List<GameObject> existingRooms = new List<GameObject>();
+
+        existingRooms.AddRange(GameObject.FindGameObjectsWithTag("Room"));
+        existingRooms.AddRange(GameObject.FindGameObjectsWithTag("Queen"));
+        existingRooms.AddRange(GameObject.FindGameObjectsWithTag("Nursery"));
+        existingRooms.AddRange(GameObject.FindGameObjectsWithTag("RestRoom"));
+        existingRooms.AddRange(GameObject.FindGameObjectsWithTag("FoodRoom"));
+        existingRooms.AddRange(GameObject.FindGameObjectsWithTag("HoneyFactory"));
+        existingRooms.AddRange(GameObject.FindGameObjectsWithTag("WaxFactory"));
+        
+
+
         Vector2 emptyRoomPos = new Vector2(emptyRoom.transform.position.x, emptyRoom.transform.position.y);
         bool nearNursery = false;
 
