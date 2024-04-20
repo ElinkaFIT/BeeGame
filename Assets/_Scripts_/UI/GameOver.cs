@@ -24,12 +24,12 @@ public class GameOver : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
-    public void SaveGame()
-    {
-        Time.timeScale = 1;
-        SaveManager.instance.SaveGame();
-        SceneManager.LoadScene("MainMenu");
-    }
+    //public void SaveGame()
+    //{
+    //    Time.timeScale = 1;
+    //    SaveManager.instance.SaveGame();
+    //    SceneManager.LoadScene("MainMenu");
+    //}
 
     public void ExitGame()
     {

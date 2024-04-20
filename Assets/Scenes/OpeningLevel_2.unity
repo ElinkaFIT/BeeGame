@@ -3377,7 +3377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b625ce6555dc18c4b860acd7ecf1635f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneBuildIndex: 4
+  nextSceneBuildIndex: 6
 --- !u!4 &1944753371
 Transform:
   m_ObjectHideFlags: 0

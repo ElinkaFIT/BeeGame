@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.AI;
+//using UnityEditor.AI;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -166,8 +166,8 @@ public class ResourceTile : MonoBehaviour
 
     private void RebuildNavMesh()
     {
-        NavMeshBuilder.ClearAllNavMeshes();
-        NavMeshBuilder.BuildNavMesh();
+        //NavMeshBuilder.ClearAllNavMeshes();
+        //NavMeshBuilder.BuildNavMesh();
     }
 
     private void RemoveTile()

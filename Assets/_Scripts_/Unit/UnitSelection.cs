@@ -5,7 +5,7 @@ using UnityEngine;
 public class UnitSelection : MonoBehaviour
 {
     public LayerMask unitLayerMask;
-    private List<Unit> selectedUnits = new List<Unit>();
+    public List<Unit> selectedUnits = new List<Unit>();
 
     // pro vyber pomoci boxu
     public RectTransform selectionBox;
@@ -14,9 +14,11 @@ public class UnitSelection : MonoBehaviour
     // komponenty
     private Camera cam;
     private Player player;
+    public static UnitSelection instance;
 
     void Awake()
     {
+        instance = this;
         cam = Camera.main;
         player = GetComponent<Player>();
     }
