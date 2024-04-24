@@ -1,4 +1,24 @@
 {
   "commandObject": [
+    {
+      "time": 1,
+      "type": "Enemy"
+    },
+    {
+      "time": 30,
+      "type": "Enemy"
+    },
+    {
+      "time": 100,
+      "type": "Enemy"
+    },
+    {
+      "time": 500,
+      "type": "HiveEnemy"
+    },
+    {
+      "time": 1000,
+      "type": "HiveEnemy"
+    }
   ]
 }

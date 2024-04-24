@@ -24,6 +24,12 @@ public class GameOver : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
+    public void RestartLevel2()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Level_2");
+    }
+
     public void ExitGame()
     {
         Application.Quit();

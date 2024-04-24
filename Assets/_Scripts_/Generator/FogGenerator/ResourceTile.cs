@@ -62,44 +62,6 @@ public class ResourceTile : MonoBehaviour
         dangerText.text = "Danger " + dangerValue + " %";
     }
 
-    void Update()
-    {
-        switch (state)
-        {
-            case ResourceTileState.Fog:
-                {
-                    FogUpdate();
-                    break;
-                }
-            case ResourceTileState.Discovering:
-                {
-                    DiscoveringUpdate();
-                    break;
-                }
-            case ResourceTileState.Exposed:
-                {
-                    ExposedUpdate();
-                    break;
-                }
-
-        }
-    }
-
-    private void ExposedUpdate()
-    {
-        
-    }
-
-    private void DiscoveringUpdate()
-    {
-        
-    }
-
-    private void FogUpdate()
-    {
-        
-    }
-
     public void SearchArea(int amount)
     {
         if (buildProgress >= 100)

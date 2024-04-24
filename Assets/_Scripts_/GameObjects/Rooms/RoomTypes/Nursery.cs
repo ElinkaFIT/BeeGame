@@ -126,13 +126,13 @@ public class Nursery : MonoBehaviour
 
 
             // tady budou pak jine suroviny
-            bool isWaterAvailable = Hive.instance.water > 0;
+            bool isPollenAvailable = Hive.instance.pollen > 0;
             bool isNectarAvailable = Hive.instance.nectar > 0;
 
-            if (curBuildRoom.roomWorkers.Count > 0 && isWaterAvailable && isNectarAvailable && newBeeConsumption < 100)
+            if (curBuildRoom.roomWorkers.Count > 0 && isPollenAvailable && isNectarAvailable && newBeeConsumption < 100)
             {
                 Hive.instance.RemoveMaterial(ResourceType.Nectar);
-                Hive.instance.RemoveMaterial(ResourceType.Water);
+                Hive.instance.RemoveMaterial(ResourceType.Pollen);
                 newBeeConsumption += 1;
                 careIdentifire += 1;
             }

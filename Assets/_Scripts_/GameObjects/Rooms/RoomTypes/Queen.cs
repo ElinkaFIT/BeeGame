@@ -114,15 +114,15 @@ public class Queen : MonoBehaviour
         {
             lastConsumptionTime = Time.time;
 
-            bool isWaterAvailable = Hive.instance.water > 0;
+            bool isPollenAvailable = Hive.instance.pollen > 0;
             bool isNectarAvailable = Hive.instance.nectar > 0;
 
             // proved krmeni 
             // musi byt aktivni vcela krmicka a dostupne suroviny 
-            if (curBuildRoom.roomWorkers.Count > 0 && isWaterAvailable && isNectarAvailable && queenConsumption < 100)
+            if (curBuildRoom.roomWorkers.Count > 0 && isPollenAvailable && isNectarAvailable && queenConsumption < 100)
             {
                 Hive.instance.RemoveMaterial(ResourceType.Nectar);
-                Hive.instance.RemoveMaterial(ResourceType.Water);
+                Hive.instance.RemoveMaterial(ResourceType.Pollen);
                 queenConsumption += 1;
             }
             else
