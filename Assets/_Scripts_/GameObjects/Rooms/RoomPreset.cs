@@ -24,6 +24,7 @@ public class RoomPreset : ScriptableObject
 
     public int waxCost;
     public int costPerTurn;
+    public string roomDescription;
     public int roomHealthMax;
     public int workersCapacity;
 }

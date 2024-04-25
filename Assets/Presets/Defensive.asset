@@ -16,5 +16,7 @@ MonoBehaviour:
   prefab: {fileID: 3233998705632412183, guid: 90dc3c6859e2c7941af2920752a840e1, type: 3}
   waxCost: 10
   costPerTurn: 1
+  roomDescription: The main purpose of this room is to protect the rooms behind it.
+    This room is the equivalent of a defensive wall.
   roomHealthMax: 1000
   workersCapacity: 0

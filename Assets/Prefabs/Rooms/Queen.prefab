@@ -286,7 +286,7 @@ MonoBehaviour:
   onStateChange:
     m_PersistentCalls:
       m_Calls: []
-  queenConsumption: 30
+  queenConsumption: 60
   consumptionRate: 1
   lowConsumptionLimit: 10
   criticalConsumptionLimit: 5

@@ -8,6 +8,7 @@ using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 using Vector2 = UnityEngine.Vector2;
+using UnityEditor;
 
 /// <summary>
 /// Generating empty hive rooms using perlin noise.
@@ -180,15 +181,5 @@ public class HiveGenerator : MonoBehaviour
             Destroy(go);
         }
     }
-
-    // Ziska sousedici hexagony
-    //public List<Vector3> GetNeighbors2(Vector3 middlePosition)
-    //{
-    //    float hexSize = grid.cellSize.x;
-
-    //    List<Vector3> neighbors = HexMath.GetNeighbors(hexSize, middlePosition);
-
-    //    return neighbors;
-    //}
 }
  

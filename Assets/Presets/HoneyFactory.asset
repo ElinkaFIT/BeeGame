@@ -16,5 +16,8 @@ MonoBehaviour:
   prefab: {fileID: 3233998705632412183, guid: 458dc6cb9c5aa2a4ea461b279b30241b, type: 3}
   waxCost: 3
   costPerTurn: 1
+  roomDescription: 'This room is used for honey production. Honey is an important
+    product for the bees, which they store up for the winter and therefore serves
+    as a unit of victory points. It takes 3 nectars to make one honey. '
   roomHealthMax: 100
   workersCapacity: 1

@@ -16,5 +16,8 @@ MonoBehaviour:
   prefab: {fileID: 3233998705632412183, guid: 9f0993254d762a547b8f230fb506590c, type: 3}
   waxCost: 6
   costPerTurn: 1
+  roomDescription: This room is used for making wax. The basic building material
+    from which all buildings are made. Wax is produced by the bees in their own glands,
+    so the building does not use any resources in its production.
   roomHealthMax: 20
   workersCapacity: 1

@@ -16,5 +16,7 @@ MonoBehaviour:
   prefab: {fileID: 3233998705632412183, guid: 39a18d66cf2cdbf4b9fbf27f931f8c87, type: 3}
   waxCost: 5
   costPerTurn: 1
+  roomDescription: It serves to increase the capacity of materials. The warehouse
+    increases the capacity of all materials by 100.
   roomHealthMax: 100
   workersCapacity: 0

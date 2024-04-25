@@ -16,5 +16,9 @@ MonoBehaviour:
   prefab: {fileID: 3233998705632412183, guid: 4a2787d7b50c65e4699bce2c4b18c2b3, type: 3}
   waxCost: 1
   costPerTurn: 1
+  roomDescription: The hatchery is used to produce new bees.  It must be placed next
+    to another hatchery or next to the queen. A hatchery is only active if there
+    is a bee assigned to it. If a larva and a bee are in the hive, nectar and pollen
+    will be consumed.
   roomHealthMax: 100
   workersCapacity: 3

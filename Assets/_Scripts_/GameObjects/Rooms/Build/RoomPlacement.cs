@@ -78,7 +78,6 @@ public class RoomsPlacement : MonoBehaviour
         if (!Input.GetKey(KeyCode.LeftShift))
         {
             CancelBuildingPlacement();
-
         }
     }
 
@@ -107,7 +106,6 @@ public class RoomsPlacement : MonoBehaviour
         existingRooms.AddRange(GameObject.FindGameObjectsWithTag("FoodRoom"));
         existingRooms.AddRange(GameObject.FindGameObjectsWithTag("HoneyFactory"));
         existingRooms.AddRange(GameObject.FindGameObjectsWithTag("WaxFactory"));
-        
 
 
         Vector2 emptyRoomPos = new Vector2(emptyRoom.transform.position.x, emptyRoom.transform.position.y);

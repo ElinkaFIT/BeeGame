@@ -90,7 +90,6 @@ public class Nursery : MonoBehaviour
         {
             case NurseryState.Empty:
                 {
-                    EmptyUpdate();
                     break;
                 }
             case NurseryState.BeeGrows:
@@ -110,11 +109,6 @@ public class Nursery : MonoBehaviour
                 }
 
         }
-    }
-
-    void EmptyUpdate()
-    {
-        
     }
 
     void NewBeeConsumption()

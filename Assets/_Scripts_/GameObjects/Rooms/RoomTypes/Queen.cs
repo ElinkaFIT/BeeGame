@@ -35,7 +35,6 @@ public class Queen : MonoBehaviour
 
     private void Start()
     {
-
         SetRoomState(RoomState.Blueprint);
     }
 
@@ -83,7 +82,6 @@ public class Queen : MonoBehaviour
         {
             case QueenState.Normal:
                 {
-                    
                     NormalQueenUpdate();
                     break;
                 }
@@ -171,7 +169,6 @@ public class Queen : MonoBehaviour
     {
         
         // prodlouzi cyklus kladeni dle toho jak je kralovna hladova
-        // TODO jeste potreba lepe vypocitat
         float delay = 50 - queenConsumption;
 
         // kladeni vajicek
@@ -196,6 +193,8 @@ public class Queen : MonoBehaviour
         }
     }
 
+
+    // Update funkce
     void NormalQueenUpdate()
     {
         QueenConsumption();

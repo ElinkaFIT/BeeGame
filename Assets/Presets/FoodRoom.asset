@@ -16,5 +16,8 @@ MonoBehaviour:
   prefab: {fileID: 3233998705632412183, guid: 5f1f4a61011c9ef49b105d5d9645fe48, type: 3}
   waxCost: 2
   costPerTurn: 1
+  roomDescription: The room is used for feeding the bees. The bees fly to the canteen
+    automatically when they are hungry. The bees in the canteen consume water and
+    nectar from resources.
   roomHealthMax: 100
   workersCapacity: 5

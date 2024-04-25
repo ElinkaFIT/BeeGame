@@ -859,6 +859,7 @@ MonoBehaviour:
   panel: {fileID: 8523515094752920041}
   textCost: {fileID: 4305141703688772047}
   textDurability: {fileID: 8476323613972698633}
+  textInfo: {fileID: 2370503389334554004}
 --- !u!1 &967602649106135976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,6 +1085,7 @@ MonoBehaviour:
   panel: {fileID: 8523515094752920041}
   textCost: {fileID: 4305141703688772047}
   textDurability: {fileID: 8476323613972698633}
+  textInfo: {fileID: 2370503389334554004}
 --- !u!1 &1105308111490582251
 GameObject:
   m_ObjectHideFlags: 0
@@ -2125,6 +2127,7 @@ MonoBehaviour:
   panel: {fileID: 8523515094752920041}
   textCost: {fileID: 4305141703688772047}
   textDurability: {fileID: 8476323613972698633}
+  textInfo: {fileID: 2370503389334554004}
 --- !u!1 &2480463507779246004
 GameObject:
   m_ObjectHideFlags: 0
@@ -2473,6 +2476,7 @@ MonoBehaviour:
   panel: {fileID: 8523515094752920041}
   textCost: {fileID: 4305141703688772047}
   textDurability: {fileID: 8476323613972698633}
+  textInfo: {fileID: 2370503389334554004}
 --- !u!1 &2696829487475925665
 GameObject:
   m_ObjectHideFlags: 0
@@ -3669,6 +3673,7 @@ MonoBehaviour:
   panel: {fileID: 8523515094752920041}
   textCost: {fileID: 4305141703688772047}
   textDurability: {fileID: 8476323613972698633}
+  textInfo: {fileID: 2370503389334554004}
 --- !u!1 &3447415517300821985
 GameObject:
   m_ObjectHideFlags: 0
@@ -4696,6 +4701,7 @@ MonoBehaviour:
   panel: {fileID: 8523515094752920041}
   textCost: {fileID: 4305141703688772047}
   textDurability: {fileID: 8476323613972698633}
+  textInfo: {fileID: 2370503389334554004}
 --- !u!1 &4974624490716902194
 GameObject:
   m_ObjectHideFlags: 0
@@ -7507,6 +7513,7 @@ MonoBehaviour:
   panel: {fileID: 8523515094752920041}
   textCost: {fileID: 4305141703688772047}
   textDurability: {fileID: 8476323613972698633}
+  textInfo: {fileID: 2370503389334554004}
 --- !u!1 &7935791553103763139
 GameObject:
   m_ObjectHideFlags: 0

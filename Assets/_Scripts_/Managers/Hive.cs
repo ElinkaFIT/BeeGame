@@ -127,16 +127,19 @@ public class Hive : MonoBehaviour
         {
             if(NurseryPlacement(curIndicatorPos) == false)
             {
-                Debug.Log("Musi sousedit s kralovnou nebo lihni");
+                Log.instance.AddNewLogText(Time.time, "Must border queen or hatchery", Color.grey);
                 return;
             }
         }
+
+
+        
 
         foreach (Room room in rooms)
         {
             if (curIndicatorPos == room.transform.position)
             {
-                Debug.Log("Zde je jiz umisten jiny pokoj");
+                Log.instance.AddNewLogText(Time.time, "Object already built here", Color.grey);
                 return;
             }
 
