@@ -29,7 +29,9 @@ public enum UnitState
 public class Unit : MonoBehaviour
 {
     [Header("Components")]
+    
     public GameObject selectionVisual;
+
     public UnitHealth healthBar;
     NavMeshAgent agent;
 
@@ -276,6 +278,9 @@ public class Unit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void SearchingUpdate()
     {
         SetAnimation(false);
@@ -352,7 +357,7 @@ public class Unit : MonoBehaviour
 
         SetBeeDirection(pos.x, des.x);
 
-        if (Vector2.Distance(pos, des) == 0.0f)
+        if (Vector2.Distance(pos, des) <= 0.01f)
             SetState(UnitState.Gather);
     }
 
@@ -531,7 +536,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-    // zobrazit vyber jednotky
+    //// zobrazit vyber jednotky
     public void ToggleSelectionVisual(bool selected)
     {
         if (selectionVisual != null)
@@ -609,7 +614,7 @@ public class Unit : MonoBehaviour
         if (curHp <= 0)
             Die();
 
-        healthBar.UpdateHealthBar(curHp, maxHp);  
+        healthBar.UpdateHealthBar(curHp, maxHp);
     }
 
     void Die()
@@ -643,7 +648,7 @@ public class Unit : MonoBehaviour
             // otoc smerem doleva
             graphic.GetComponent<SpriteRenderer>().flipX = true;
             selectGraphic.GetComponent<SpriteRenderer>().flipX = true;
-        } 
+        }
         else if (dest > pos)
         {
             // otoc doprava

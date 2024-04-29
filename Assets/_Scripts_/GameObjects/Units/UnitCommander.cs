@@ -81,7 +81,7 @@ public class UnitCommander : MonoBehaviour
     void UnitsMoveToPosition(Vector2 target, Unit[] units)
     {
         // vypocitej presnou polohu jednotky
-        Vector2[] destination = UnitMovement.GetUnitGroupDestinations(target, units.Length, 1);
+        Vector2[] destination = GetUnitPosition(target, units.Length, 1);
         // pohyb kazde jednotky
         for (int x = 0; x < units.Length; x++)
         {
@@ -91,19 +91,36 @@ public class UnitCommander : MonoBehaviour
 
     void UnitsGatherResource(ResourceSource resource, Unit[] units)
     {
-        if (units.Length == 1)
+        Vector2[] destinations = GetUnitPosition(resource.transform.position, units.Length, 1);
+        for (int x = 0; x < units.Length; x++)
         {
-            units[0].GatherResource(resource, UnitMovement.GetUnitDestinationAroundResource(resource.transform.position));
-        }
-        else
-        {
-            Vector3[] destinations = UnitMovement.GetUnitGroupDestinationsAroundResource(resource.transform.position, units.Length);
-            for (int x = 0; x < units.Length; x++)
-            {
-                units[x].GatherResource(resource, destinations[x]);
-            }
+            units[x].GatherResource(resource, destinations[x]);
         }
 
+    }
+
+    public static Vector2[] GetUnitPosition(Vector2 moveToPos, int numUnits, float unitGap)
+    {
+        Vector2[] destinations = new Vector2[numUnits];
+
+        int rows = Mathf.RoundToInt(Mathf.Sqrt(numUnits));
+        int cols = Mathf.CeilToInt((float)numUnits / (float)rows);
+
+        int curRow = 0;
+        int curCol = 0;
+        float width = ((float)rows - 1) * unitGap;
+        float length = ((float)cols - 1) * unitGap;
+        for (int x = 0; x < numUnits; x++)
+        {
+            destinations[x] = moveToPos + (new Vector2(curRow, curCol) * unitGap) - new Vector2(length / 2, width / 2);
+            curCol++;
+            if (curCol == rows)
+            {
+                curCol = 0;
+                curRow++;
+            }
+        }
+        return destinations;
     }
 
     void UnitsSearching(ResourceTile tile, Unit[] units)
@@ -130,11 +147,6 @@ public class UnitCommander : MonoBehaviour
         }
         else
         {
-            //for (int x = 0; x < units.Length; x++)
-            //{
-            //    units[x].BuildRoom(room, room.transform.position);
-            //}
-
             units[0].BuildRoom(room, room.transform.position);
         }
     }
@@ -147,12 +159,6 @@ public class UnitCommander : MonoBehaviour
         }
         else
         {
-            // pro vsechny jednotky
-            //for (int x = 0; x < units.Length; x++)
-            //{
-            //    units[x].BuildRoom(room, room.transform.position);
-            //}
-
             units[0].WorkInRoom(room, room.transform.position);
         }
     }
