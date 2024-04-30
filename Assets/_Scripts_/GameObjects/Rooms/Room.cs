@@ -69,6 +69,7 @@ public class Room : MonoBehaviour
         // Pridej vcelu do seznamu pracovniku
         if (!roomWorkers.Contains(newWorker)) {
             roomWorkers.Add(newWorker);
+            doneIcon.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
         }
     }
 
@@ -78,6 +79,7 @@ public class Room : MonoBehaviour
         if (roomWorkers.Contains(newWorker))
         {
             roomWorkers.Remove(newWorker);
+            doneIcon.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         }
     }
 

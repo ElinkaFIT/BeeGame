@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 //using UnityEditor.AI;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public enum ResourceTileState
 {
@@ -70,7 +70,14 @@ public class ResourceTile : MonoBehaviour
             SetResourceTileState(ResourceTileState.Exposed);
             if (resourceOptions != null)
             {
-                SpawnResources();
+                if(isVertical)
+                {
+                    SpawnTree();
+                }
+                else
+                {
+                    SpawnResources();
+                }
             }
             return;
         }
@@ -83,9 +90,10 @@ public class ResourceTile : MonoBehaviour
     private void SpawnResources()
     {
         // nahodne vybere jaky typ objektu se bude na policku generovat
-        int resourceIndex = UnityEngine.Random.Range(0, resourceOptions.Count);
+        int resourceIndex = UnityEngine.Random.Range(0, resourceOptions.Count - 1);
+        Debug.Log(resourceIndex);
+        Debug.Log(resourceOptions[resourceIndex]);
 
-        // zacneme z leveho horniho rohu
         Vector2 startPos = new Vector2(posX - tileShiftX / 2, posY - tileShiftY / 2);
         
         // nahodne generuje umisteni suroviny
@@ -120,6 +128,34 @@ public class ResourceTile : MonoBehaviour
                 Instantiate(resourceOptions[resourceIndex], pos, Quaternion.identity);
             }
 
+        }
+
+        RemoveTile();
+        RebuildNavMesh();
+    }
+
+    private void SpawnTree()
+    {
+        int resourceCount = UnityEngine.Random.Range(resourceCountMin, resourceCountMax);
+
+        // nahodne vybere jaky typ objektu se bude na policku generovat
+        int resourceIndex = UnityEngine.Random.Range(0, resourceOptions.Count - 1);
+
+        for (int i = 0; i < resourceCount; i++)
+        {
+            // zacneme z leveho dolniho rohu
+            Vector2 startPos = new Vector2(posX - tileShiftX / 2, posY - tileShiftY / 2);
+
+            Vector2 pos = new Vector2();
+
+            float resourceSizeX = resourceOptions[resourceIndex].GetComponent<CapsuleCollider2D>().size.x;
+            float resourceSizeY = resourceOptions[resourceIndex].GetComponent<CapsuleCollider2D>().size.y;
+
+            pos.x = startPos.x + UnityEngine.Random.Range(0 + resourceSizeX, tileShiftX - resourceSizeX);
+            pos.y = startPos.y + resourceSizeY / 2;
+
+            // nahodne generuje umisteni suroviny
+            Instantiate(resourceOptions[resourceIndex], pos, Quaternion.identity);
         }
 
         RemoveTile();

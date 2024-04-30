@@ -5,6 +5,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using static UnityEditor.PlayerSettings;
+using static UnityEngine.UI.Image;
 
 public enum UnitState
 {
@@ -127,13 +129,13 @@ public class Unit : MonoBehaviour
         switch (state)
         {
             // pokud se nekam pohybuje
-            case (UnitState)1 or (UnitState)2 or (UnitState)4 or (UnitState)6 or (UnitState)8 or (UnitState)10 or (UnitState)12:
+            case (UnitState)1 or (UnitState)2 or (UnitState)4 or (UnitState)6 or (UnitState)8 or (UnitState)10 or (UnitState)12 or (UnitState)14:
                 {
                     curEnergy -= 1;
                     break;
                 }
             // pokud pracuje
-            case (UnitState)3 or (UnitState)5 or (UnitState)7 or (UnitState)9:
+            case (UnitState)3 or (UnitState)5 or (UnitState)7 or (UnitState)9 or (UnitState)15:
                 {
                     curEnergy -= 3;
                     break;
@@ -143,7 +145,7 @@ public class Unit : MonoBehaviour
         }
 
         // pokud dojde energie prestane pracovat a jde spat
-        if (curEnergy <= 0)
+        if (curEnergy <= 20)
         {
             SetState(UnitState.MoveToRestRoom);
         }
@@ -483,6 +485,18 @@ public class Unit : MonoBehaviour
     void WorkUpdate()
     {
         SetAnimation(false);
+
+            foreach(Room room in Hive.instance.rooms)
+            {
+                Vector2 unitPos = agent.transform.position;
+                Vector2 roomPos = room.transform.position;
+                if(Vector2.Distance(unitPos, roomPos) < 0.01f)
+                {
+                    curBuildRoom = room;
+                }
+            }
+        
+        // zrovna pracuje tu
         curBuildRoom.WorkInRoom(gameObject.GetComponent<Unit>());
     }
 
@@ -577,7 +591,7 @@ public class Unit : MonoBehaviour
 
     public void WorkInRoom(Room room, Vector3 pos)
     {
-        curBuildRoom = room;
+        //curBuildRoom = room;
         SetState(UnitState.MoveToWork);
         agent.isStopped = false;
         agent.SetDestination(pos);

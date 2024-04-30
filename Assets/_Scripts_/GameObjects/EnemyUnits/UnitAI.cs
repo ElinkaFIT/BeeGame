@@ -47,6 +47,8 @@ public class UnitAI : MonoBehaviour
     public float attackRate;
     private float lastAttackTime;
 
+    public Animator animator;
+    public GameObject graphic;
 
     private void Start()
     {
@@ -102,6 +104,7 @@ public class UnitAI : MonoBehaviour
 
     private void MoveToHiveUpdate()
     {
+        SetAnimation(true);
         if (curHiveTarget == null)
         {
             SetState(AIUnitState.Idle);
@@ -113,6 +116,8 @@ public class UnitAI : MonoBehaviour
             lastPathUpdateTime = Time.time;
             agent.isStopped = false;
             agent.SetDestination(curHiveTarget.transform.position);
+            SetEnemyDirection(agent.transform.position.x, curHiveTarget.transform.position.x);
+            
         }
 
         if (Vector3.Distance(transform.position, curHiveTarget.transform.position) <= 1.5)
@@ -121,6 +126,8 @@ public class UnitAI : MonoBehaviour
 
     private void DestroyRoomUpdate()
     {
+        SetAnimation(false);
+
         if (curHiveTarget == null)
         {
             SetState(AIUnitState.Idle);
@@ -174,6 +181,7 @@ public class UnitAI : MonoBehaviour
 
     void MoveToEnemyUpdate()
     {
+        SetAnimation(true);
         if (curEnemyTarget == null)
         {
             SetState(AIUnitState.Idle);
@@ -185,6 +193,8 @@ public class UnitAI : MonoBehaviour
             lastPathUpdateTime = Time.time;
             agent.isStopped = false;
             agent.SetDestination(curEnemyTarget.transform.position);
+            SetEnemyDirection(agent.transform.position.x, curEnemyTarget.transform.position.x);
+
         }
 
         if (Vector3.Distance(transform.position, curEnemyTarget.transform.position) <= 1.5)
@@ -279,6 +289,32 @@ public class UnitAI : MonoBehaviour
         PlayerAI.enemy.units.Remove(this);
         Destroy(gameObject);
         
+    }
+
+    public void SetAnimation(bool setFlyingOn)
+    {
+        if (setFlyingOn)
+        {
+            animator.SetFloat("Speed", 1);
+        }
+        else
+        {
+            animator.SetFloat("Speed", 0);
+        }
+    }
+
+    public void SetEnemyDirection(float pos, float dest)
+    {
+        if (dest < pos)
+        {
+            // otoc smerem doleva
+            graphic.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (dest > pos)
+        {
+            // otoc doprava
+            graphic.GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
 
     void SetState(AIUnitState toState)

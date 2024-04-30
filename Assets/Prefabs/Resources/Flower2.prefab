@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  quantity: 200
+  quantity: 50
   onQuantityChange:
     m_PersistentCalls:
       m_Calls: []
