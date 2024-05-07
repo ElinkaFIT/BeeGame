@@ -1,12 +1,12 @@
+//****************************************************************************
+// Author:      Alena Klimecka (xklime47)
+// Project:     Bachelor thesis - Beetween the flowers
+// Date:        09/05/2024
+//****************************************************************************
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.UI.Image;
 
 public enum UnitState
 {

@@ -1,4 +1,8 @@
-using System.Collections;
+//****************************************************************************
+// Author:      Alena Klimecka (xklime47)
+// Project:     Bachelor thesis - Beetween the flowers
+// Date:        09/05/2024
+//****************************************************************************
 using System.Collections.Generic;
 using UnityEngine;
 
