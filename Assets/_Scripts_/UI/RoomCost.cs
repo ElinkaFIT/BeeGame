@@ -7,13 +7,21 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// 
+/// </summary>
 public class RoomCost : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
 {
-    public RoomPreset preset;
-    public GameObject panel;
-    public TextMeshProUGUI textCost;
-    public TextMeshProUGUI textDurability;
-    public TextMeshProUGUI textInfo;
+    public RoomPreset preset;               // room preset
+    public GameObject panel;                // panel for room information
+    public TextMeshProUGUI textCost;        // text of room cost on panel
+    public TextMeshProUGUI textDurability;  // text of room  durability on panel
+    public TextMeshProUGUI textInfo;        // information text abour room
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerEnter(PointerEventData eventData)
     {
         panel.SetActive(true);
@@ -21,6 +29,11 @@ public class RoomCost : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
         textDurability.text = "Durability: " + preset.roomHealthMax;
         textInfo.text = preset.roomDescription;
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerExit(PointerEventData eventData)
     {
         panel.SetActive(false);

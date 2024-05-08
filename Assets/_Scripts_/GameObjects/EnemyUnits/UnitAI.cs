@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// States of enemy unit
+/// </summary>
 public enum AIUnitState
 {
     Idle,
@@ -16,6 +19,9 @@ public enum AIUnitState
     DestroyRoom
 }
 
+/// <summary>
+/// Types of enemy unit
+/// </summary>
 public enum AIUnitType
 {
     BeeAttacker,
@@ -23,36 +29,46 @@ public enum AIUnitType
 
 }
 
+/// <summary>
+/// Class object pro konkretni objekt enemy
+/// </summary>
 public class UnitAI : MonoBehaviour
 {
-    public AIUnitType unitType;
-    public float checkRate;
-    public float nearbyEnemyAttackRange;
-    public LayerMask unitLayerMask;
+    public AIUnitType unitType;             // type of enemy unit
+    public AIUnitState unitState;           // current enemy state
+    NavMeshAgent agent;                     // navigation agent of enemy
+    private PlayerAI playerAI;              // player object of enemy
 
-    private PlayerAI playerAI;
-    private Unit curEnemyTarget;
-    private Room curHiveTarget;
+    // Health
+    public UnitHealth healthBar;            // enemy health bar object
+    public int curHp;                       // current enemy health
+    public int maxHp;                       // maximum enemy health
 
-    public AIUnitState unitState;
-    NavMeshAgent agent;
-    public UnitHealth healthBar;
+    // Attacking
+    private Unit curEnemyTarget;            // current bee unit target
+    private Room curHiveTarget;             // current room in hive target
 
-    public int curHp;
-    public int maxHp;
+    public float checkRate;                 // 
+    public float nearbyEnemyAttackRange;    // 
+    public LayerMask unitLayerMask;         // 
 
-    public int minAttackDamage;
-    public int maxAttackDamage;
+    public int minAttackDamage;             // minimal damage of enemy
+    public int maxAttackDamage;             // maximum demage of enemy
 
-    public float pathUpdateRate;
-    private float lastPathUpdateTime;
+    public float attackRate;                // attack rate in time
+    private float lastAttackTime;           // last time unit attacked
 
-    public float attackRate;
-    private float lastAttackTime;
+    // Moving
+    public float pathUpdateRate;            // 
+    private float lastPathUpdateTime;       // 
 
-    public Animator animator;
-    public GameObject graphic;
+    // Graphic
+    public Animator animator;               // animation component 
+    public GameObject graphic;              // graphic of enemy unit
 
+    /// <summary>
+    /// Podle typu enemy jednotky v intervalech hleda cil utoku
+    /// </summary>
     private void Start()
     {
         if(unitType == AIUnitType.BeeAttacker)
@@ -64,14 +80,20 @@ public class UnitAI : MonoBehaviour
             InvokeRepeating(nameof(CheckHive), 0.0f, checkRate);
         }
     }
+
+    /// <summary>
+    /// inicializace of navigation agent
+    /// </summary>
     private void Awake()
     {
-
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-
     }
+
+    /// <summary>
+    /// Provede odlidne update funkce dle stavu enemy jednotky
+    /// </summary>
     void Update()
     {
         switch (unitState)
@@ -105,6 +127,9 @@ public class UnitAI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Move enemy unit to current target room in hive
+    /// </summary>
     private void MoveToHiveUpdate()
     {
         SetAnimation(true);
@@ -127,6 +152,9 @@ public class UnitAI : MonoBehaviour
             SetState(AIUnitState.DestroyRoom);
     }
 
+    /// <summary>
+    /// Unit make random demage to current attacking room in the hive
+    /// </summary>
     private void DestroyRoomUpdate()
     {
         SetAnimation(false);
@@ -151,9 +179,11 @@ public class UnitAI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Check for nearby bee unit and attack them
+    /// </summary>
     void CheckEnemy()
     {
-        // check if we have nearby enemies - if so, attack them
         if (unitState == AIUnitState.Idle || unitState == AIUnitState.MoveToEnemy)
         {
             Unit potentialEnemy = CheckForNearbyEnemies();
@@ -166,9 +196,11 @@ public class UnitAI : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Check for nearby built room in hive and make damage
+    /// </summary>
     void CheckHive()
     {
-        // check if we have built hive rooms nearby - attack them
         if (unitState == AIUnitState.Idle)
         {
             Room potentialRoom = CheckForNearbyRooms();
@@ -177,11 +209,12 @@ public class UnitAI : MonoBehaviour
                 curHiveTarget = potentialRoom;
                 SetState(AIUnitState.MoveToHive);
             }
-
         }
-
     }
 
+    /// <summary>
+    /// Move enemy unit to bee unit and if nearby start attack
+    /// </summary>
     void MoveToEnemyUpdate()
     {
         SetAnimation(true);
@@ -204,6 +237,9 @@ public class UnitAI : MonoBehaviour
             SetState(AIUnitState.Attack);
     }
 
+    /// <summary>
+    /// Attack bee unit
+    /// </summary>
     void AttackUpdate()
     {
         if (curEnemyTarget == null)
@@ -226,6 +262,10 @@ public class UnitAI : MonoBehaviour
             SetState(AIUnitState.MoveToEnemy);
     }
 
+    /// <summary>
+    /// Find closest bee enemy and return it
+    /// </summary>
+    /// <returns></returns>
     Unit CheckForNearbyEnemies()
     {
         List<Unit> targets = Player.me.units;
@@ -248,6 +288,10 @@ public class UnitAI : MonoBehaviour
             return null;
     }
 
+    /// <summary>
+    /// Find closest built room in hive and return it
+    /// </summary>
+    /// <returns></returns>
     Room CheckForNearbyRooms()
     {
         List<Room> targets = Hive.instance.rooms;
@@ -270,13 +314,20 @@ public class UnitAI : MonoBehaviour
             return null;
     }
 
-
+    /// <summary>
+    /// Start attack unit
+    /// </summary>
+    /// <param name="target"></param>
     public void AttackUnit(Unit target)
     {
         curEnemyTarget = target;
         SetState(AIUnitState.MoveToEnemy);
     }
 
+    /// <summary>
+    /// Enemy unit take demage
+    /// </summary>
+    /// <param name="damage"></param>
     public void TakeDamage(int damage)
     {
         curHp -= damage;
@@ -286,6 +337,9 @@ public class UnitAI : MonoBehaviour
         healthBar.UpdateHealthBar(curHp, maxHp);
     }
 
+    /// <summary>
+    /// Remove enemy unit from game
+    /// </summary>
     void Die()
     {
 
@@ -294,6 +348,10 @@ public class UnitAI : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Set enemy anmimation active
+    /// </summary>
+    /// <param name="setFlyingOn"></param>
     public void SetAnimation(bool setFlyingOn)
     {
         if (setFlyingOn)
@@ -306,6 +364,11 @@ public class UnitAI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set enemy graphic direction 
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="dest"></param>
     public void SetEnemyDirection(float pos, float dest)
     {
         if (dest < pos)
@@ -320,6 +383,10 @@ public class UnitAI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Change current enemy state
+    /// </summary>
+    /// <param name="toState"></param>
     void SetState(AIUnitState toState)
     {
 

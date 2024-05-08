@@ -11,17 +11,20 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Game");
     }
 
     public void StartSavedGame()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Game");
         SaveManager.instance.LoadGame();
     }
 
     public void StartCampaign()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("OpeningLevel_1");
     }
 

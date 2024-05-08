@@ -55,7 +55,8 @@ public class HiveGenerator : MonoBehaviour
 
     private void Update()
     {
-        // jen pro testovani
+        // for testing regenerate on click
+
         //if (Input.GetMouseButtonDown(2))
         //{
         //    DeleteRooms();

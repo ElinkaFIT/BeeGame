@@ -2,6 +2,8 @@
 // Author:      Alena Klimecka (xklime47)
 // Project:     Bachelor thesis - Beetween the flowers
 // Date:        09/05/2024
+//
+// This script is based by https://www.redblobgames.com/grids/hexagons/
 //****************************************************************************
 using UnityEngine;
 
@@ -10,22 +12,25 @@ using UnityEngine;
 /// </summary>
 public static class HexMath
 {
-    // Lenght from left to right corner
+    /// <summary>
+    /// Lenght from left to right corner
+    /// </summary>
     public static float OuterRadius (float hexSize)
     {
         return hexSize;
     }
 
-
-    // Height from bottom to top edge 
+    /// <summary>
+    /// Height from bottom to top edge 
+    /// </summary>
     public static float InnerRadius (float hexSize)
     {
         return (hexSize / 2) * Mathf.Sqrt(3);   
     }
 
-
-    // Position of hexagon center according to given coordinates,
-    // coordinates determine the order of the hexagon in the grid.
+    /// <summary>
+    /// Position of hexagon center according to given coordinates, coordinates determine the order of the hexagon in the grid.
+    /// </summary>
     public static Vector3 Center(float hexSize, int x, int y)
     {
         Vector3 centrePosition;

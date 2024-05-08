@@ -6,8 +6,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// 
+/// </summary>
 public class Restart : MonoBehaviour
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public void RestartGame()
     {
         SceneManager.LoadScene("Game");

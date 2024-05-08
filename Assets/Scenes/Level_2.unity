@@ -4484,14 +4484,6 @@ PrefabInstance:
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
-    - target: {fileID: 6692786809932746709, guid: 53595cce4b8470547abafb421ea5c7e2, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6692786809932746709, guid: 53595cce4b8470547abafb421ea5c7e2, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6750124686461135147, guid: 53595cce4b8470547abafb421ea5c7e2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

@@ -17,20 +17,22 @@ public class GameOver : MonoBehaviour
     }
     public void OpenGameOverMenu()
     {
+        Time.timeScale = 0;
         gameObject.SetActive(true);
-        Pause();
     }
 
     public void RestartGame()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("Game");
+        Time.timeScale = 1;
     }
 
     public void RestartLevel2()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("Level_2");
+        Time.timeScale = 1;
     }
 
     public void ExitGame()
