@@ -6,14 +6,15 @@
 using UnityEngine;
 
 /// <summary>
-/// 
+/// Controls the visibility of a UI panel, allowing it to be opened or closed.
 /// </summary>
 public class OpenPanel : MonoBehaviour
 {
-    public GameObject panel;    // object of some panel
+    // The panel GameObject that this script will show or hide.
+    public GameObject panel;       
 
     /// <summary>
-    /// 
+    /// Sets the initial state of the panel to be hidden.
     /// </summary>
     private void Awake()
     {
@@ -21,7 +22,7 @@ public class OpenPanel : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Toggles the visibility of the panel.
     /// </summary>
     public void OpenClosePanel()
     {

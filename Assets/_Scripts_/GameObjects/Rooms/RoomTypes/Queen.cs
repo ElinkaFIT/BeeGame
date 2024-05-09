@@ -3,45 +3,54 @@
 // Project:     Bachelor thesis - Beetween the flowers
 // Date:        09/05/2024
 //****************************************************************************
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+// Define different states for the queen bee
 public enum QueenState
 {
-    Normal,
-    Hungry,
-    QueenIsDying,
-    QueenDeath
+    Normal,         // Queen is in a normal state
+    Hungry,         // Queen is hungry and needs more food
+    QueenIsDying,   // Queen is dying and close to death
+    QueenDeath      // Queen is dead
 }
 
 public class Queen : MonoBehaviour
 {
+    public RoomState state;                                     // Current state of the room
+    public QueenState queenState;                               // Current state of the queen
+    public Room curBuildRoom;                                   // Current room the queen is building
 
-    public RoomState state;
-    public QueenState queenState;
-    public Room curBuildRoom;
-
-    // events
+    /// <summary>
+    /// Event triggered when the state of the room changes.
+    /// </summary>
     [System.Serializable]
     public class StateChangeEvent : UnityEvent<RoomState> { }
-    public StateChangeEvent onStateChange;
+    public StateChangeEvent onStateChange; // Event fired when the room's state changes
 
-    public float queenConsumption;
-    public float consumptionRate;
-    private float lastConsumptionTime;
+    public float queenConsumption;                              // Current amount of food the queen has consumed
+    public float consumptionRate;                               // Rate at which the queen consumes food
+    private float lastConsumptionTime;                          // Time since the queen last consumed food
 
-    public int lowConsumptionLimit;
-    public int criticalConsumptionLimit;
+    public int lowConsumptionLimit;                             // Lower limit at which the queen starts to get hungry
+    public int criticalConsumptionLimit;                        // Critical limit at which the queen starts dying
 
-    public float LayingEggRate;
-    private float lastLayingEggTime;
+    public float LayingEggRate;                                 // Rate at which the queen lays eggs
+    private float lastLayingEggTime;                            // Time since the queen last laid eggs
 
+    /// <summary>
+    /// Initializes the room by setting its state to Blueprint.
+    /// </summary>
     private void Start()
     {
         SetRoomState(RoomState.Blueprint);
     }
 
+    /// <summary>
+    /// Updates the room's behavior based on its current state
+    /// </summary>
     void Update()
     {
         switch (state)
@@ -61,15 +70,20 @@ public class Queen : MonoBehaviour
                     BuiltUpdate();
                     break;
                 }
-
         }
     }
 
+    /// <summary>
+    /// Handles the behavior when the room is in the Blueprint state.
+    /// </summary>
     void BlueprintUpdate()
     {
         SetRoomState(RoomState.UnderConstruction);
     }
 
+    /// <summary>
+    /// Handles the behavior when the room is in the UnderConstruction state.
+    /// </summary>
     void UnderConstructionUpdate()
     {
         curBuildRoom.BuildRoom(100);
@@ -80,6 +94,9 @@ public class Queen : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Manages the queen operations when the room is fully built and operational.
+    /// </summary>
     void BuiltUpdate()
     {
         switch (queenState)
@@ -104,14 +121,15 @@ public class Queen : MonoBehaviour
                     QueenDeathUpdate();
                     break;
                 }
-
         }
-
     }
 
+    /// <summary>
+    /// Manage the queen's consumption of resources.
+    /// </summary>
     void QueenConsumption()
     {
-        // pokud nastal cas krmeni
+        // Check if enough time has passed since the queen feeding
         if (Time.time - lastConsumptionTime > consumptionRate)
         {
             lastConsumptionTime = Time.time;
@@ -119,8 +137,7 @@ public class Queen : MonoBehaviour
             bool isPollenAvailable = Hive.instance.pollen > 0;
             bool isNectarAvailable = Hive.instance.nectar > 0;
 
-            // proved krmeni 
-            // musi byt aktivni vcela krmicka a dostupne suroviny 
+            // Feed the queen if resources are available and the queen is not fully fed
             if (curBuildRoom.roomWorkers.Count > 0 && isPollenAvailable && isNectarAvailable && queenConsumption < 100)
             {
                 Hive.instance.RemoveMaterial(ResourceType.Nectar);
@@ -134,12 +151,16 @@ public class Queen : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Select a nursery room for the queen to lay eggs.
+    /// </summary>
+    /// <returns>Selected nursery room or null if none found.</returns>
     private Room PickingNursery()
     {
         List<Room> rooms = Hive.instance.rooms;
         List<Room> nurseryRooms = new List<Room>();
 
-        // vebere jen prazdne postavene lihne
+        // Select only empty and built nursery rooms
         foreach (Room room in rooms)
         {
             if (room.preset.roomType == RoomType.Nursery && room.concructionDone)
@@ -152,10 +173,9 @@ public class Queen : MonoBehaviour
             }
         }
 
-        // vybere vhodne lihne
+        // Choose a suitable nursery
         foreach (Room nursery in nurseryRooms)
         {
-            // pokud je to lihen a je zde pracovnik
             if (nursery.roomWorkers.Count > 0)
             {
                 return nursery;
@@ -169,43 +189,42 @@ public class Queen : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// Manage the queen's egg-laying process.
+    /// </summary>
     void QueenLayingEggs()
     {
-        
-        // prodlouzi cyklus kladeni dle toho jak je kralovna hladova
+        // Extend the laying cycle based on how hungry the queen is
         float delay = 50 - queenConsumption;
 
-        // kladeni vajicek
+        // Lay eggs
         if (Time.time - lastLayingEggTime > LayingEggRate + delay)
         {
             lastLayingEggTime = Time.time;
-            
+
             Room pickedRoom = PickingNursery();
             if (pickedRoom != null)
             {
                 Log.instance.AddNewLogText(Time.time, "Queen lay a new egg", Color.black);
                 pickedRoom.gameObject.GetComponent<Nursery>().AddNewEgg();
 
-                // s 60% šancí se do hry pøidá enemy jednotka - zmenit na 0.6
-                if(Random.Range(0f, 1f) < 1f) {
+                if (Random.Range(0f, 1f) < 1f)
+                {
                     CommandManager.instance.RunSpawnEnemy();
                 }
-
-
             }
-
         }
     }
 
-
-    // Update funkce
+    /// <summary>
+    /// Update function for when the queen is in 'Normal' state.
+    /// </summary>
     void NormalQueenUpdate()
     {
         QueenConsumption();
-
         QueenLayingEggs();
 
-        // pokud dosahne okrajove hladiny konzumace prejdi do jineho stavu
+        // Change state if the queen reaches the low consumption threshold
         if (queenConsumption <= lowConsumptionLimit)
         {
             Log.instance.AddNewLogText(Time.time, "Queen is hungry", Color.red);
@@ -213,12 +232,14 @@ public class Queen : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Update function for when the queen is 'Hungry'.
+    /// </summary>
     void HungryQueenUpdate()
     {
-
         QueenConsumption();
 
-        // pokud dosahne okrajove hladiny konzumace prejdi do jineho stavu
+        // Change the state based on the consumption levels
         if (queenConsumption <= criticalConsumptionLimit)
         {
             Log.instance.AddNewLogText(Time.time, "Queen is starving", Color.red);
@@ -230,15 +251,17 @@ public class Queen : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Update function for when the queen is 'Dying'.
+    /// </summary>
     void QueenIsDyingUpdate()
     {
         QueenConsumption();
 
-        // blikanim znaci ze se blizi konec hry
+        // Flashing UI component to indicate the game is near end
         UIComponents.instance.StartGameOverReminder();
 
-
-        // pokud dosahne okrajove hladiny konzumace prejdi do jineho stavu
+        // Change state if the queen reaches the death threshold
         if (queenConsumption <= 0)
         {
             SetQueenState(QueenState.QueenDeath);
@@ -251,28 +274,40 @@ public class Queen : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Update function for when the queen is 'Dead'.
+    /// </summary>
     void QueenDeathUpdate()
     {
-        // konec hry
+        // Trigger the game over menu
         GameOver.instance.OpenGameOverMenu();
     }
 
+    /// <summary>
+    /// Set the state of the room and trigger the state change event.
+    /// </summary>
+    /// <param name="toState">New state.</param>
     public void SetRoomState(RoomState toState)
     {
         state = toState;
 
-        // calling the event
         if (onStateChange != null)
+        {
             onStateChange.Invoke(state);
+        }
     }
 
+    /// <summary>
+    /// Set the state of the queen and trigger the state change event.
+    /// </summary>
+    /// <param name="toState">New state.</param>
     public void SetQueenState(QueenState toState)
     {
         queenState = toState;
 
-        // calling the event
         if (onStateChange != null)
+        {
             onStateChange.Invoke(state);
+        }
     }
-
 }

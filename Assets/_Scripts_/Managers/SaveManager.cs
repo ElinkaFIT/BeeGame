@@ -6,21 +6,34 @@
 using System.IO;
 using UnityEngine;
 
+/// <summary>
+/// Manages saving and loading game data.
+/// </summary>
 public class SaveManager : MonoBehaviour
 {
-    public static SaveManager instance;
+    // Singleton instance of SaveManager.
+    public static SaveManager instance; 
 
+    /// <summary>
+    /// Represents the data to save or load.
+    /// </summary>
     public class SavedData
     {
-        public Hive hive;
-        public Player player;
+        public Hive hive;       // Represents the state of the hive.
+        public Player player;   // Represents the state of the player.
     }
 
+    /// <summary>
+    /// Sets the singleton instance of SaveManager.
+    /// </summary>
     private void Start()
     {
         instance = this;
     }
 
+    /// <summary>
+    /// Saves the current game state to a file.
+    /// </summary>
     public void SaveGame()
     {
         SavedData data = new SavedData();
@@ -29,25 +42,22 @@ public class SaveManager : MonoBehaviour
 
         string path = Application.dataPath + "/save.bee";
         string json = JsonUtility.ToJson(data, true);
-
         File.WriteAllText(path, json);
-        
     }
 
+    /// <summary>
+    /// Loads the game state from a file if it exists.
+    /// </summary>
     public void LoadGame()
     {
-
         string path = Application.dataPath + "/save.bee";
-
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-
             SavedData data = JsonUtility.FromJson<SavedData>(json);
 
             Hive.instance = data.hive;
             Player.me = data.player;
         }
     }
-
 }

@@ -7,33 +7,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Manages the resources and building placements within the hive.
+/// </summary>
 public class Hive : MonoBehaviour
 {
+    // Current and current maximum capacity of nectar in the hive.
     public int nectar;
     public int nectarCapacity;
 
+    // Current and current maximum capacity of water in the hive.
     public int water;
     public int waterCapacity;
 
+    // Current and current maximum capacity of wax in the hive.
     public int wax;
     public int waxCapacity;
 
+    // Current and current maximum capacity of pollen in the hive.
     public int pollen;
     public int pollenCapacity;
 
+    // Current amount of honey in the hive.
     public int honey;
 
+    // Notification object when there's not enough wax.
     public GameObject waxAbsence;
 
+    // List of all rooms in the hive.
     public List<Room> rooms = new List<Room>();
 
+    // Singleton instance of the Hive.
     public static Hive instance;
 
+    /// <summary>
+    /// Ensures the Hive instance is a singleton.
+    /// </summary>
     private void Awake()
     {
         instance = this;
     }
 
+    /// <summary>
+    /// Initializes the Hive by loading game data and updating the UI.
+    /// </summary>
     private void Start()
     {
         //SaveManager.instance.LoadGame();
@@ -53,6 +70,10 @@ public class Hive : MonoBehaviour
         GameUI.instance.UpdateHoneyText(honey);
     }
 
+    /// <summary>
+    /// Decreases the specified resource by one if available and updates the UI.
+    /// </summary>
+    /// <param name="resourceType">Type of the resource to remove.</param>
     public void RemoveMaterial(ResourceType resourceType)
     {
         switch (resourceType)
@@ -62,7 +83,8 @@ public class Hive : MonoBehaviour
                 {
                     Log.instance.AddNewLogText(Time.time, "Amount of nectar is low", Color.black);
                 }
-                else{
+                else
+                {
                     nectar--;
                     GameUI.instance.UpdateNectarText(nectar);
                 }
@@ -116,6 +138,11 @@ public class Hive : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Places a building in the hive if enough resources are available.
+    /// </summary>
+    /// <param name="preset">Preset of the room to build.</param>
+    /// <param name="curIndicatorPos">Position to place the building.</param>
     public void OnPlaceBuilding(RoomPreset preset, Vector3 curIndicatorPos)
     {
         if (wax < preset.waxCost)
@@ -128,15 +155,12 @@ public class Hive : MonoBehaviour
 
         if (preset.roomType == RoomType.Nursery)
         {
-            if(NurseryPlacement(curIndicatorPos) == false)
+            if (NurseryPlacement(curIndicatorPos) == false)
             {
                 Log.instance.AddNewLogText(Time.time, "Must border queen or hatchery", Color.grey);
                 return;
             }
         }
-
-
-        
 
         foreach (Room room in rooms)
         {
@@ -145,7 +169,6 @@ public class Hive : MonoBehaviour
                 Log.instance.AddNewLogText(Time.time, "Object already built here", Color.grey);
                 return;
             }
-
         }
 
         wax -= preset.waxCost;
@@ -157,6 +180,10 @@ public class Hive : MonoBehaviour
         GameUI.instance.UpdateWaxText(wax);
     }
 
+    /// <summary>
+    /// Removes a building from the hive and refunds the wax cost.
+    /// </summary>
+    /// <param name="room">The room to be removed.</param>
     public void OnRemoveBuilding(Room room)
     {
         wax += room.preset.waxCost;
@@ -165,6 +192,11 @@ public class Hive : MonoBehaviour
         GameUI.instance.UpdateWaxText(wax);
     }
 
+    /// <summary>
+    /// Adds a specified amount of a resource to the hive, respecting capacity limits.
+    /// </summary>
+    /// <param name="resourceType">Type of the resource to add.</param>
+    /// <param name="amount">Amount of the resource to add.</param>
     public void GainResource(ResourceType resourceType, int amount)
     {
         switch (resourceType)
@@ -226,14 +258,18 @@ public class Hive : MonoBehaviour
         }
     }
 
-    // vrati true pokud sousedi s queen nebo nursery, jinak false
+    /// <summary>
+    /// Checks if a nursery can be placed next to a queen or another nursery.
+    /// </summary>
+    /// <param name="newNursery">Position to check for nursery placement.</param>
+    /// <returns>True if placement is valid, otherwise false.</returns>
     public bool NurseryPlacement(Vector3 newNursery)
     {
         foreach (Room room in rooms)
         {
             float gridSize = HiveGenerator.instance.grid.cellSize.x;
 
-            if (Vector3.Distance(room.transform.position, newNursery) < 2.2f * HexMath.InnerRadius(gridSize))
+            if ( Vector3.Distance(room.transform.position, newNursery) < 2.2f * HexMath.InnerRadius(gridSize))
             {
                 if (room.preset.roomType == RoomType.Queen || room.preset.roomType == RoomType.Nursery)
                     return true;
@@ -241,5 +277,4 @@ public class Hive : MonoBehaviour
         }
         return false;
     }
-
 }

@@ -7,12 +7,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// 
+/// Handles the game restarting mechanism by loading a specific scene.
 /// </summary>
 public class Restart : MonoBehaviour
 {
     /// <summary>
-    /// 
+    /// Restarts the game by reloading the 'Game' scene.
     /// </summary>
     public void RestartGame()
     {

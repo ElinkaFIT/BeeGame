@@ -8,99 +8,106 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
+/// <summary>
+/// Defines the possible states of a unit within the game.
+/// </summary>
 public enum UnitState
 {
-    Idle,
-    Move,
-    MoveToResource,
-    Gather,
-    MoveToEnemy,
-    Attack,
-    MoveToBuild,
-    Build,
-    MoveToWork,
-    Work,
-    MoveToFoodRoom,
-    Eat,
-    MoveToRestRoom,
-    Sleep,
-    SearchMove,
-    Searching
+    Idle,                // The unit is idle.
+    Move,                // The unit is moving to a target position.
+    MoveToResource,      // The unit is moving to a resource.
+    Gather,              // The unit is gathering resources.
+    MoveToEnemy,         // The unit is moving towards an enemy.
+    Attack,              // The unit is attacking an enemy.
+    MoveToBuild,         // The unit is moving to a construction site.
+    Build,               // The unit is building or repairing a structure.
+    MoveToWork,          // The unit is moving to a workplace.
+    Work,                // The unit is working in a room.
+    MoveToFoodRoom,      // The unit is moving to the food room to eat.
+    Eat,                 // The unit is eating in the food room.
+    MoveToRestRoom,      // The unit is moving to the rest room to sleep.
+    Sleep,               // The unit is sleeping in the rest room.
+    SearchMove,          // The unit is moving to a search area.
+    Searching            // The unit is searching in a specific area.
 }
 
+/// <summary>
+/// Manages the attributes and behaviors of a unit, including movement, combat, resource gathering, and building.
+/// </summary>
 public class Unit : MonoBehaviour
 {
     [Header("Components")]
-    
-    public GameObject selectionVisual;
-
-    public UnitHealth healthBar;
-    NavMeshAgent agent;
-
-    public Player player;
+    public GameObject selectionVisual;      // Visual indicator for when the unit is selected.
+    public UnitHealth healthBar;            // Health bar UI component.
+    private NavMeshAgent agent;             // The NavMesh agent for handling movement.
+    public Player player;                   // Reference to the player who owns this unit.
 
     [Header("Stats")]
-    public UnitState state;
+    public UnitState state;                 // Current state of the unit.
+    public int curHp;                       // Current health of the unit.
+    public int maxHp;                       // Maximum health of the unit.
 
-    public int curHp;
-    public int maxHp;
+    public int minAttackDamage;             // Minimum damage the unit can inflict.
+    public int maxAttackDamage;             // Maximum damage the unit can inflict.
 
-    public int minAttackDamage;
-    public int maxAttackDamage;
+    public float attackRate;                // Rate at which the unit attacks.
+    private float lastAttackTime;           // Time when the unit last attacked.
 
-    public float attackRate;
-    private float lastAttackTime;
+    public float pathUpdateRate = 1.0f;     // Rate at which the unit's pathfinding is updated.
+    private float lastPathUpdateTime;       // Time when the unit's path was last updated.
 
-    public float pathUpdateRate = 1.0f;
-    private float lastPathUpdateTime;
+    public int gatherAmount;                // Amount of resources the unit can gather at one time.
+    public float gatherRate;                // Rate at which the unit gathers resources.
+    private float lastGatherTime;           // Time when the unit last gathered resources.
 
-    public int gatherAmount;
-    public float gatherRate;
-    private float lastGatherTime;
+    public int buildAmount;                 // Amount of building work the unit can do at one time.
+    public float buildRate;                 // Rate at which the unit builds or repairs.
+    private float lastBuildTime;            // Time when the unit last performed building work.
 
-    public int buildAmount;
-    public float buildRate;
-    private float lastBuildTime;
+    public int searchAmount;                // Amount of searching work the unit can do at one time.
+    public float searchRate;                // Rate at which the unit searches.
+    private float lastSearchTime;           // Time when the unit last performed searching work.
 
-    public int searchAmount;
-    public float searchRate;
-    private float lastSearchTime;
+    public int curFeed;                     // Current amount of food the unit has consumed.
+    public int maxFeed;                     // Maximum amount of food the unit can consume before needing more.
 
-    public int curFeed;
-    public int maxFeed;
+    public int curEnergy;                   // Current energy level of the unit.
+    public int maxEnergy;                   // Maximum energy level of the unit.
 
-    public int curEnergy;
-    public int maxEnergy;
+    public Animator animator;               // Animator for the unit's animations.
+    public Animator borderAnimator;         // Animator for the unit's border animations.
 
-    public Animator animator;
-    public Animator borderAnimator;
+    public GameObject graphic;              // Graphic representation of the unit.
+    public GameObject selectGraphic;        // Graphic representation of the unit's selection state.
 
-    public GameObject graphic;
-    public GameObject selectGraphic;
+    private UnitAI curEnemyTarget;          // Current enemy target the unit is attacking.
+    private ResourceSource curResourceSource; // Current resource source the unit is gathering from.
+    private Room curBuildRoom;              // Current room the unit is building or working in.
+    private ResourceTile curResourceTile;   // Current resource tile the unit is searching.
 
-    private UnitAI curEnemyTarget;
-    private ResourceSource curResourceSource;
-    private Room curBuildRoom;
+    public float checkRate;                 // Rate at which the unit checks its status.
 
-    private ResourceTile curResourceTile;
-
-    public float checkRate;
-
-    // events
+    /// <summary>
+    /// Event triggered when the state of the unit changes.
+    /// </summary>
     [System.Serializable]
     public class StateChangeEvent : UnityEvent<UnitState> { }
     public StateChangeEvent onStateChange;
 
+    /// <summary>
+    /// Initializes the unit, setting up its initial state and starting its behavior loops.
+    /// </summary>
     private void Start()
     {
         SetState(UnitState.Idle);
         InvokeRepeating(nameof(RecalculateHunger), 0.0f, checkRate);
         InvokeRepeating(nameof(RecalculateEnergy), 0.0f, checkRate);
-
         InvokeRepeating(nameof(CheckForEnemies), 0.0f, checkRate);
     }
 
-    // repeating funkce
+    /// <summary>
+    /// Recalculates the unit's hunger and updates its state if necessary.
+    /// </summary>
     void RecalculateHunger()
     {
         curFeed--;
@@ -111,10 +118,8 @@ public class Unit : MonoBehaviour
         }
         else if (curFeed < 20)
         {
-
-            // jde se najisrt
+            // The unit goes to eat if it's hungry
             SetState(UnitState.MoveToFoodRoom);
-           
         }
 
         if (curFeed < 5)
@@ -123,38 +128,40 @@ public class Unit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Recalculates the unit's energy based on its current activity and updates its state if necessary.
+    /// </summary>
     void RecalculateEnergy()
     {
-        // tady odebere energii podle toho v jakem je unitstate
         switch (state)
         {
-            // pokud se nekam pohybuje
             case (UnitState)1 or (UnitState)2 or (UnitState)4 or (UnitState)6 or (UnitState)8 or (UnitState)10 or (UnitState)12 or (UnitState)14:
                 {
                     curEnergy -= 1;
                     break;
                 }
-            // pokud pracuje
             case (UnitState)3 or (UnitState)5 or (UnitState)7 or (UnitState)9 or (UnitState)15:
                 {
                     curEnergy -= 3;
                     break;
                 }
-            // pokud je v IDLE nebo jine nenarocne cinnosti
+            // If the unit is in IDLE or other low energy states
             default: { break; }
         }
 
-        // pokud dojde energie prestane pracovat a jde spat
+        // If energy is low, the unit stops working and goes to sleep
         if (curEnergy <= 20)
         {
             SetState(UnitState.MoveToRestRoom);
         }
     }
 
+    /// <summary>
+    /// Checks for nearby enemies and initiates an attack if one is found.
+    /// </summary>
     private void CheckForEnemies()
     {
-
-        // pokud nepracuje zautoci
+        // If the unit is not working, it will attack enemies
         if (state != (UnitState)3 || state != (UnitState)5 || state != (UnitState)7 || state != (UnitState)9)
         {
             List<UnitAI> targets = PlayerAI.enemy.units;
@@ -170,21 +177,19 @@ public class Unit : MonoBehaviour
                 }
             }
 
-            // pokud je enemy jednotka dostatecne blizko
+            // If an enemy unit is close enough
             if (newTarget != null && closestDist < 10)
             {
                 AttackUnit(newTarget.GetComponent<UnitAI>());
             }
-
         }
-
-
-        
     }
 
+    /// <summary>
+    /// Initializes the unit's necessary components and settings.
+    /// </summary>
     private void Awake()
     {
-        // potrebne nastaveni jednotky kvuli NavMeshPlus
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -192,55 +197,58 @@ public class Unit : MonoBehaviour
         ToggleSelectionVisual(false);
     }
 
+    /// <summary>
+    /// Updates the unit's based on its current state.
+    /// </summary>
     void Update()
     {
         switch (state)
         {
             case UnitState.Move:
-            {
-                MoveUpdate();
-                break;
-            }
+                {
+                    MoveUpdate();
+                    break;
+                }
             case UnitState.MoveToResource:
-            {
-                MoveToResourceUpdate();
-                break;
-            }
+                {
+                    MoveToResourceUpdate();
+                    break;
+                }
             case UnitState.Gather:
-            {
-                GatherUpdate();
-                break;
-            }
+                {
+                    GatherUpdate();
+                    break;
+                }
             case UnitState.MoveToEnemy:
-            {
-                MoveToEnemyUpdate();
-                break;
-            }
+                {
+                    MoveToEnemyUpdate();
+                    break;
+                }
             case UnitState.Attack:
-            {
-                AttackUpdate();
-                break;
-            }
+                {
+                    AttackUpdate();
+                    break;
+                }
             case UnitState.MoveToBuild:
-            {
-                MoveToBuildUpdate();
-                break;
-            }
+                {
+                    MoveToBuildUpdate();
+                    break;
+                }
             case UnitState.Build:
-            {
-                BuildUpdate();
-                break;
-            }
+                {
+                    BuildUpdate();
+                    break;
+                }
             case UnitState.MoveToWork:
-            {
-                MoveToWorkUpdate();
-                break;
-            }
+                {
+                    MoveToWorkUpdate();
+                    break;
+                }
             case UnitState.Work:
-            {
-                WorkUpdate();
-                break;
-            }
+                {
+                    WorkUpdate();
+                    break;
+                }
             case UnitState.MoveToFoodRoom:
                 {
                     MoveToFoodRoomUpdate();
@@ -281,7 +289,7 @@ public class Unit : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Handles the searching of the unit.
     /// </summary>
     private void SearchingUpdate()
     {
@@ -298,17 +306,18 @@ public class Unit : MonoBehaviour
             lastSearchTime = Time.time;
             curResourceTile.SearchArea(searchAmount);
 
-            // procentualni moznost ze jednotka neprezije
+            // There's a chance the unit will die based on the tile's danger value
             if (Random.Range(0, 100) < curResourceTile.dangerValue / 20)
-            { 
+            {
                 Log.instance.AddNewLogText(Time.time, "Bee died while exploring the area.", Color.black);
                 Die();
             }
-
         }
-        
     }
 
+    /// <summary>
+    /// Updates the unit's when moving to search.
+    /// </summary>
     private void SearchMoveUpdate()
     {
         SetAnimation(true);
@@ -324,13 +333,15 @@ public class Unit : MonoBehaviour
 
         SetBeeDirection(pos.x, des.x);
 
-
         if (Vector2.Distance(pos, des) < 0.01f)
         {
             SetState(UnitState.Searching);
         }
     }
 
+    /// <summary>
+    /// Updates the unit's movement.
+    /// </summary>
     void MoveUpdate()
     {
         SetAnimation(true);
@@ -344,6 +355,9 @@ public class Unit : MonoBehaviour
             SetState(UnitState.Idle);
     }
 
+    /// <summary>
+    /// Updates the unit's moving to a resource.
+    /// </summary>
     void MoveToResourceUpdate()
     {
         SetAnimation(true);
@@ -363,6 +377,9 @@ public class Unit : MonoBehaviour
             SetState(UnitState.Gather);
     }
 
+    /// <summary>
+    /// Handles the gathering of the unit.
+    /// </summary>
     void GatherUpdate()
     {
         SetAnimation(false);
@@ -380,6 +397,9 @@ public class Unit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates the unit's behavior when moving to an enemy.
+    /// </summary>
     void MoveToEnemyUpdate()
     {
         SetAnimation(true);
@@ -402,6 +422,9 @@ public class Unit : MonoBehaviour
             SetState(UnitState.Attack);
     }
 
+    /// <summary>
+    /// Handles the attacking of the unit.
+    /// </summary>
     void AttackUpdate()
     {
         SetAnimation(false);
@@ -421,11 +444,14 @@ public class Unit : MonoBehaviour
             curEnemyTarget.TakeDamage(Random.Range(minAttackDamage, maxAttackDamage + 1));
         }
 
-        // pokud je daleko pohnu se za nim
+        // If the target is too far, move closer
         if (Vector3.Distance(transform.position, curEnemyTarget.transform.position) > 1.5)
             SetState(UnitState.MoveToEnemy);
     }
 
+    /// <summary>
+    /// Updates the unit's moving to build.
+    /// </summary>
     void MoveToBuildUpdate()
     {
         SetAnimation(true);
@@ -441,20 +467,22 @@ public class Unit : MonoBehaviour
 
         SetBeeDirection(pos.x, des.x);
 
-
         if (Vector2.Distance(pos, des) < 0.01f)
         {
             SetState(UnitState.Build);
         }
     }
 
+    /// <summary>
+    /// Handles the building by the unit.
+    /// </summary>
     void BuildUpdate()
     {
         SetAnimation(false);
 
         if (curBuildRoom.concructionDone)
         {
-            MoveToPosition(new Vector2(0,0));
+            MoveToPosition(new Vector2(0, 0));
             return;
         }
 
@@ -463,10 +491,11 @@ public class Unit : MonoBehaviour
             lastBuildTime = Time.time;
             curBuildRoom.BuildRoom(buildAmount);
         }
-
-        // zacne se stavet
     }
 
+    /// <summary>
+    /// Updates the unit's moving to work.
+    /// </summary>
     void MoveToWorkUpdate()
     {
         SetAnimation(true);
@@ -482,21 +511,23 @@ public class Unit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the work of the unit.
+    /// </summary>
     void WorkUpdate()
     {
         SetAnimation(false);
 
-            foreach(Room room in Hive.instance.rooms)
+        foreach (Room room in Hive.instance.rooms)
+        {
+            Vector2 unitPos = agent.transform.position;
+            Vector2 roomPos = room.transform.position;
+            if (Vector2.Distance(unitPos, roomPos) < 0.01f)
             {
-                Vector2 unitPos = agent.transform.position;
-                Vector2 roomPos = room.transform.position;
-                if(Vector2.Distance(unitPos, roomPos) < 0.01f)
-                {
-                    curBuildRoom = room;
-                }
+                curBuildRoom = room;
             }
-        
-        // zrovna pracuje tu
+        }
+
         curBuildRoom.WorkInRoom(gameObject.GetComponent<Unit>());
     }
 
@@ -507,7 +538,6 @@ public class Unit : MonoBehaviour
         Vector2 pos = new Vector2(transform.position.x, transform.position.y);
         Vector2 des = new Vector2();
 
-        // TODO najdi nejblizsi volny rest room
         GameObject[] restRooms = GameObject.FindGameObjectsWithTag("RestRoom");
 
         if (restRooms != null && restRooms.Length > 0)
@@ -522,10 +552,11 @@ public class Unit : MonoBehaviour
                 SetState(UnitState.Sleep);
             }
         }
-
-        
     }
 
+    /// <summary>
+    /// Updates the unit's moving to the food room.
+    /// </summary>
     void MoveToFoodRoomUpdate()
     {
         SetAnimation(true);
@@ -533,7 +564,7 @@ public class Unit : MonoBehaviour
         Vector2 pos = new Vector2(transform.position.x, transform.position.y);
         Vector2 des = new Vector2();
 
-        // TODO najdi nejblizsi volny rest room
+        // Find the nearest available food room
         GameObject[] foodRooms = GameObject.FindGameObjectsWithTag("FoodRoom");
 
         if (foodRooms != null && foodRooms.Length > 0)
@@ -550,21 +581,31 @@ public class Unit : MonoBehaviour
         }
     }
 
-    //// zobrazit vyber jednotky
+    /// <summary>
+    /// Shows the selection visual for the unit.
+    /// </summary>
+    /// <param name="selected">Whether the unit is selected.</param>
     public void ToggleSelectionVisual(bool selected)
     {
         if (selectionVisual != null)
             selectionVisual.SetActive(selected);
-
     }
 
-    // pohyb jednotky
+    /// <summary>
+    /// Moves the unit to a specified position.
+    /// </summary>
+    /// <param name="target">The target position to move to.</param>
     public void MoveToPosition(Vector2 target)
     {
         SetState(UnitState.Move);
         agent.SetDestination(new Vector3(target.x, target.y, 0));
     }
 
+    /// <summary>
+    /// Initiates resource gathering by the unit.
+    /// </summary>
+    /// <param name="resource">The resource source to gather from.</param>
+    /// <param name="pos">The position of the resource.</param>
     public void GatherResource(ResourceSource resource, Vector3 pos)
     {
         curResourceSource = resource;
@@ -573,6 +614,11 @@ public class Unit : MonoBehaviour
         agent.SetDestination(pos);
     }
 
+    /// <summary>
+    /// Initiates building or construction by the unit.
+    /// </summary>
+    /// <param name="room">The room to be built.</param>
+    /// <param name="pos">The position of the construction site.</param>
     public void BuildRoom(Room room, Vector3 pos)
     {
         curBuildRoom = room;
@@ -581,6 +627,11 @@ public class Unit : MonoBehaviour
         agent.SetDestination(pos);
     }
 
+    /// <summary>
+    /// Initiates searching by the unit.
+    /// </summary>
+    /// <param name="tile">The resource tile to search.</param>
+    /// <param name="pos">The position to move to for searching.</param>
     public void Searching(ResourceTile tile, Vector3 pos)
     {
         curResourceTile = tile;
@@ -589,6 +640,11 @@ public class Unit : MonoBehaviour
         agent.SetDestination(pos);
     }
 
+    /// <summary>
+    /// Moves the unit to a room for work.
+    /// </summary>
+    /// <param name="room">The room to work in.</param>
+    /// <param name="pos">The position of the room.</param>
     public void WorkInRoom(Room room, Vector3 pos)
     {
         //curBuildRoom = room;
@@ -597,18 +653,24 @@ public class Unit : MonoBehaviour
         agent.SetDestination(pos);
     }
 
+    /// <summary>
+    /// Changes the current state of the unit.
+    /// </summary>
+    /// <param name="toState">The new state to transition to.</param>
     void SetState(UnitState toState)
     {
-        // pokud pracovala, prestane odchodem pracovat
+        // If the unit was working, it stops working due to leaving.
         if (state == UnitState.Work || state == UnitState.Sleep || state == UnitState.Eat)
         {
             curBuildRoom.StopWorkInRoom(gameObject.GetComponent<Unit>());
         }
 
         state = toState;
-        // calling the event
+
         if (onStateChange != null)
+        {
             onStateChange.Invoke(state);
+        }
         if (toState == UnitState.Idle)
         {
             agent.isStopped = true;
@@ -616,24 +678,36 @@ public class Unit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initiates an attack on a target enemy unit.
+    /// </summary>
+    /// <param name="target">The enemy unit to attack.</param>
     public void AttackUnit(UnitAI target)
     {
         curEnemyTarget = target;
         SetState(UnitState.MoveToEnemy);
     }
 
+    /// <summary>
+    /// Applies damage to the unit.
+    /// </summary>
+    /// <param name="damage">The amount of damage to apply.</param>
     public void TakeDamage(int damage)
     {
         curHp -= damage;
         if (curHp <= 0)
+        {
             Die();
+        }
 
         healthBar.UpdateHealthBar(curHp, maxHp);
     }
 
+    /// <summary>
+    /// Handles the death of the unit.
+    /// </summary>
     void Die()
     {
-        // me
         if (player != null)
         {
             player.units.Remove(this);
@@ -641,6 +715,10 @@ public class Unit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the animation state of the unit.
+    /// </summary>
+    /// <param name="setFlyingOn">Whether the flying animation should be on.</param>
     public void SetAnimation(bool setFlyingOn)
     {
         if (setFlyingOn)
@@ -655,20 +733,24 @@ public class Unit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the visual direction of the unit based on movement.
+    /// </summary>
+    /// <param name="pos">The current position of the unit.</param>
+    /// <param name="dest">The destination position of the unit.</param>
     public void SetBeeDirection(float pos, float dest)
     {
         if (dest < pos)
         {
-            // otoc smerem doleva
+            // Turn to the left
             graphic.GetComponent<SpriteRenderer>().flipX = true;
             selectGraphic.GetComponent<SpriteRenderer>().flipX = true;
         }
         else if (dest > pos)
         {
-            // otoc doprava
+            // Turn to the right
             graphic.GetComponent<SpriteRenderer>().flipX = false;
             selectGraphic.GetComponent<SpriteRenderer>().flipX = false;
         }
     }
-
 }

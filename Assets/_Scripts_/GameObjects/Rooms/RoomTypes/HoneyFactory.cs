@@ -6,25 +6,35 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Manages the honey production process within a room in the game, controlling the transition through different room states.
+/// </summary>
 public class HoneyFactory : MonoBehaviour
 {
+    public RoomState state;                // Current state of the room
+    public Room curBuildRoom;              // Current building details of the room
 
-    public RoomState state;
-    public Room curBuildRoom;
+    public float productionRate;           // Rate at which honey is produced
+    private float lastProductionTime;      // Time since the last honey production
 
-    public float productionRate;
-    private float lastProductionTime;
-
-    // events
+    /// <summary>
+    /// Event triggered when the state of the room changes.
+    /// </summary>
     [System.Serializable]
     public class StateChangeEvent : UnityEvent<RoomState> { }
-    public StateChangeEvent onStateChange;
+    public StateChangeEvent onStateChange; // Event to notify when the room state changes
 
+    /// <summary>
+    /// Initializes the room by setting its state to Blueprint.
+    /// </summary>
     private void Start()
     {
         SetRoomState(RoomState.Blueprint);
     }
 
+    /// <summary>
+    /// Updates the room's behavior based on its current state and handles the honey production process.
+    /// </summary>
     void Update()
     {
         switch (state)
@@ -48,11 +58,17 @@ public class HoneyFactory : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the behavior when the room is in the Blueprint state.
+    /// </summary>
     void BlueprintUpdate()
     {
         SetRoomState(RoomState.UnderConstruction);
     }
 
+    /// <summary>
+    /// Handles the behavior when the room is in the UnderConstruction state.
+    /// </summary>
     void UnderConstructionUpdate()
     {
         if (curBuildRoom.concructionDone == true)
@@ -62,35 +78,40 @@ public class HoneyFactory : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Perform the production of honey based on the availability of nectar and the presence of workers.
+    /// </summary>
     void BuiltUpdate()
     {
-        // tvorba nove suroviny
+        // Check if enough time has passed since the last production
         if (Time.time - lastProductionTime > productionRate)
         {
             lastProductionTime = Time.time;
 
+            // Ensure there is enough nectar to produce honey
             bool isNectarAvailable = Hive.instance.nectar > 3;
 
             if (curBuildRoom.roomWorkers.Count > 0 && isNectarAvailable)
             {
+                // Consume three times nectar to produce honey
                 Hive.instance.RemoveMaterial(ResourceType.Nectar);
                 Hive.instance.RemoveMaterial(ResourceType.Nectar);
                 Hive.instance.RemoveMaterial(ResourceType.Nectar);
-
                 Hive.instance.GainResource(ResourceType.Honey, 1);
             }
-
-
         }
     }
 
+    /// <summary>
+    /// Sets the room's state and triggers the state change event.
+    /// </summary>
+    /// <param name="toState">New state.</param>
     public void SetRoomState(RoomState toState)
     {
         state = toState;
 
-        // calling the event
         if (onStateChange != null)
             onStateChange.Invoke(state);
     }
-
+}
 }

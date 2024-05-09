@@ -5,44 +5,47 @@
 //****************************************************************************
 using System.Collections.Generic;
 using TMPro;
-//using UnityEditor.AI;
 using UnityEngine;
 
-
+/// <summary>
+/// Represents the possible states of a resource tile.
+/// </summary>
 public enum ResourceTileState
 {
-    Fog,
-    Discovering,
-    Exposed
+    Fog,           // The tile is covered in fog.
+    Discovering,   // The tile is in the process of being discovered.
+    Exposed        // The tile has been fully discovered and is exposed.
 }
 
+/// <summary>
+/// Manages the state and behavior of a resource tile.
+/// </summary>
 public class ResourceTile : MonoBehaviour
 {
+    public ResourceTileState state;             // Current state of the tile.
+    public BuildProgressBar progressBar;        // Progress bar for revealing the tile.
+    public int buildProgress;                   // Current progress of revealing the tile.
+    public int buildModifier;                   // Modifier to speed up the build progress.
 
-    public ResourceTileState state;
-    public BuildProgressBar progressBar;
+    public List<GameObject> resourceOptions;    // Possible resources that can appear on this tile.
+    public TextMeshProUGUI dangerText;          // UI text that shows the danger level.
+    public int dangerValue;                     // Numeric value indicating the danger level.
+    public int difficultyModifier;              // Modifier that affects the overall difficulty.
 
-    public int buildProgress;
-    public int buildModifier;
+    public int resourceCountMin;                // Minimum number of resources that can spawn on this tile.
+    public int resourceCountMax;                // Maximum number of resources that can spawn on this tile.
 
-    public List<GameObject> resourceOptions;
+    public bool isVertical;                     // Indicates if the tile is oriented vertically.
 
-    public TextMeshProUGUI dangerText;
-    public int dangerValue;
-    public int difficultyModifier;
+    private float posX;                         // X position of the tile.
+    private float posY;                         // Y position of the tile.
 
-    public int resourceCountMin;
-    public int resourceCountMax;
+    private float tileShiftX;                   // Horizontal shift used for resource placement.
+    private float tileShiftY;                   // Vertical shift used for resource placement.
 
-    public bool isVertical;
-
-    private float posX;
-    private float posY;
-
-    private float tileShiftX;
-    private float tileShiftY;
-
-    // Start is called before the first frame update
+    /// <summary>
+    /// Initializes the resource tile, sets its position, and calculates its danger.
+    /// </summary>
     void Start()
     {
         posX = gameObject.transform.position.x;
@@ -52,19 +55,24 @@ public class ResourceTile : MonoBehaviour
         tileShiftY = gameObject.GetComponent<Transform>().localScale.y;
 
         GenerateTileDanger();
-
         SetResourceTileState(ResourceTileState.Fog);
     }
 
-    // vygeneruje nebezpecnost policka dle vzdalenosti od ulu
+    /// <summary>
+    /// Calculates the danger value based on the tile's distance from the hive center.
+    /// </summary>
     private void GenerateTileDanger()
     {
-        float distance = Vector2.Distance(new Vector2(posX, posY), new Vector2(0,0));
+        float distance = Vector2.Distance(new Vector2(posX, posY), new Vector2(0, 0));
 
         dangerValue = (int)distance / 2 + difficultyModifier;
         dangerText.text = "Danger " + dangerValue + " %";
     }
 
+    /// <summary>
+    /// Progresses the discovery of the tile and spawns resources if fully discovered.
+    /// </summary>
+    /// <param name="amount">Amount to increment the discovery progress.</param>
     public void SearchArea(int amount)
     {
         if (buildProgress >= 100)
@@ -73,7 +81,7 @@ public class ResourceTile : MonoBehaviour
             SetResourceTileState(ResourceTileState.Exposed);
             if (resourceOptions != null)
             {
-                if(isVertical)
+                if (isVertical)
                 {
                     SpawnTree();
                 }
@@ -87,19 +95,21 @@ public class ResourceTile : MonoBehaviour
 
         buildProgress = buildProgress + buildModifier + amount;
         progressBar.UpdateProgressBar(buildProgress, 100);
-
     }
 
+    /// <summary>
+    /// Spawns resources on the tile based on its type and available options.
+    /// </summary>
     private void SpawnResources()
     {
-        // nahodne vybere jaky typ objektu se bude na policku generovat
+        // Randomly choose object which will be generated
         int resourceIndex = UnityEngine.Random.Range(0, resourceOptions.Count - 1);
         Debug.Log(resourceIndex);
         Debug.Log(resourceOptions[resourceIndex]);
 
         Vector2 startPos = new Vector2(posX - tileShiftX / 2, posY - tileShiftY / 2);
-        
-        // nahodne generuje umisteni suroviny
+
+        // Randomly generate placement of resources
         int resourceCount = UnityEngine.Random.Range(resourceCountMin, resourceCountMax);
         List<Vector2> takenPositions = new List<Vector2>();
 
@@ -113,14 +123,16 @@ public class ResourceTile : MonoBehaviour
             pos.x = startPos.x + UnityEngine.Random.Range(0 + resourceSizeX, tileShiftX - resourceSizeX);
             pos.y = startPos.y + UnityEngine.Random.Range(0 + resourceSizeY, tileShiftY - resourceSizeY);
 
-            // pokud je prilis blizko jiz existujici surovine, nova nevznikne
+            // If resource is near new resource creation will be skipped
             bool resourceIsNear = false;
 
-            foreach (Vector2 takenPos in takenPositions) { 
+            foreach (Vector2 takenPos in takenPositions)
+            {
 
                 float biggerSize = resourceSizeX > resourceSizeY ? resourceSizeX : resourceSizeY;
 
-                if (Vector2.Distance(pos, takenPos) < 2 * biggerSize) { 
+                if (Vector2.Distance(pos, takenPos) < 2 * biggerSize)
+                {
                     resourceIsNear = true;
                 }
             }
@@ -137,16 +149,19 @@ public class ResourceTile : MonoBehaviour
         RebuildNavMesh();
     }
 
+    /// <summary>
+    /// Spawns a tree-like structure if the tile is vertical.
+    /// </summary>
     private void SpawnTree()
     {
         int resourceCount = UnityEngine.Random.Range(resourceCountMin, resourceCountMax);
 
-        // nahodne vybere jaky typ objektu se bude na policku generovat
+        // Randomly choose object which will be generated
         int resourceIndex = UnityEngine.Random.Range(0, resourceOptions.Count - 1);
 
         for (int i = 0; i < resourceCount; i++)
         {
-            // zacneme z leveho dolniho rohu
+            // Start from bottom left corner
             Vector2 startPos = new Vector2(posX - tileShiftX / 2, posY - tileShiftY / 2);
 
             Vector2 pos = new Vector2();
@@ -157,7 +172,7 @@ public class ResourceTile : MonoBehaviour
             pos.x = startPos.x + UnityEngine.Random.Range(0 + resourceSizeX, tileShiftX - resourceSizeX);
             pos.y = startPos.y + resourceSizeY / 2;
 
-            // nahodne generuje umisteni suroviny
+            // Randomly generate resource placement
             Instantiate(resourceOptions[resourceIndex], pos, Quaternion.identity);
         }
 
@@ -165,17 +180,28 @@ public class ResourceTile : MonoBehaviour
         RebuildNavMesh();
     }
 
+    /// <summary>
+    /// Currently unused: Placeholder for future functionality to rebuild navigation mesh.
+    /// </summary>
     private void RebuildNavMesh()
     {
         //NavMeshBuilder.ClearAllNavMeshes();
         //NavMeshBuilder.BuildNavMesh();
     }
 
+
+    /// <summary>
+    /// Disables the tile and updates the navigation mesh.
+    /// </summary>
     private void RemoveTile()
     {
         gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Sets the current state of the resource tile.
+    /// </summary>
+    /// <param name="toState">The new state to set.</param>
     public void SetResourceTileState(ResourceTileState toState)
     {
         state = toState;

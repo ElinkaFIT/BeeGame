@@ -5,11 +5,17 @@
 //****************************************************************************;
 using UnityEngine;
 
+/// <summary>
+/// Provides functionality to exit the game.
+/// </summary>
 public class Exit : MonoBehaviour
 {
+    /// <summary>
+    /// Exits the game when called.
+    /// </summary>
     public void ExitGame()
     {
+        // Exits the game.
         Application.Quit();
     }
-
 }

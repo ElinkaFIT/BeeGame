@@ -16,43 +16,52 @@ using Vector2 = UnityEngine.Vector2;
 using UnityEditor;
 
 /// <summary>
-/// Generating empty hive rooms using perlin noise.
+/// Manages the generation of the hive grid using Perlin noise to simulate natural variations.
 /// In the centre, they are almost certainly placed, and progressively less towards the edges.
-/// The room objects here are for visual purposes only.
 /// </summary>
 public class HiveGenerator : MonoBehaviour
 {
+    // Singleton instance of the HiveGenerator.
     public static HiveGenerator instance;
 
-    // serialized field
-    [SerializeField] private int width;
-    [SerializeField] private int height;
-    [SerializeField] private Vector3 offset;
-    [SerializeField] private float noiseLimit;
-    [SerializeField] private float noiseScale;
-    [SerializeField] private RoomPreset curBuildingPreset;
+    // Parameters for grid generation
+    [SerializeField] private int width;                     // Width of the hex grid.
+    [SerializeField] private int height;                    // Height of the hex grid.
+    [SerializeField] private Vector3 offset;                // Offset to apply to the grid positioning.
+    [SerializeField] private float noiseLimit;              // Threshold for determining if a cell becomes a room.
+    [SerializeField] private float noiseScale;              // Scale of the noise map.
+    // Prefabs and settings for room generation
+    [SerializeField] private RoomPreset curBuildingPreset;  // Current room preset used for generating rooms.
 
-    // component references
-    public Grid grid;
-    public GameObject hexEmpty;
-    public List<GameObject> emptyRooms;
+    // References to grid and room templates
+    public Grid grid;                                       // Grid component reference for layout calculations.
+    public GameObject hexEmpty;                             // Prefab for representing empty hex rooms.
+    public List<GameObject> emptyRooms;                     // Collection of instantiated empty room objects.
 
-    // other references
-    public static Vector3[,] hexagons; // dvourozmerne pole uchovavajici stredy hexagonu
+    // Stores positions of hex centers
+    public static Vector3[,] hexagons;                      // Stores the center positions of hex tiles.
 
-
+    /// <summary>
+    /// Initialize the singleton instance and grid component.
+    /// </summary>
     private void Awake()
     {
         instance = this;
         grid = GetComponent<Grid>();
     }
 
+    /// <summary>
+    /// Generate the initial hex map and place the queen's tile.
+    /// </summary>
     private void Start()
     {
         GenerateHexMap();
         AddQueenTile();
     }
 
+    /// <summary>
+    /// It was implemented for testing purposes
+    /// </summary>
     private void Update()
     {
         // for testing regenerate on click
@@ -64,7 +73,9 @@ public class HiveGenerator : MonoBehaviour
         //}
     }
 
-    // Generate empty rooms to scene according to the specified limit and offset
+    /// <summary>
+    /// Generates a hexagonal map using Perlin noise to determine the placement of empty rooms.
+    /// </summary>
     private void GenerateHexMap()
     {
         float hexSize = grid.cellSize.x;
@@ -77,13 +88,13 @@ public class HiveGenerator : MonoBehaviour
 
         for (int y = 0; y < height; y++)
         {
-            // calculates the probability of generating a room -> y
+            // Calculates the probability of generating a room -> y
             float yDistance = Math.Abs(y - yCenter);
             float yPercentage = 1 - (yDistance / yCenter);
 
             for (int x = 0; x < width; x++)
             {
-                // calculates the probability of generating a room -> x
+                // Calculates the probability of generating a room -> x
                 float xDistance = Math.Abs(x - xCenter);
                 float xPercentage = 1 - (xDistance / xCenter);
 
@@ -102,62 +113,64 @@ public class HiveGenerator : MonoBehaviour
                 {
                     hexagons[x, y] = new Vector3(-999, -999, -999);
                 }
-
             }
         }
-
     }
 
+    /// <summary>
+    /// Adds the queen's tile to the grid by placing it in the calculated center of the existing empty rooms.
+    /// </summary>
     private void AddQueenTile()
     {
-        // vypocitej krajni pozice ulu
         float minX = emptyRooms[0].transform.position.x;
         float minY = emptyRooms[0].transform.position.y;
         float maxX = emptyRooms[0].transform.position.x;
         float maxY = emptyRooms[0].transform.position.y;
 
-        foreach(GameObject room in emptyRooms)
+        foreach (GameObject room in emptyRooms)
         {
             if (room.transform.position.x < minX)
             {
                 minX = room.transform.position.x;
             }
-            else if(room.transform.position.x > maxX)
+            else if (room.transform.position.x > maxX)
             {
                 maxX = room.transform.position.x;
             }
 
-            if(room.transform.position.y < minY)
+            if (room.transform.position.y < minY)
             {
                 minY = room.transform.position.y;
             }
-            else if(room.transform.position.y > maxY)
+            else if (room.transform.position.y > maxY)
             {
                 maxY = room.transform.position.y;
             }
         }
 
-        // vypocitej prostredni pole
+        // Calculate center room
         Vector2 midPosition;
         midPosition.x = (minX + maxX) / 2;
         midPosition.y = (minY + maxY) / 2;
 
-        // vytvor kralovnu ve stredu
+        // Create queen in center
         GameObject closest = emptyRooms[0];
 
-        foreach(GameObject room in emptyRooms)
+        foreach (GameObject room in emptyRooms)
         {
-            if(Vector2.Distance(room.transform.position, midPosition) < Vector2.Distance(closest.transform.position, midPosition))
+            if (Vector2.Distance(room.transform.position, midPosition) < Vector2.Distance(closest.transform.position, midPosition))
             {
                 closest = room;
             }
         }
 
         Hive.instance.OnPlaceBuilding(curBuildingPreset, closest.transform.position);
-
     }
 
-    // Calculates random perlin noise and resizes it according to scale
+    /// <summary>
+    /// Creates a Perlin noise map to determine room placement.
+    /// </summary>
+    /// <returns>A 2D array of noise values.</returns>
     private float[,] CreatePerlinNoise()
     {
         float[,] noiseMap = new float[width, height];
@@ -176,7 +189,9 @@ public class HiveGenerator : MonoBehaviour
         return noiseMap;
     }
 
-    // Zatim jen pro testovani
+    /// <summary>
+    /// Currently only for testing purposes
+    /// </summary>
     private void DeleteRooms()
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("EmptyRoom");
@@ -188,4 +203,3 @@ public class HiveGenerator : MonoBehaviour
         }
     }
 }
- 

@@ -5,41 +5,61 @@
 //****************************************************************************
 using UnityEngine;
 
+/// <summary>
+/// Controls the display of tutorial images, allowing the user to cycle through them.
+/// </summary>
 public class NextTutorialInfo : MonoBehaviour
 {
-    public GameObject displayImage;
-    public GameObject[] imageFiles;
+    // The GameObject where the tutorial image is displayed.
+    public GameObject displayImage;        
 
-    private int currentIndex;
-    private GameObject currentImage;
+    // The GameObject where the tutorial image is displayed.
+    public GameObject[] imageFiles;       
 
+    // The index of the current image being displayed.
+    private int currentIndex;             
+
+    // Reference to the current image GameObject being displayed.
+    private GameObject currentImage;        
+
+    /// <summary>
+    /// Initializes the tutorial by displaying the first image.
+    /// </summary>
     private void Start()
     {
-        currentIndex = -1;
-        NextImage();
+        currentIndex = -1; 
+        NextImage();    
     }
 
+    /// <summary>
+    /// Advances to the next image in the tutorial sequence.
+    /// </summary>
     public void NextImage()
     {
-
+        // Check if there is a next image to display
         if (currentIndex + 1 < imageFiles.Length)
         {
-            Destroy(currentImage);
+            if (currentImage != null)
+                Destroy(currentImage);
+
             currentIndex++;
             currentImage = Instantiate(imageFiles[currentIndex], displayImage.transform);
         }
-        
     }
 
+    /// <summary>
+    /// Moves back to the recent image in the tutorial sequence.
+    /// </summary>
     public void RecentImage()
     {
-
-        if (currentIndex - 1 >= 0 && currentIndex - 1 < imageFiles.Length)
+        // Check if there is a previous image to display
+        if (currentIndex - 1 >= 0)
         {
-            Destroy(currentImage);
+            if (currentImage != null)
+                Destroy(currentImage);
+
             currentIndex--;
             currentImage = Instantiate(imageFiles[currentIndex], displayImage.transform);
         }
-
     }
 }
