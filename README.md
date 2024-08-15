@@ -1,14 +1,21 @@
 # Beetween the flowers
+The aim of this project is to design, implement, and test a game inspired by the life of bees. The design is based on researched data regarding bee biology and reviews of existing games on this topic. 
 
-o čem to je 
+The game was developed using the Unity engine and coded in C\#. 
 
-## To play game 
-Hru si můžete zahrát online na 
+It features a tutorial campaign as well as the main gameplay, incorporating mechanics such as unit movement, combat with enemies, building of structures, world generation and exploration. 
 
-[![Play Beetween the flowers](https://img.itch.zone/aW1nLzg2NDY4ODkucG5n/original/552x167.png)](https://elinkafit.itch.io/beetween-the-flowers)
+The result is a 2D strategy game that not only offers a gaming experience but also educates players about the life of bees.
 
-## Mnou vytvořené soubory - Assets
-Mnou naprogramované skripty najdete v assets/_scripts_
-Nakreslenou grafiku pak v assets/graphics
+## Game
 
-(obsah assets je dále popsán v assets)
+## Result 
+To play "Beetween the Flowers" online, you can visit the following link: [Beetween the Flowers on itch.io](https://elinkafit.itch.io/beetween-the-flowers).
+
+A demonstration video with commentary can be viewed here.
+
+## Created Files - Assets
+My scripts can be found in `assets/_scripts_`.  
+My artwork is located in `assets/graphics`.
+
+(For more details, the content of the `assets` directory is further described in the `assets` folder.)
