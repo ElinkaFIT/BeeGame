@@ -13,7 +13,7 @@ The result is a 2D strategy game that not only offers a gaming experience but al
 ## Result 
 To play "Beetween the Flowers" online, you can visit: [Beetween the Flowers on itch.io](https://elinkafit.itch.io/beetween-the-flowers)
 
-To see a demonstration video with commentary: [Download the demonstration video](./GamePresentation/game_preview_video_480p.mp4)
+To see a demonstration video with commentary: [Download the demonstration video](./GamePresentation)
 
 To read the bachelor's thesis text: [Link to bachelor's thesis](./BPText/BP_online_version.pdf)
 
