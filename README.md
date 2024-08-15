@@ -8,11 +8,14 @@ It features a tutorial campaign as well as the main gameplay, incorporating mech
 The result is a 2D strategy game that not only offers a gaming experience but also educates players about the life of bees.
 
 ## Game
+![Alt text](./GamePresentation/SteamPage.png)
 
 ## Result 
-To play "Beetween the Flowers" online, you can visit the following link: [Beetween the Flowers on itch.io](https://elinkafit.itch.io/beetween-the-flowers).
+To play "Beetween the Flowers" online, you can visit: [Beetween the Flowers on itch.io](https://elinkafit.itch.io/beetween-the-flowers)
 
-A demonstration video with commentary can be viewed here.
+To see a demonstration video with commentary: [Download the demonstration video](./GamePresentation/game_preview_video_480p.mp4)
+
+To read the bachelor's thesis text: [Download bachelor's thesis](./BPText/BP_online_version.pdf)
 
 ## Created Files - Assets
 My scripts can be found in `assets/_scripts_`.  
