@@ -3,7 +3,8 @@
 o čem to je 
 
 ## To play game 
-Hru si můžete zahrát online na https://elinkafit.itch.io/beetween-the-flowers
+Hru si můžete zahrát online na 
+
 [![Play Beetween the flowers](https://img.itch.zone/aW1nLzg2NDY4ODkucG5n/original/552x167.png)](https://elinkafit.itch.io/beetween-the-flowers)
 
 ## Mnou vytvořené soubory - Assets
