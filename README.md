@@ -15,7 +15,7 @@ To play "Beetween the Flowers" online, you can visit: [Beetween the Flowers on i
 
 To see a demonstration video with commentary: [Download the demonstration video](./GamePresentation/game_preview_video_480p.mp4)
 
-To read the bachelor's thesis text: [Download bachelor's thesis](./BPText/BP_online_version.pdf)
+To read the bachelor's thesis text: [Link to bachelor's thesis](./BPText/BP_online_version.pdf)
 
 ## Created Files - Assets
 My scripts can be found in `assets/_scripts_`.  
